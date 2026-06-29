@@ -32,9 +32,14 @@ const getBackgroundStyle = (pokemon) => {
   return undefined;
 };
 
-function OpponentPanel({ opponentParty, setOpponentParty, opponentPartyMegas, setOpponentPartyMegas, pokemonList, partyBattleData }) {
-  // pokemonList is already sorted by usage rank!
-  const top50 = pokemonList.slice(0, 50);
+function OpponentPanel({ opponentParty, setOpponentParty, opponentPartyMegas, setOpponentPartyMegas, pokemonList, partyBattleData, onCardClick }) {
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const itemsPerPage = 40;
+  const totalPages = 6;
+  
+  // Slice pokemonList for current page
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentList = pokemonList.slice(startIndex, startIndex + itemsPerPage);
   
   const selectedCount = opponentParty.filter(Boolean).length;
 
@@ -110,7 +115,7 @@ function OpponentPanel({ opponentParty, setOpponentParty, opponentPartyMegas, se
                   }}
                   battleData={bData}
                   isSelected={false}
-                  onClick={() => {}}
+                  onClick={() => onCardClick(pokemon.name)}
                   onRemove={() => handleRemove(index)}
                 />
               );
@@ -140,9 +145,27 @@ function OpponentPanel({ opponentParty, setOpponentParty, opponentPartyMegas, se
           </div>
 
           <div className="opponent-picker">
-            <h3 className="opponent-picker__title">TOP 1 - 50</h3>
+            <div className="opponent-picker__header">
+              <h3 className="opponent-picker__title">TOP {startIndex + 1} - {startIndex + currentList.length}</h3>
+              <div className="opponent-picker__controls">
+                <button 
+                  className="pagination-arrow" 
+                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                >
+                  &lt;
+                </button>
+                <button 
+                  className="pagination-arrow" 
+                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                >
+                  &gt;
+                </button>
+              </div>
+            </div>
             <div className="opponent-grid-large">
-              {top50.map(p => {
+              {currentList.map(p => {
                 const disabled = isSelected(p.name);
                 return (
                   <button 
@@ -158,6 +181,7 @@ function OpponentPanel({ opponentParty, setOpponentParty, opponentPartyMegas, se
                 )
               })}
             </div>
+            
           </div>
         </>
       )}

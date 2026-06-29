@@ -41,25 +41,37 @@ export const typeColors = {
 
 // 영문 타입을 한글로 변환
 export const typeNamesKo = {
-  "Normal": "노말",
-  "Fire": "불꽃",
-  "Water": "물",
-  "Electric": "전기",
-  "Grass": "풀",
-  "Ice": "얼음",
-  "Fighting": "격투",
-  "Poison": "독",
-  "Ground": "땅",
-  "Flying": "비행",
-  "Psychic": "에스퍼",
-  "Bug": "벌레",
-  "Rock": "바위",
-  "Ghost": "고스트",
-  "Dragon": "드래곤",
-  "Dark": "악",
-  "Steel": "강철",
-  "Fairy": "페어리"
+  "Normal": "노말", "Fire": "불꽃", "Water": "물", "Electric": "전기", "Grass": "풀",
+  "Ice": "얼음", "Fighting": "격투", "Poison": "독", "Ground": "땅", "Flying": "비행",
+  "Psychic": "에스퍼", "Bug": "벌레", "Rock": "바위", "Ghost": "고스트", "Dragon": "드래곤",
+  "Dark": "악", "Steel": "강철", "Fairy": "페어리"
 };
 
-export const getTypeKo = (enType) => typeNamesKo[enType] || enType;
+export const typeEmojis = {
+  "Normal": "⚪", "Fire": "🔥", "Water": "💧", "Electric": "⚡", "Grass": "🌿",
+  "Ice": "❄️", "Fighting": "🥊", "Poison": "☠️", "Ground": "⛰️", "Flying": "🌪️",
+  "Psychic": "👁️", "Bug": "🐛", "Rock": "🪨", "Ghost": "👻", "Dragon": "🐉",
+  "Dark": "🌙", "Steel": "⚙️", "Fairy": "✨",
+  "노말": "⚪", "불꽃": "🔥", "물": "💧", "전기": "⚡", "풀": "🌿",
+  "얼음": "❄️", "격투": "🥊", "독": "☠️", "땅": "⛰️", "비행": "🌪️",
+  "에스퍼": "👁️", "벌레": "🐛", "바위": "🪨", "고스트": "👻", "드래곤": "🐉",
+  "악": "🌙", "강철": "⚙️", "페어리": "✨"
+};
+
+export const getTypeKo = (enType) => typeNamesKo[enType] || typeNamesKo[enType?.charAt(0).toUpperCase() + enType?.slice(1)] || enType;
+export const getTypeEmoji = (type) => typeEmojis[type] || '';
+
+// Official-style type icon (Serebii/PokeAPI style). Maps to duPokemon type icons on GitHub.
+const typeIconMap = {
+  'normal': 'normal', 'fire': 'fire', 'water': 'water', 'electric': 'electric', 'grass': 'grass',
+  'ice': 'ice', 'fighting': 'fighting', 'poison': 'poison', 'ground': 'ground', 'flying': 'flying',
+  'psychic': 'psychic', 'bug': 'bug', 'rock': 'rock', 'ghost': 'ghost', 'dragon': 'dragon',
+  'dark': 'dark', 'steel': 'steel', 'fairy': 'fairy'
+};
+export const getTypeIconUrl = (enType) => {
+  const key = (enType || '').toLowerCase();
+  if (!typeIconMap[key]) return '';
+  return `https://raw.githubusercontent.com/duPokemon/pokemon-type-svg-icons/master/icons/${key}.svg`;
+};
+
 export default typeColors;

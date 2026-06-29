@@ -185,6 +185,7 @@ function App() {
           setOpponentPartyMegas={setOpponentPartyMegas}
           pokemonList={indexData.pokemon}
           partyBattleData={partyBattleData}
+          onCardClick={handleCardClick}
         />
       </div>
 
