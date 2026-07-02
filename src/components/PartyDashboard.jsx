@@ -127,16 +127,17 @@ export default function PartyDashboard({ party, opponentParty, partyMegas, oppon
     return { offensiveAces, defensiveAces, oppOffensiveAces, oppDefensiveAces };
   }, [activeParty, activeOpponents, partyMegas, opponentPartyMegas]);
 
-  // Lead Prediction
-  const leadPrediction = useMemo(() => {
-    if (activeOpponents.length === 0) return [];
-
-    const scores = activeOpponents.map((p, i) => {
+  // Helper to extract lead data & roles
+  const getLeadData = (partyList, megaList, targetParty = []) => {
+    if (partyList.length === 0) return [];
+    const scores = partyList.map((p, i) => {
       let score = 0;
+      const roles = [];
       const data = partyBattleData[p.name];
       if (data && data.rows) {
         data.rows.forEach(row => {
           const pct = parseFloat(row.percentage) || 0;
+          
           if (row.category === 'move') {
             if (['Stealth Rock', 'Spikes', 'Toxic Spikes', 'Sticky Web', 'Light Screen', 'Reflect', 'Aurora Veil', 'Fake Out'].includes(row.name)) score += pct * 0.8;
             if (['U-turn', 'Volt Switch', 'Parting Shot', 'Flip Turn'].includes(row.name)) score += pct * 0.3;
@@ -145,13 +146,118 @@ export default function PartyDashboard({ party, opponentParty, partyMegas, oppon
             if (['Focus Sash', 'Light Clay'].includes(row.name)) score += pct * 1.0;
             if (['Choice Scarf'].includes(row.name)) score += pct * 0.3;
           }
+            
+          // Extract roles
+          if (pct >= 10) {
+            
+            
+            const addRole = (label, color = 'var(--primary-color)', priority = 99, isItem = false, sprite = null) => {
+              if (!roles.some(r => r.label === label && r.isItem === isItem)) roles.push({ label, color, priority, isItem, sprite });
+            };
+            
+            if (row.category === 'move') {
+              const moveInfo = {
+                'Stealth Rock': { ko: '스텔스록', color: '#B6A136', p: 30 },
+                'Spikes': { ko: '압정뿌리기', color: '#E2BF65', p: 30 },
+                'Toxic Spikes': { ko: '독압정', color: '#A33EA1', p: 30 },
+                'Sticky Web': { ko: '끈적끈적네트', color: '#A6B91A', p: 30 },
+                'Swords Dance': { ko: '칼춤', color: '#A8A77A', p: 40 },
+                'Dragon Dance': { ko: '용의춤', color: '#6F35FC', p: 40 },
+                'Nasty Plot': { ko: '나쁜음모', color: '#705746', p: 40 },
+                'Calm Mind': { ko: '명상', color: '#F95587', p: 40 },
+                'Bulk Up': { ko: '벌크업', color: '#C22E28', p: 40 },
+                'Quiver Dance': { ko: '나비춤', color: '#A6B91A', p: 40 },
+                'Iron Defense': { ko: '철벽', color: '#B7B7CE', p: 40 },
+                'Agility': { ko: '고속이동', color: '#F95587', p: 40 },
+                'Reflect': { ko: '리플렉터', color: '#F95587', p: 35 },
+                'Light Screen': { ko: '빛의장막', color: '#F95587', p: 35 },
+                'Aurora Veil': { ko: '오로라베일', color: '#96D9D6', p: 35 },
+                'U-turn': { ko: '유턴', color: '#A6B91A', p: 60 },
+                'Volt Switch': { ko: '볼트체인지', color: '#F7D02C', p: 60 },
+                'Parting Shot': { ko: '막말내뱉기', color: '#705746', p: 60 },
+                'Flip Turn': { ko: '퀵턴', color: '#6390F0', p: 60 },
+                'Fake Out': { ko: '속이다', color: '#A8A77A', p: 55 },
+                'Taunt': { ko: '도발', color: '#705746', p: 55 }
+              };
+              if (moveInfo[row.name]) {
+                addRole(moveInfo[row.name].ko, moveInfo[row.name].color, moveInfo[row.name].p);
+              }
+              if (['Trick Room'].includes(row.name)) addRole('트릭룸', '#8a2be2', 30);
+              if (['Tailwind'].includes(row.name)) addRole('순풍', '#00ced1', 30);
+              if (['Yawn', 'Spore', 'Sleep Powder', 'Hypnosis'].includes(row.name)) addRole('수면', '#A8A77A', 50);
+              
+              if (['Sunny Day'].includes(row.name)) addRole('쾌청', '#e67e22', 20);
+              if (['Rain Dance'].includes(row.name)) addRole('비바라기', '#3498db', 20);
+              if (['Sandstorm'].includes(row.name)) addRole('모래', '#c2b280', 20);
+              if (['Snowscape', 'Hail'].includes(row.name)) addRole('설경', '#74b9ff', 20);
+              
+              if (['Grassy Terrain'].includes(row.name)) addRole('그래스', '#2ecc71', 25);
+              if (['Electric Terrain'].includes(row.name)) addRole('일렉트릭', '#f1c40f', 25);
+              if (['Psychic Terrain'].includes(row.name)) addRole('사이코', '#9b59b6', 25);
+              if (['Misty Terrain'].includes(row.name)) addRole('미스트', '#fd79a8', 25);
+            } else if (row.category === 'ability') {
+              if (['Drought'].includes(row.name)) addRole('가뭄', '#e67e22', 20);
+              if (['Drizzle'].includes(row.name)) addRole('잔비', '#3498db', 20);
+              if (['Sand Stream'].includes(row.name)) addRole('모래날림', '#c2b280', 20);
+              if (['Snow Warning'].includes(row.name)) addRole('눈퍼뜨리기', '#74b9ff', 20);
+              
+              if (['Grassy Surge'].includes(row.name)) addRole('그래스', '#2ecc71', 25);
+              if (['Electric Surge'].includes(row.name)) addRole('일렉트릭', '#f1c40f', 25);
+              if (['Psychic Surge'].includes(row.name)) addRole('사이코', '#9b59b6', 25);
+              if (['Misty Surge'].includes(row.name)) addRole('미스트', '#fd79a8', 25);
+            } else if (row.category === 'held_item') {
+              // Add Items as Images
+              let spriteUrl = '';
+              if (['Focus Sash'].includes(row.name)) {
+                spriteUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/focus-sash.png';
+                addRole('기띠', 'transparent', 70, true, spriteUrl);
+              }
+              if (['Choice Scarf'].includes(row.name)) {
+                spriteUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/choice-scarf.png';
+                addRole('스카프', 'transparent', 70, true, spriteUrl);
+              }
+            }
+          }
         });
       }
-      return { pokemon: p, form: opponentPartyMegas[i], score };
+      // Add Type Matchup Synergy against Target Party
+      if (targetParty.length > 0 && p.summary && p.summary.types) {
+        let matchupBonus = 0;
+        const myDefMults = getDefensiveMultiplier(p.summary.types);
+        
+        targetParty.forEach(target => {
+          if (target && target.summary && target.summary.types) {
+            // Defensive Synergy: Target attacking me
+            target.summary.types.forEach(tType => {
+              const mult = myDefMults[tType] || 1;
+              if (mult > 1) matchupBonus -= 0.4;
+              if (mult < 1) matchupBonus += 0.2;
+              if (mult === 0) matchupBonus += 0.5;
+            });
+            
+            // Offensive Synergy: Me attacking Target
+            const targetDefMults = getDefensiveMultiplier(target.summary.types);
+            p.summary.types.forEach(mType => {
+              const mult = targetDefMults[mType] || 1;
+              if (mult > 1) matchupBonus += 0.4;
+              if (mult < 1) matchupBonus -= 0.2;
+              if (mult === 0) matchupBonus -= 0.4;
+            });
+          }
+        });
+        
+        // Normalize and weigh
+        score += (matchupBonus / targetParty.length) * 1.5;
+      }
+      
+      roles.sort((a, b) => a.priority - b.priority);
+      return { pokemon: p, form: megaList[i], score, roles };
     });
-
     return scores.sort((a, b) => b.score - a.score).slice(0, 3);
-  }, [activeOpponents, opponentPartyMegas, partyBattleData]);
+  };
+
+  const leadPrediction = useMemo(() => getLeadData(activeOpponents, opponentPartyMegas), [activeOpponents, opponentPartyMegas, partyBattleData]);
+  const ourLeadRecommendation = useMemo(() => getLeadData(activeParty, partyMegas), [activeParty, partyMegas, partyBattleData]);
 
   const renderHitDetails = (details, isHalfWidth = false) => {
     // 1. Group by Target to find all attackTypes for each target
@@ -371,25 +477,118 @@ export default function PartyDashboard({ party, opponentParty, partyMegas, oppon
             </div>
           </div>
 
-          <div className="analysis-section">
-            <h3 className="section-title">상대 선발 예측</h3>
-            <div className="lead-prediction-list">
-              {leadPrediction.length > 0 ? leadPrediction.map((lead, idx) => (
-                <div key={idx} className="lead-item">
-                  <div className="lead-rank">{idx + 1}위</div>
-                  <img src={getSprite(lead.pokemon, lead.form)} alt={lead.pokemon.name} className="lead-sprite" />
-                  <div className="lead-info">
-                    <strong>{getPokemonKo(lead.pokemon.name)}</strong>
-                    <span className="lead-score">선발 지수: {Math.round(lead.score)}점</span>
+          <div className="selection-analysis" style={{ paddingBottom: '24px', display: 'flex', flexDirection: 'row', gap: '16px' }}>
+          
+          {/* Left Column: Our Lead Recommendation */}
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <h3 className="section-title">선출 추천</h3>
+            {ourLeadRecommendation.length > 0 ? (
+              <div className="lead-prediction-list">
+                {ourLeadRecommendation.map((lead, idx) => (
+                  <div key={idx} className="lead-item">
+                    <div className="lead-rank">#{idx + 1}</div>
+                    <img src={getSprite(lead.pokemon, lead.form)} alt={lead.pokemon.name} className="lead-sprite" />
+                                        <div className="lead-info" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center', gap: '8px' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', flex: '0 0 95px' }}>
+                        <strong style={{ fontSize: '0.95rem', lineHeight: '1.2' }}>{getPokemonKo(lead.pokemon.name)}</strong>
+                        <div className="lead-score" style={{ marginTop: 0, fontSize: '0.75rem' }}>선출 지수: {lead.score.toFixed(1)}</div>
+                      </div>
+                      {lead.roles && lead.roles.length > 0 && (
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridAutoRows: 'min-content', gap: '4px', flex: 1 }}>
+                          {lead.roles.slice(0, 6).map((role, rIdx) => (
+                            role.isItem ? (
+                              <div key={rIdx} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'rgba(0,0,0,0.05)', borderRadius: '8px', padding: '2px' }}>
+                                <img src={role.sprite} alt={role.label} style={{ width: '20px', height: '20px', objectFit: 'contain' }} title={role.label} />
+                              </div>
+                            ) : (
+                            <span key={rIdx} style={{ 
+                              fontSize: '0.65rem', 
+                              background: role.color || 'var(--primary-color)', 
+                              color: 'white', 
+                              textShadow: '0px 1px 2px rgba(0,0,0,0.8)',
+                              padding: '3px 4px', 
+                              borderRadius: '8px',
+                              fontWeight: 'bold',
+                              textAlign: 'center',
+                              whiteSpace: 'nowrap',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              boxShadow: '0 1px 2px rgba(0,0,0,0.1)'
+                            }}>
+                              {role.label}
+                            </span>
+                            )
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              )) : (
-                <div className="empty-text" style={{padding: '20px', textAlign: 'center', color: '#888'}}>상대 포켓몬을 추가해주세요.</div>
-              )}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <div className="empty-state">
+                <div className="empty-icon">📊</div>
+                <p>데이터가 충분하지 않습니다.</p>
+              </div>
+            )}
+          </div>
+
+          {/* Right Column: Opponent Lead Prediction */}
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <h3 className="section-title">상대 선발 예측</h3>
+            {leadPrediction.length > 0 ? (
+              <div className="lead-prediction-list">
+                {leadPrediction.map((lead, idx) => (
+                  <div key={idx} className="lead-item">
+                    <div className="lead-rank">#{idx + 1}</div>
+                    <img src={getSprite(lead.pokemon, lead.form)} alt={lead.pokemon.name} className="lead-sprite" />
+                                        <div className="lead-info" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center', gap: '8px' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', flex: '0 0 95px' }}>
+                        <strong style={{ fontSize: '0.95rem', lineHeight: '1.2' }}>{getPokemonKo(lead.pokemon.name)}</strong>
+                        <div className="lead-score" style={{ marginTop: 0, fontSize: '0.75rem' }}>선발 지수: {lead.score.toFixed(1)}</div>
+                      </div>
+                      {lead.roles && lead.roles.length > 0 && (
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridAutoRows: 'min-content', gap: '4px', flex: 1 }}>
+                          {lead.roles.slice(0, 6).map((role, rIdx) => (
+                            role.isItem ? (
+                              <div key={rIdx} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'rgba(0,0,0,0.05)', borderRadius: '8px', padding: '2px' }}>
+                                <img src={role.sprite} alt={role.label} style={{ width: '20px', height: '20px', objectFit: 'contain' }} title={role.label} />
+                              </div>
+                            ) : (
+                            <span key={rIdx} style={{ 
+                              fontSize: '0.65rem', 
+                              background: role.color || 'var(--primary-color)', 
+                              color: 'white', 
+                              textShadow: '0px 1px 2px rgba(0,0,0,0.8)',
+                              padding: '3px 4px', 
+                              borderRadius: '8px',
+                              fontWeight: 'bold',
+                              textAlign: 'center',
+                              whiteSpace: 'nowrap',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              boxShadow: '0 1px 2px rgba(0,0,0,0.1)'
+                            }}>
+                              {role.label}
+                            </span>
+                            )
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="empty-state">
+                <div className="empty-icon">📊</div>
+                <p>상대 파티가 부족하여 선발 예측이 어렵습니다.</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
+    </div>
 
       {/* Fixed Bottom Speed Tier */}
       <div 
