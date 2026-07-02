@@ -1,24 +1,14 @@
 import { useState, useEffect } from 'react';
-import typeColors, { getTypeKo, getTypeEmoji, getTypeIconUrl } from '../data/typeColors';
+import typeColors, { getTypeKo, getTypeEmoji, getTypeIconUrl, getPokeApiTypeIconUrl } from '../data/typeColors';
 import { getDefensiveMultiplier } from '../data/typeMatchups';
 import { getPokemonKo } from '../data/pokemonNamesKo';
 import { apiService } from '../services/apiService';
+import { convertAllStats, calcHpLv50, calcStatLv50 } from '../utils/statCalc';
+import { hexToRgba } from '../utils/colorUtils';
+import { natureTranslations, natureStatsMap } from '../data/natureData';
 import LoadingSpinner from './LoadingSpinner';
 
-const hexToRgba = (hex, alpha) => {
-  if (!hex) return `rgba(0,0,0,${alpha})`;
-  let r = 0, g = 0, b = 0;
-  if (hex.length === 4) {
-    r = parseInt(hex[1] + hex[1], 16);
-    g = parseInt(hex[2] + hex[2], 16);
-    b = parseInt(hex[3] + hex[3], 16);
-  } else if (hex.length === 7) {
-    r = parseInt(hex.substring(1, 3), 16);
-    g = parseInt(hex.substring(3, 5), 16);
-    b = parseInt(hex.substring(5, 7), 16);
-  }
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-};
+
 
 const getBackgroundGradient = (types) => {
   if (!types || types.length === 0) return '#f8fafc';
@@ -107,36 +97,24 @@ function DetailPanel({ pokemon, allPokemon, battleFormat, setBattleFormat, onSug
   const types = pokemon.summary?.types || [];
   const rawStats = pokemon.summary?.baseStats || {};
 
-  // The championsbattledata API returns Level 50 stats (0 EV, Neutral Nature) 
-  // instead of True Base Stats. The formula for Lv50 is Base + 75 (HP) and Base + 20 (Others).
-  // We must reverse this to get True Base Stats.
-  const isApiStats = rawStats.hp > 0 && rawStats.attack > 0;
-  
-  const baseHp = isApiStats ? Math.max(1, rawStats.hp - 75) : 60;
-  const baseAtk = isApiStats ? Math.max(1, rawStats.attack - 20) : 5;
-  const baseDef = isApiStats ? Math.max(1, rawStats.defense - 20) : 5;
-  const baseSpa = isApiStats ? Math.max(1, rawStats.sp_attack - 20) : 5;
-  const baseSpd = isApiStats ? Math.max(1, rawStats.sp_defense - 20) : 5;
-  const baseSpe = isApiStats ? Math.max(1, rawStats.speed - 20) : 5;
-  const totalStats = baseHp + baseAtk + baseDef + baseSpa + baseSpd + baseSpe;
+  // Convert Lv50 stats → base stats using unified formula
+  const base = convertAllStats(rawStats);
+  const { hp: baseHp, atk: baseAtk, def: baseDef, spa: baseSpa, spd: baseSpd, spe: baseSpe, total: totalStats } = base;
 
   // LV50 Stat Calculations
-  const calcHp = (base, ev) => Math.floor((base * 2 + 31 + ev / 4) / 2) + 60;
-  const calcStat = (base, ev, natureMult) => Math.floor((Math.floor((base * 2 + 31 + ev / 4) / 2) + 5) * natureMult);
-
-  const hp0 = calcHp(baseHp, 0);
-  const hpH252 = calcHp(baseHp, 252);
-  const def0 = calcStat(baseDef, 0, 1);
-  const spd0 = calcStat(baseSpd, 0, 1);
+  const hp0 = calcHpLv50(baseHp, 0);
+  const hpH252 = calcHpLv50(baseHp, 252);
+  const def0 = calcStatLv50(baseDef, 0, 1);
+  const spd0 = calcStatLv50(baseSpd, 0, 1);
 
   const physDur0 = Math.floor(hp0 * def0 / 0.411);
   const physDur252 = Math.floor(hpH252 * def0 / 0.411);
   const specDur0 = Math.floor(hp0 * spd0 / 0.411);
   const specDur252 = Math.floor(hpH252 * spd0 / 0.411);
 
-  const spe0 = calcStat(baseSpe, 0, 1);
-  const spe252 = calcStat(baseSpe, 252, 1);
-  const spe252Plus = calcStat(baseSpe, 252, 1.1);
+  const spe0 = calcStatLv50(baseSpe, 0, 1);
+  const spe252 = calcStatLv50(baseSpe, 252, 1);
+  const spe252Plus = calcStatLv50(baseSpe, 252, 1.1);
   const scarf0 = Math.floor(spe0 * 1.5);
   const scarf252 = Math.floor(spe252 * 1.5);
   const scarf252Plus = Math.floor(spe252Plus * 1.5);
@@ -156,39 +134,7 @@ function DetailPanel({ pokemon, allPokemon, battleFormat, setBattleFormat, onSug
     }
   });
 
-  // Nature Translations
-  const natureTranslations = {
-    Adamant: '고집', Bashful: '수줍음', Bold: '대담', Brave: '용감',
-    Calm: '차분', Careful: '신중', Docile: '온순', Gentle: '얌전',
-    Hardy: '노력', Hasty: '성급', Impish: '장난꾸러기', Jolly: '명랑',
-    Lax: '렁구', Lonely: '외로움', Mild: '의젓', Modest: '조심',
-    Naive: '천진난만', Naughty: '개구쟁이', Quiet: '냉정', Quirky: '변덕',
-    Rash: '덜렁', Relaxed: '무사태평', Sassy: '건방', Serious: '성실',
-    Timid: '겁쟁이'
-  };
 
-  const natureStatsMap = {
-    Adamant: { up: '공격', down: '특공' },
-    Jolly: { up: '스피드', down: '특공' },
-    Modest: { up: '특공', down: '공격' },
-    Timid: { up: '스피드', down: '공격' },
-    Impish: { up: '방어', down: '특공' },
-    Careful: { up: '특방', down: '특공' },
-    Bold: { up: '방어', down: '공격' },
-    Calm: { up: '특방', down: '공격' },
-    Brave: { up: '공격', down: '스피드' },
-    Quiet: { up: '특공', down: '스피드' },
-    Relaxed: { up: '방어', down: '스피드' },
-    Sassy: { up: '특방', down: '스피드' },
-    Naive: { up: '스피드', down: '특방' },
-    Hasty: { up: '스피드', down: '방어' },
-    Rash: { up: '특공', down: '특방' },
-    Mild: { up: '특공', down: '방어' },
-    Naughty: { up: '공격', down: '특방' },
-    Lonely: { up: '공격', down: '방어' },
-    Lax: { up: '방어', down: '특방' },
-    Gentle: { up: '특방', down: '방어' }
-  };
 
   // Parsed Battle Data
   const parsedRows = battleData?.rows || [];
@@ -199,17 +145,16 @@ function DetailPanel({ pokemon, allPokemon, battleFormat, setBattleFormat, onSug
 
   // Helper: safely get usage percentage
   const getUsagePct = (row) => {
-    const val = row.usage ?? row.percentage ?? row.pct ?? 0;
+    const val = row.percentage_value ?? parseFloat(row.percentage) ?? 0;
     if (typeof val === 'number' && !isNaN(val)) {
-      return val > 1 ? val.toFixed(1) : (val * 100).toFixed(1);
+      return val.toFixed(1);
     }
     return '-';
   };
 
   // Helper: usage color based on value
   const getUsageColor = (row) => {
-    const val = row.usage ?? row.percentage ?? row.pct ?? 0;
-    const pct = val > 1 ? val : val * 100;
+    const pct = row.percentage_value ?? parseFloat(row.percentage) ?? 0;
     if (pct >= 50) return '#ef4444';
     if (pct >= 30) return '#f97316';
     if (pct >= 15) return '#eab308';
@@ -243,7 +188,7 @@ function DetailPanel({ pokemon, allPokemon, battleFormat, setBattleFormat, onSug
   top10Moves.forEach(m => {
     const info = moveDetails[m.name];
     if (!info) return;
-    const isStab = types.includes(info.type);
+    const isStab = types.some(t => t.toLowerCase() === info.type.toLowerCase());
     const moveObj = { name: info.name, isStab, type: info.type };
     if (info.damageClass === 'physical') physMoves.push(moveObj);
     else if (info.damageClass === 'special') specMoves.push(moveObj);
@@ -267,10 +212,10 @@ function DetailPanel({ pokemon, allPokemon, battleFormat, setBattleFormat, onSug
   };
 
   const sortedMoves = top10Moves.filter(m => moveDetails[m.name]?.damageClass !== 'status');
-  const p0 = calcStat(baseAtk, 0, 1);
-  const p252Plus = calcStat(baseAtk, 252, 1.1);
-  const s0 = calcStat(baseSpa, 0, 1);
-  const s252Plus = calcStat(baseSpa, 252, 1.1);
+  const p0 = calcStatLv50(baseAtk, 0, 1);
+  const p252Plus = calcStatLv50(baseAtk, 252, 1.1);
+  const s0 = calcStatLv50(baseSpa, 0, 1);
+  const s252Plus = calcStatLv50(baseSpa, 252, 1.1);
   const setupMultiplier = hasSwordsDance || hasNastyPlot ? 2.0 : 1.0;
 
   return (
@@ -288,10 +233,7 @@ function DetailPanel({ pokemon, allPokemon, battleFormat, setBattleFormat, onSug
                 {types.map(t => {
                   const cap = t.charAt(0).toUpperCase() + t.slice(1);
                   return (
-                    <span key={t} className="type-badge" style={{ backgroundColor: typeColors[t] || typeColors[cap] || '#666', padding: '3px 8px', fontSize: '0.75rem', borderRadius: '4px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                      <img src={getTypeIconUrl(t)} alt="" style={{width:'14px', height:'14px', filter:'brightness(10)'}} onError={e => e.target.style.display='none'} />
-                      {getTypeKo(t)}
-                    </span>
+                    <img key={t} src={getPokeApiTypeIconUrl(t)} alt={t} title={getTypeKo(t)} style={{width: '28px', height: '28px', borderRadius: '50%', boxShadow: '0 1px 3px rgba(0,0,0,0.2)'}} />
                   );
                 })}
               </div>
@@ -315,10 +257,7 @@ function DetailPanel({ pokemon, allPokemon, battleFormat, setBattleFormat, onSug
                   matchupGroups[mult].map(t => (
                     <div key={t} className="dp-matchup-item">
                       <div className="dp-matchup-item-left">
-                        <span className="type-badge" style={{ backgroundColor: typeColors[t] || typeColors[t.charAt(0).toUpperCase() + t.slice(1)] || '#666', padding: '2px 6px', fontSize: '0.65rem', borderRadius: '3px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                          <img src={getTypeIconUrl(t)} alt="" style={{width:'12px', height:'12px', filter:'brightness(10)'}} onError={e => e.target.style.display='none'} />
-                          {getTypeKo(t)}
-                        </span>
+                        <img src={getPokeApiTypeIconUrl(t)} alt={t} title={getTypeKo(t)} style={{width: '20px', height: '20px', borderRadius: '50%', boxShadow: '0 1px 3px rgba(0,0,0,0.1)'}} />
                       </div>
                       <div className="dp-matchup-item-right">
                         <span className={`dp-matchup-label ${mult === '4' ? 'red' : 'orange'}`}>×{mult}</span>
@@ -342,10 +281,7 @@ function DetailPanel({ pokemon, allPokemon, battleFormat, setBattleFormat, onSug
                   matchupGroups[mult].map(t => (
                     <div key={t} className="dp-matchup-item">
                       <div className="dp-matchup-item-left">
-                        <span className="type-badge" style={{ backgroundColor: typeColors[t] || typeColors[t.charAt(0).toUpperCase() + t.slice(1)] || '#666', padding: '2px 6px', fontSize: '0.65rem', borderRadius: '3px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                          <img src={getTypeIconUrl(t)} alt="" style={{width:'12px', height:'12px', filter:'brightness(10)'}} onError={e => e.target.style.display='none'} />
-                          {getTypeKo(t)}
-                        </span>
+                        <img src={getPokeApiTypeIconUrl(t)} alt={t} title={getTypeKo(t)} style={{width: '20px', height: '20px', borderRadius: '50%', boxShadow: '0 1px 3px rgba(0,0,0,0.1)'}} />
                       </div>
                       <div className="dp-matchup-item-right">
                         <span className={`dp-matchup-label ${mult === '0' ? 'gray' : mult === '0.25' ? 'teal' : 'blue'}`}>{mult === '0.5' ? '½' : mult === '0.25' ? '¼' : '×0'}</span>
@@ -406,14 +342,14 @@ function DetailPanel({ pokemon, allPokemon, battleFormat, setBattleFormat, onSug
                     if (power === 0) return null;
                     const isPhysicalMove = info.damageClass === 'physical';
                     const stat252 = isPhysicalMove ? p252Plus : s252Plus;
-                    const stabMultiplier = m.isStab ? 1.5 : 1;
+                    const stabMultiplier = types.some(t => t.toLowerCase() === (info.type || '').toLowerCase()) ? 1.5 : 1;
                     const dmg252 = Math.floor(power * stat252 * stabMultiplier * setupMultiplier);
                     
                     return (
                       <tr key={idx}>
-                        <td style={{textAlign:'left', paddingLeft: '4px', fontWeight: m.isStab ? 'bold' : 'normal', color: m.isStab ? '#1e293b' : '#64748b', fontSize: '0.75rem'}}>
-                          <span className="type-badge" style={{ backgroundColor: typeColors[info.type] || '#666', padding: '1px 4px', fontSize: '0.6rem', borderRadius: '3px', marginRight: '4px' }}>{getTypeKo(info.type)}</span>
-                          {info.name}
+                        <td style={{textAlign:'left', paddingLeft: '4px', fontWeight: types.some(t => t.toLowerCase() === (info.type || '').toLowerCase()) ? 'bold' : 'normal', color: types.some(t => t.toLowerCase() === (info.type || '').toLowerCase()) ? '#1e293b' : '#64748b', fontSize: '0.75rem'}}>
+                          <img src={getPokeApiTypeIconUrl(info.type)} alt={info.type} title={getTypeKo(info.type)} style={{width: '16px', height: '16px', marginRight: '6px', verticalAlign: 'middle', borderRadius: '50%', boxShadow: '0 1px 2px rgba(0,0,0,0.2)'}} />
+                          <span style={{verticalAlign: 'middle'}}>{info.name}</span>
                         </td>
                         <td style={{color:'#94a3b8', fontSize:'0.72rem'}}>{power}</td>
                         <td style={{fontWeight:'bold', color: setupMultiplier > 1 ? '#ef4444' : '#1e293b'}}>{dmg252.toLocaleString()}</td>

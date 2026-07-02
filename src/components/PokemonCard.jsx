@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import typeColors, { getTypeKo } from '../data/typeColors';
+import { useState, useEffect, useRef } from 'react';
+import typeColors, { getTypeKo, getPokeApiTypeIconUrl } from '../data/typeColors';
 import { getPokemonKo } from '../data/pokemonNamesKo';
 import { apiService } from '../services/apiService';
 import { megaForms, fetchMegaData, getMegaStoneUrl } from '../utils/megaUtils';
@@ -7,6 +7,8 @@ import { megaForms, fetchMegaData, getMegaStoneUrl } from '../utils/megaUtils';
 function PokemonCard({ pokemon, battleData, activeMega, onToggleMega, isSelected, onClick, onRemove }) {
   const availableForms = megaForms[pokemon.name] || null;
   const [megaDataCache, setMegaDataCache] = useState({});
+  const [showTooltip, setShowTooltip] = useState(false);
+  const tooltipTimer = useRef(null);
 
   // Toggle Mega Form
   const handleToggleMega = async (e, form) => {
@@ -19,7 +21,6 @@ function PokemonCard({ pokemon, battleData, activeMega, onToggleMega, isSelected
         }
       }
     }
-    // Call parent handler
     onToggleMega(e, form);
   };
 
@@ -37,9 +38,10 @@ function PokemonCard({ pokemon, battleData, activeMega, onToggleMega, isSelected
   
   const types = isMega && megaData ? megaData.types : (pokemon.summary?.types || []);
   
-  // Localized Ability & Moves
+  // Localized Ability, Moves, and Items
   const [abilityInfo, setAbilityInfo] = useState(null);
   const [topMoves, setTopMoves] = useState([]);
+  const [topItems, setTopItems] = useState([]);
 
   useEffect(() => {
     let isMounted = true;
@@ -66,17 +68,26 @@ function PokemonCard({ pokemon, battleData, activeMega, onToggleMega, isSelected
         })
       );
       if (isMounted) setTopMoves(movesWithInfo);
+
+      // Fetch top items for ALL pokemon
+      const itemsData = battleData.rows.filter(r => r.category === 'held_item').sort((a,b) => b.percentage_value - a.percentage_value).slice(0, 5); // top 5
+      const itemsWithInfo = await Promise.all(
+        itemsData.map(async (i) => {
+          const info = await apiService.fetchItemInfo(i.name);
+          return { ...i, ...info };
+        })
+      );
+      if (isMounted) setTopItems(itemsWithInfo);
     };
     fetchMeta();
     return () => { isMounted = false; };
-  }, [battleData]);
+  }, [battleData, pokemon.name]);
 
   // Base Stats
   const baseStatsToUse = pokemon.summary?.baseStats || {};
   const calcBaseHP = (val) => Math.max(1, Math.round(((val - 60) * 2 - 31) / 2));
   const calcBaseOther = (val) => Math.max(1, Math.round(((val - 5) * 2 - 31) / 2));
 
-  // PokeAPI mega stats are true base stats. Original API is Lv50.
   const normStats = {
     hp: isMega && megaData ? megaData.baseStats.hp : calcBaseHP(baseStatsToUse.hp || 60),
     atk: isMega && megaData ? megaData.baseStats.attack : calcBaseOther(baseStatsToUse.attack || 5),
@@ -86,13 +97,12 @@ function PokemonCard({ pokemon, battleData, activeMega, onToggleMega, isSelected
     spe: isMega && megaData ? megaData.baseStats.speed : calcBaseOther(baseStatsToUse.speed || 5),
   };
 
-  // Detailed Colors
   const getColor = (val) => {
-    if (val >= 130) return '#d946ef'; // Fuchsia
-    if (val >= 110) return '#10b981'; // Emerald
-    if (val >= 90) return '#3b82f6';  // Blue
-    if (val >= 70) return '#f59e0b';  // Amber
-    return '#ef4444'; // Red
+    if (val >= 130) return '#d946ef';
+    if (val >= 110) return '#10b981';
+    if (val >= 90) return '#3b82f6';
+    if (val >= 70) return '#f59e0b';
+    return '#ef4444';
   };
 
   const getBackgroundStyle = () => {
@@ -124,6 +134,33 @@ function PokemonCard({ pokemon, battleData, activeMega, onToggleMega, isSelected
     return undefined;
   };
 
+  const handleMouseEnter = () => {
+    clearTimeout(tooltipTimer.current);
+    setShowTooltip(true);
+  };
+
+  const handleMouseLeave = () => {
+    tooltipTimer.current = setTimeout(() => {
+      setShowTooltip(false);
+    }, 100); // slight delay to prevent flicker when moving into tooltip
+  };
+
+  // Determine what to show in the primary item slot
+  let primaryItemDisplay = null;
+  if (isMega) {
+    primaryItemDisplay = {
+      sprite: getMegaStoneUrl(pokemon.name, activeMega),
+      name: `메가진화 (${activeMega.toUpperCase()})`,
+      isMegaIcon: true
+    };
+  } else if (topItems.length > 0) {
+    primaryItemDisplay = {
+      sprite: topItems[0].sprite,
+      name: topItems[0].name,
+      pct: topItems[0].percentage_value
+    };
+  }
+
   return (
     <div
       className={`pokemon-card${isSelected ? ' pokemon-card--selected' : ''}`}
@@ -141,7 +178,6 @@ function PokemonCard({ pokemon, battleData, activeMega, onToggleMega, isSelected
         ×
       </button>
 
-      {/* Image & Mega Actions Column */}
       <div className="pokemon-card__image-col">
         <div className="pokemon-card__image-wrapper" style={{ background: getBackgroundStyle() }}>
           <img
@@ -155,41 +191,84 @@ function PokemonCard({ pokemon, battleData, activeMega, onToggleMega, isSelected
           />
         </div>
         
-        {availableForms && (
-          <div className="mega-actions">
-            {availableForms.map(form => (
-              <button
-                key={form}
-                className={`mega-action-btn mega-action-btn--${form} ${activeMega === form ? 'active' : ''}`}
-                onClick={(e) => handleToggleMega(e, form)}
-                title={`메가진화 ${form.toUpperCase()}`}
-              >
-                <img src={getMegaStoneUrl(pokemon.name, form)} alt={`mega-${form}`} className="mega-stone-icon" />
-              </button>
-            ))}
-          </div>
-        )}
+        <div 
+          className="item-hover-container" 
+          onMouseEnter={handleMouseEnter} 
+          onMouseLeave={handleMouseLeave}
+        >
+          {primaryItemDisplay ? (
+            <div className={`top-item-icon primary-item-trigger ${primaryItemDisplay.isMegaIcon ? 'is-mega' : ''}`}>
+              {primaryItemDisplay.sprite ? (
+                <img src={primaryItemDisplay.sprite} alt={primaryItemDisplay.name} />
+              ) : (
+                <span className="item-text-fallback">{primaryItemDisplay.name.substring(0, 2)}</span>
+              )}
+              {!primaryItemDisplay.isMegaIcon && primaryItemDisplay.pct && (
+                <span className="top-item-pct">{Math.round(primaryItemDisplay.pct)}%</span>
+              )}
+            </div>
+          ) : (
+            <div className="top-item-icon placeholder-item">
+              <span>...</span>
+            </div>
+          )}
+
+          {showTooltip && (
+            <div className="item-dropdown-tooltip">
+              {topItems.length > 0 && (
+                <div className="tooltip-section">
+                  <div className="tooltip-title">주요 도구 순위</div>
+                  {topItems.map((item, i) => (
+                    <div key={i} className="tooltip-row">
+                      <span className="tooltip-rank">{i + 1}</span>
+                      <img src={item.sprite} alt={item.name} className="tooltip-item-img" />
+                      <span className="tooltip-item-name">{item.name}</span>
+                      <span className="tooltip-item-pct">{Math.round(item.percentage_value)}%</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+              
+              {availableForms && (
+                <div className="tooltip-section mega-section">
+                  <div className="tooltip-title">메가진화 토글</div>
+                  <div className="mega-actions">
+                    {availableForms.map(form => (
+                      <button
+                        key={form}
+                        className={`mega-action-btn mega-action-btn--${form} ${activeMega === form ? 'active' : ''}`}
+                        onClick={(e) => handleToggleMega(e, form)}
+                        title={`메가진화 ${form.toUpperCase()}`}
+                      >
+                        <img src={getMegaStoneUrl(pokemon.name, form)} alt={`mega-${form}`} className="mega-stone-icon" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="pokemon-card__info">
         <div className="pokemon-card__header-row">
           <div className="pokemon-card__name-type">
             <span className="pokemon-card__name">{koName}</span>
-            <div className="pokemon-card__types">
+            <div className="pokemon-card__types" style={{display: 'flex', gap: '4px'}}>
               {types.map((type) => (
-                <span
+                <img
                   key={type}
-                  className="type-badge type-badge--sm"
-                  style={{ backgroundColor: typeColors[type] || typeColors['Normal'] }}
-                >
-                  {getTypeKo(type)}
-                </span>
+                  src={getPokeApiTypeIconUrl(type)}
+                  alt={type}
+                  title={getTypeKo(type)}
+                  style={{width: '20px', height: '20px', borderRadius: '50%', boxShadow: '0 1px 3px rgba(0,0,0,0.2)'}}
+                />
               ))}
             </div>
           </div>
         </div>
         
-        {/* Meta Info (Ability and Top Moves) */}
         <div className="pokemon-card__meta">
           {abilityInfo && abilityInfo.length > 0 && (
             <div className="pokemon-card__abilities">
@@ -205,7 +284,6 @@ function PokemonCard({ pokemon, battleData, activeMega, onToggleMega, isSelected
             <div className="pokemon-card__top-moves">
               {topMoves.map((m, i) => {
                 const color = typeColors[m.type] || '#ccc';
-                // Use rgba for a softer background fill
                 const bgStr = `linear-gradient(90deg, ${color}40 ${m.percentage_value}%, rgba(0,0,0,0.03) ${m.percentage_value}%)`;
                 return (
                   <div 
@@ -223,7 +301,6 @@ function PokemonCard({ pokemon, battleData, activeMega, onToggleMega, isSelected
         </div>
       </div>
 
-      {/* Vertical Base Stats on the Right */}
       <div className="pokemon-card__vertical-stats">
         <div className="v-stat"><span className="v-stat-lbl">H</span><span className="v-stat-val" style={{color: getColor(normStats.hp)}}>{normStats.hp}</span></div>
         <div className="v-stat"><span className="v-stat-lbl">A</span><span className="v-stat-val" style={{color: getColor(normStats.atk)}}>{normStats.atk}</span></div>

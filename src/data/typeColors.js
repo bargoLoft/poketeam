@@ -61,7 +61,23 @@ export const typeEmojis = {
 export const getTypeKo = (enType) => typeNamesKo[enType] || typeNamesKo[enType?.charAt(0).toUpperCase() + enType?.slice(1)] || enType;
 export const getTypeEmoji = (type) => typeEmojis[type] || '';
 
-// Official-style type icon (Serebii/PokeAPI style). Maps to duPokemon type icons on GitHub.
+// PokeAPI Type IDs
+const typeIdMap = {
+  'normal': 1, 'fighting': 2, 'flying': 3, 'poison': 4, 'ground': 5,
+  'rock': 6, 'bug': 7, 'ghost': 8, 'steel': 9, 'fire': 10,
+  'water': 11, 'grass': 12, 'electric': 13, 'psychic': 14, 'ice': 15,
+  'dragon': 16, 'dark': 17, 'fairy': 18
+};
+
+// Returns the SV circular symbol icon from PokeAPI
+export const getPokeApiTypeIconUrl = (enType) => {
+  const key = (enType || '').toLowerCase();
+  const id = typeIdMap[key];
+  if (!id) return '';
+  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-ix/scarlet-violet/small/${id}.png`;
+};
+
+// Legacy SVG fallback (just in case)
 const typeIconMap = {
   'normal': 'normal', 'fire': 'fire', 'water': 'water', 'electric': 'electric', 'grass': 'grass',
   'ice': 'ice', 'fighting': 'fighting', 'poison': 'poison', 'ground': 'ground', 'flying': 'flying',

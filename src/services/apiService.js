@@ -2,20 +2,17 @@ const API_BASE_URL = 'https://championsbattledata.com/api';
 const ASSETS_BASE_URL = 'https://championsbattledata.com/pokemon_champions_assets';
 
 export const apiService = {
-  // 전체 포켓몬 인덱스 가져오기
   async fetchIndex() {
     try {
       const response = await fetch(API_BASE_URL);
       if (!response.ok) throw new Error('Failed to fetch API index');
-      const data = await response.json();
-      return data;
+      return await response.json();
     } catch (error) {
       console.error('Error fetching index:', error);
       throw error;
     }
   },
 
-  // 특정 포켓몬의 배틀 데이터 가져오기 (기술, 아이템, 팀메이트 등)
   async fetchBattleData(format, pokemonName, season = 'Current') {
     try {
       const url = `${API_BASE_URL}/battle/${format}/${encodeURIComponent(pokemonName)}?season=${encodeURIComponent(season)}`;
@@ -28,7 +25,6 @@ export const apiService = {
     }
   },
 
-  // 특정 포켓몬의 메타데이터 가져오기 (종족값, 특성 등 폼 정보)
   async fetchMetadata(pokemonName) {
     try {
       const url = `${API_BASE_URL}/metadata/${encodeURIComponent(pokemonName)}`;
@@ -41,21 +37,20 @@ export const apiService = {
     }
   },
 
-  // 스프라이트 이미지 URL 생성
   getSpriteUrl(pokemonName) {
     return `${ASSETS_BASE_URL}/pokemon/${encodeURIComponent(pokemonName)}.png`;
   },
 
-  // 내부 캐시 (아이템, 특성)
   _cache: {
     items: {},
-    abilities: {}
+    abilities: {},
+    moves: {}
   },
 
   _itemTranslationPatch: {
     "Choice Scarf": "구애스카프", "Choice Band": "구애머리띠", "Choice Specs": "구애안경",
     "Leftovers": "먹다남은음식", "Life Orb": "생명의구슬", "Focus Sash": "기합의띠",
-    "Heavy-Duty Boots": "두꺼운부츠", "Rocky Helmet": "울퉁불퉁멧", "Eviolite": "진화의휘석",
+    "Heavy-Duty Boots": "통굽부츠", "Rocky Helmet": "울퉁불퉁멧", "Eviolite": "진화의휘석",
     "Assault Vest": "돌격조끼", "Black Sludge": "검은진흙", "Air Balloon": "풍선",
     "Sitrus Berry": "자뭉열매", "Lum Berry": "리샘열매", "Covert Cloak": "은밀망토",
     "Loaded Dice": "속임수주사위", "Clear Amulet": "클리어참", "Booster Energy": "부스트에너지",
@@ -70,7 +65,8 @@ export const apiService = {
     "Protective Pads": "방호패드", "Ability Shield": "특성가드", "Punching Glove": "펀치글러브",
     "Fairy Feather": "페어리페더", "Wellspring Mask": "우물가면", "Hearthflame Mask": "화덕가면", 
     "Cornerstone Mask": "주춧돌가면", "Ogerpon's Mask": "오거폰의가면", "Eject Pack": "탈출팩",
-    "Red Card": "레드카드", "Eject Button": "탈출버튼", "Heavy-Duty Boots": "통굽부츠",
+    "Red Card": "레드카드", "Eject Button": "탈출버튼",
+    // Mega Stones
     "Charizardite X": "리자몽나이트X", "Charizardite Y": "리자몽나이트Y", "Venusaurite": "이상해꽃나이트",
     "Blastoisinite": "거북왕나이트", "Alakazite": "후딘나이트", "Gengarite": "팬텀나이트",
     "Kangaskhanite": "캥카나이트", "Pinsirite": "쁘사이저나이트", "Gyaradosite": "갸라도스나이트",
@@ -86,10 +82,10 @@ export const apiService = {
     "Cameruptite": "폭타나이트", "Altarianite": "파비코리나이트", "Glalitite": "얼음귀신나이트",
     "Salamencite": "보만다나이트", "Metagrossite": "메타그로스나이트", "Latiasite": "라티아스나이트",
     "Latiosite": "라티오스나이트", "Lopunnite": "이어롭나이트", "Galladite": "엘레이드나이트",
-    "Audinite": "다부니나이트", "Diancite": "디안시나이트", "Raichunite X": "라이츄나이트X", "Raichunite Y": "라이츄나이트Y"
+    "Audinite": "다부니나이트", "Diancite": "디안시나이트", "Raichunite X": "라이츄나이트X", "Raichunite Y": "라이츄나이트Y",
+    "Glimmoranite": "킬라플로르나이트", "Staraptorite": "찌르호크나이트"
   },
 
-  // PokeAPI에서 아이템 정보(한글명, 설명, 이미지) 가져오기
   async fetchItemInfo(itemName) {
     if (this._cache.items[itemName]) return this._cache.items[itemName];
     try {
@@ -115,11 +111,14 @@ export const apiService = {
     } catch (error) {
       console.warn(`Error fetching item info for ${itemName}:`, error);
       const fallbackName = this._itemTranslationPatch[itemName] || itemName;
-      return { name: fallbackName, flavor: '', sprite: '' };
+      let sprite = '';
+      if (itemName.endsWith('nite') || itemName.endsWith('ite')) {
+         sprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/key-stone.png';
+      }
+      return { name: fallbackName, flavor: '', sprite };
     }
   },
 
-  // PokeAPI에서 특성 정보(한글명, 설명) 가져오기
   async fetchAbilityInfo(abilityName) {
     if (this._cache.abilities[abilityName]) return this._cache.abilities[abilityName];
     try {
@@ -130,10 +129,7 @@ export const apiService = {
       const koName = data.names.find(n => n.language.name === 'ko')?.name || abilityName;
       const koFlavor = data.flavor_text_entries.find(f => f.language.name === 'ko')?.flavor_text || '';
       
-      const result = {
-        name: koName,
-        flavor: koFlavor
-      };
+      const result = { name: koName, flavor: koFlavor };
       this._cache.abilities[abilityName] = result;
       return result;
     } catch (error) {
@@ -164,9 +160,7 @@ export const apiService = {
     "Order Up": "일동참배"
   },
 
-  // PokeAPI에서 기술 정보(한글명, 타입) 가져오기
   async fetchMoveInfo(moveName) {
-    if (!this._cache.moves) this._cache.moves = {};
     if (this._cache.moves[moveName]) return this._cache.moves[moveName];
     try {
       const formattedName = moveName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -180,8 +174,7 @@ export const apiService = {
       } else if (!koName) {
         koName = moveName;
       }
-      const typeName = data.type.name; // English type name, e.g. "fire", "water"
-      
+      const typeName = data.type.name;
       const capType = typeName.charAt(0).toUpperCase() + typeName.slice(1);
       
       const result = { name: koName, type: capType, power: data.power || 0, damageClass: data.damage_class.name || 'status' };
@@ -191,43 +184,6 @@ export const apiService = {
       console.warn(`Error fetching move info for ${moveName}:`, error);
       const fallbackName = this._moveTranslationPatch[moveName] || moveName;
       return { name: fallbackName, type: 'Normal', power: 0, damageClass: 'status' };
-    }
-  },
-
-  async fetchItemInfo(itemName) {
-    if (!this._cache.items) this._cache.items = {};
-    if (this._cache.items[itemName]) return this._cache.items[itemName];
-    try {
-      const formattedName = itemName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-      const response = await fetch(`https://pokeapi.co/api/v2/item/${formattedName}`);
-      if (!response.ok) throw new Error('Item not found');
-      const data = await response.json();
-      const koName = data.names.find(n => n.language.name === 'ko')?.name || itemName;
-      this._cache.items[itemName] = koName;
-      return koName;
-    } catch (error) {
-      console.warn(`Error fetching item info for ${itemName}:`, error);
-      return itemName;
-    }
-  },
-
-  async fetchAbilityInfo(abilityName) {
-    if (!this._cache.abilities) this._cache.abilities = {};
-    if (this._cache.abilities[abilityName]) return this._cache.abilities[abilityName];
-    try {
-      const formattedName = abilityName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-      const response = await fetch(`https://pokeapi.co/api/v2/ability/${formattedName}`);
-      if (!response.ok) throw new Error('Ability not found');
-      const data = await response.json();
-      const koName = data.names.find(n => n.language.name === 'ko')?.name || abilityName;
-      const flavor = data.flavor_text_entries.find(f => f.language.name === 'ko')?.flavor_text || '';
-      
-      const result = { name: koName, flavor: flavor };
-      this._cache.abilities[abilityName] = result;
-      return result;
-    } catch (error) {
-      console.warn(`Error fetching ability info for ${abilityName}:`, error);
-      return { name: abilityName, flavor: '' };
     }
   },
 };

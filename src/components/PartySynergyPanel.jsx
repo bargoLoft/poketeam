@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import typeColors, { getTypeKo } from '../data/typeColors';
+import typeColors, { getTypeKo, getPokeApiTypeIconUrl } from '../data/typeColors';
 import { getDefensiveMultiplier, offensiveMatchups, moveTypeMap } from '../data/typeMatchups';
 import { apiService } from '../services/apiService';
 import LoadingSpinner from './LoadingSpinner';
@@ -132,7 +132,7 @@ export default function PartySynergyPanel({ party, battleFormat }) {
                 if (weak === 0) return null;
                 return (
                   <div key={type} className={`synergy-item ${weak >= 3 ? 'synergy-item--danger' : ''}`}>
-                    <span className="type-badge" style={{ backgroundColor: typeColors[type] }}>{getTypeKo(type)}</span>
+                    <img src={getPokeApiTypeIconUrl(type)} alt={type} title={getTypeKo(type)} style={{width: '24px', height: '24px', borderRadius: '50%', boxShadow: '0 1px 3px rgba(0,0,0,0.2)'}} />
                     <div className="synergy-stats">
                       <span className="stat-weak">{weak} 약점</span>
                       {resist > 0 && <span className="stat-resist">{resist} 반감</span>}

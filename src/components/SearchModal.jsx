@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
-import typeColors, { getTypeKo } from '../data/typeColors';
+import typeColors, { getTypeKo, getPokeApiTypeIconUrl } from '../data/typeColors';
 import { getPokemonKo } from '../data/pokemonNamesKo';
 import { apiService } from '../services/apiService';
 
@@ -132,13 +132,13 @@ function SearchModal({ pokemonList, battleFormat = 'Singles', onSelect, onClose,
                   <span className="modal__pokemon-item-name">{koName}</span>
                   <div className="modal__pokemon-item-types">
                     {types.map((type) => (
-                      <span
+                      <img
                         key={type}
-                        className="type-badge type-badge--sm"
-                        style={{ backgroundColor: typeColors[type] || typeColors['Normal'] }}
-                      >
-                        {getTypeKo(type)}
-                      </span>
+                        src={getPokeApiTypeIconUrl(type)}
+                        alt={type}
+                        title={getTypeKo(type)}
+                        style={{width: '20px', height: '20px', borderRadius: '50%', boxShadow: '0 1px 3px rgba(0,0,0,0.2)'}}
+                      />
                     ))}
                   </div>
                 </button>
