@@ -1,6 +1,7 @@
 import React from 'react';
 import { apiService } from '../services/apiService';
 import PokemonCard from './PokemonCard';
+import { getPokemonKo } from '../data/pokemonNamesKo';
 import typeColors from '../data/typeColors';
 
 const hexToRgba = (hex, alpha) => {
@@ -34,12 +35,27 @@ const getBackgroundStyle = (pokemon) => {
 
 function OpponentPanel({ opponentParty, setOpponentParty, opponentPartyMegas, setOpponentPartyMegas, pokemonList, partyBattleData, onCardClick }) {
   const [currentPage, setCurrentPage] = React.useState(1);
+  const [searchQuery, setSearchQuery] = React.useState('');
   const itemsPerPage = 40;
-  const totalPages = 6;
   
+  const filteredList = React.useMemo(() => {
+    if (!searchQuery) return pokemonList;
+    const lowerQuery = searchQuery.toLowerCase();
+    return pokemonList.filter(p => {
+      const koName = getPokemonKo(p.name) || '';
+      return koName.includes(lowerQuery) || p.name.toLowerCase().includes(lowerQuery);
+    });
+  }, [pokemonList, searchQuery]);
+
+  const totalPages = Math.ceil(filteredList.length / itemsPerPage) || 1;
+  
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery]);
+
   // Slice pokemonList for current page
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentList = pokemonList.slice(startIndex, startIndex + itemsPerPage);
+  const currentList = filteredList.slice(startIndex, startIndex + itemsPerPage);
   
   const selectedCount = opponentParty.filter(Boolean).length;
 
@@ -146,7 +162,27 @@ function OpponentPanel({ opponentParty, setOpponentParty, opponentPartyMegas, se
 
           <div className="opponent-picker">
             <div className="opponent-picker__header">
-              <h3 className="opponent-picker__title">TOP {startIndex + 1} - {startIndex + currentList.length}</h3>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <h3 className="opponent-picker__title">
+                  {searchQuery ? '검색 결과' : `TOP ${startIndex + 1} - ${Math.min(startIndex + itemsPerPage, filteredList.length)}`}
+                </h3>
+                <input 
+                  type="text" 
+                  placeholder="포켓몬 검색..." 
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  style={{
+                    padding: '4px 8px',
+                    borderRadius: '4px',
+                    border: '1px solid var(--glass-border)',
+                    background: 'rgba(255, 255, 255, 0.5)',
+                    color: 'var(--text-primary)',
+                    fontSize: '0.85rem',
+                    outline: 'none',
+                    width: '120px'
+                  }}
+                />
+              </div>
               <div className="opponent-picker__controls">
                 <button 
                   className="pagination-arrow" 
