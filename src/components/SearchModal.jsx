@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import typeColors, { getTypeKo, getPokeApiTypeIconUrl } from '../data/typeColors';
 import { getPokemonKo } from '../data/pokemonNamesKo';
+import { getChosung } from '../utils/hangul';
 import { apiService } from '../services/apiService';
 
 // 검색 모달에서 사용할 타입 태그 목록 (API 타입 기반)
@@ -44,10 +45,12 @@ function SearchModal({ pokemonList, battleFormat = 'Singles', onSelect, onClose,
     return pokemonList.filter((pokemon) => {
       const koName = getPokemonKo(pokemon.name);
       const searchLower = search.toLowerCase();
+      const koChosung = getChosung(koName);
       
       const matchesSearch = search === '' || 
         pokemon.name.toLowerCase().includes(searchLower) || 
-        koName.includes(search);
+        koName.includes(searchLower) ||
+        koChosung.includes(searchLower);
         
       const pokemonTypes = pokemon.summary?.types || [];
       const matchesTags =

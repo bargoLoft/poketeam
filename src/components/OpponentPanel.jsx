@@ -2,6 +2,7 @@ import React from 'react';
 import { apiService } from '../services/apiService';
 import PokemonCard from './PokemonCard';
 import { getPokemonKo } from '../data/pokemonNamesKo';
+import { getChosung } from '../utils/hangul';
 import typeColors from '../data/typeColors';
 
 const hexToRgba = (hex, alpha) => {
@@ -43,7 +44,8 @@ function OpponentPanel({ opponentParty, setOpponentParty, opponentPartyMegas, se
     const lowerQuery = searchQuery.toLowerCase();
     return pokemonList.filter(p => {
       const koName = getPokemonKo(p.name) || '';
-      return koName.includes(lowerQuery) || p.name.toLowerCase().includes(lowerQuery);
+      const koChosung = getChosung(koName);
+      return koName.includes(lowerQuery) || p.name.toLowerCase().includes(lowerQuery) || koChosung.includes(lowerQuery);
     });
   }, [pokemonList, searchQuery]);
 
