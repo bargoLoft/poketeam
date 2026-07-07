@@ -85,6 +85,12 @@ body {
   overflow-y: auto;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(240, 242, 248, 1) 100%);
   border-right: 1px solid rgba(0, 0, 0, 0.06);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.party-panel::-webkit-scrollbar {
+  display: none;
 }
 
 @media (max-width: 1023px) {
@@ -2021,12 +2027,20 @@ body {
 
 /* Opponent Panel */
 .opponent-panel {
+  width: 400px;
+  min-width: 400px;
   padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 20px;
   flex: 1;
-  overflow: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.opponent-panel::-webkit-scrollbar {
+  display: none;
 }
 
 .opponent-panel__header {
