@@ -37,7 +37,7 @@ const getBackgroundStyle = (pokemon) => {
 function OpponentPanel({ opponentParty, setOpponentParty, opponentPartyMegas, setOpponentPartyMegas, pokemonList, partyBattleData, onCardClick }) {
   const [currentPage, setCurrentPage] = React.useState(1);
   const [searchQuery, setSearchQuery] = React.useState('');
-  const itemsPerPage = 40;
+  const itemsPerPage = 50;
   
   const filteredList = React.useMemo(() => {
     if (!searchQuery) return pokemonList;
@@ -165,7 +165,7 @@ function OpponentPanel({ opponentParty, setOpponentParty, opponentPartyMegas, se
           <div className="opponent-picker">
             <div className="opponent-picker__header">
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <h3 className="opponent-picker__title">
+                <h3 className="opponent-picker__title" style={{ width: '115px' }}>
                   {searchQuery ? '검색 결과' : `TOP ${startIndex + 1} - ${Math.min(startIndex + itemsPerPage, filteredList.length)}`}
                 </h3>
                 <input 
