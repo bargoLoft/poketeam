@@ -76,6 +76,7 @@ function OpponentPanel({ opponentParty, setOpponentParty, opponentPartyMegas, se
       next[emptyIndex] = null;
       return next;
     });
+    setSearchQuery('');
   };
 
   const handleRemove = (index) => {
@@ -128,7 +129,7 @@ function OpponentPanel({ opponentParty, setOpponentParty, opponentPartyMegas, se
                   onToggleMega={(e, newForm) => {
                     e.stopPropagation();
                     const next = [...opponentPartyMegas];
-                    next[index] = next[index] === newForm ? null : newForm;
+                    next[index] = next[index] === newForm ? 'base' : newForm;
                     setOpponentPartyMegas(next);
                   }}
                   battleData={bData}
@@ -168,22 +169,49 @@ function OpponentPanel({ opponentParty, setOpponentParty, opponentPartyMegas, se
                 <h3 className="opponent-picker__title" style={{ width: '115px' }}>
                   {searchQuery ? '검색 결과' : `TOP ${startIndex + 1} - ${Math.min(startIndex + itemsPerPage, filteredList.length)}`}
                 </h3>
-                <input 
-                  type="text" 
-                  placeholder="포켓몬 검색..." 
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  style={{
-                    padding: '4px 8px',
-                    borderRadius: '4px',
-                    border: '1px solid var(--glass-border)',
-                    background: 'rgba(255, 255, 255, 0.5)',
-                    color: 'var(--text-primary)',
-                    fontSize: '0.85rem',
-                    outline: 'none',
-                    width: '120px'
-                  }}
-                />
+                <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                  <input 
+                    type="text" 
+                    placeholder="포켓몬 검색..." 
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    style={{
+                      padding: '4px 22px 4px 8px',
+                      borderRadius: '4px',
+                      border: '1px solid var(--glass-border)',
+                      background: 'rgba(255, 255, 255, 0.5)',
+                      color: 'var(--text-primary)',
+                      fontSize: '0.85rem',
+                      outline: 'none',
+                      width: '120px'
+                    }}
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery('')}
+                      style={{
+                        position: 'absolute',
+                        right: '6px',
+                        background: '#94a3b8',
+                        color: '#ffffff',
+                        border: 'none',
+                        borderRadius: '50%',
+                        width: '12px',
+                        height: '12px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '8px',
+                        cursor: 'pointer',
+                        padding: 0,
+                        lineHeight: 1
+                      }}
+                      title="검색어 지우기"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
               </div>
               <div className="opponent-picker__controls">
                 <button 

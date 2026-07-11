@@ -72,7 +72,8 @@ const customMegasData = {
   'raichu-x': {
     spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/26.png', 
     types: ['Electric', 'Fighting'],
-    baseStats: { hp: 60, attack: 130, defense: 65, sp_attack: 90, sp_defense: 90, speed: 130 }
+    baseStats: { hp: 60, attack: 130, defense: 65, sp_attack: 90, sp_defense: 90, speed: 130 },
+    moves: ['볼트태클', '속이다', '깨뜨리다', '번개펀치', '와일드볼트', '볼부비부비', '치근거리기', '전광석화']
   },
   'raichu-y': {
     spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/26.png', 
@@ -180,7 +181,8 @@ export async function fetchMegaData(baseName, form = 'mega') {
         sp_attack: data.stats.find(s => s.stat.name === 'special-attack').base_stat,
         sp_defense: data.stats.find(s => s.stat.name === 'special-defense').base_stat,
         speed: data.stats.find(s => s.stat.name === 'speed').base_stat,
-      }
+      },
+      abilityEng: data.abilities[0]?.ability?.name || null
     };
     
     megaCache[cacheKey] = result;

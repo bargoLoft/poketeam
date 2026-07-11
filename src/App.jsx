@@ -25,6 +25,12 @@ function App() {
   // Global Battle Data for Party Members
   const [partyBattleData, setPartyBattleData] = useState({});
 
+  const [previewMegaState, setPreviewMegaState] = useState({});
+  const [partyMegaAutoApplied, setPartyMegaAutoApplied] = useState([false, false, false, false, false, false]);
+  const [opponentMegaAutoApplied, setOpponentMegaAutoApplied] = useState([false, false, false, false, false, false]);
+  const [prevPartyNames, setPrevPartyNames] = useState([null, null, null, null, null, null]);
+  const [prevOpponentNames, setPrevOpponentNames] = useState([null, null, null, null, null, null]);
+
   // Initial Index Load
   useEffect(() => {
     const loadData = async () => {
@@ -96,6 +102,114 @@ function App() {
     setPartyBattleData({});
   }, [battleFormat]);
 
+  // Track name changes and reset auto-mega applied flags
+  useEffect(() => {
+    let partyChanged = false;
+    const nextApplied = [...partyMegaAutoApplied];
+    const nextPrevNames = [...prevPartyNames];
+
+    party.forEach((p, idx) => {
+      const name = p ? p.name : null;
+      if (name !== prevPartyNames[idx]) {
+        nextApplied[idx] = false;
+        nextPrevNames[idx] = name;
+        partyChanged = true;
+      }
+    });
+
+    if (partyChanged) {
+      setPartyMegaAutoApplied(nextApplied);
+      setPrevPartyNames(nextPrevNames);
+    }
+  }, [party, prevPartyNames, partyMegaAutoApplied]);
+
+  useEffect(() => {
+    let oppChanged = false;
+    const nextApplied = [...opponentMegaAutoApplied];
+    const nextPrevNames = [...prevOpponentNames];
+
+    opponentParty.forEach((p, idx) => {
+      const name = p ? p.name : null;
+      if (name !== prevOpponentNames[idx]) {
+        nextApplied[idx] = false;
+        nextPrevNames[idx] = name;
+        oppChanged = true;
+      }
+    });
+
+    if (oppChanged) {
+      setOpponentMegaAutoApplied(nextApplied);
+      setPrevOpponentNames(nextPrevNames);
+    }
+  }, [opponentParty, prevOpponentNames, opponentMegaAutoApplied]);
+
+  // Automatically apply Mega forms when battle data is fetched
+  useEffect(() => {
+    let changed = false;
+    const nextMegas = [...partyMegas];
+    const nextApplied = [...partyMegaAutoApplied];
+
+    party.forEach((p, idx) => {
+      if (p && !partyMegaAutoApplied[idx]) {
+        const bData = partyBattleData[p.name];
+        if (bData) {
+          const rows = bData.rows || [];
+          const topItems = rows.filter(r => r.category === 'held_item').sort((a, b) => a.rank - b.rank).slice(0, 5);
+          const topItemName = topItems.length > 0 ? topItems[0].name : '';
+          const isMegaStone = topItemName.includes('ite') || topItemName.includes('나이트') || topItemName.endsWith('nite');
+          if (isMegaStone && !topItemName.includes('Eviolite') && !topItemName.includes('Meteorite') && !topItemName.includes('휘석') && !topItemName.includes('운석')) {
+            let auto = 'mega';
+            if (topItemName.includes(' X') || topItemName.endsWith('X') || topItemName.endsWith('-x')) auto = 'x';
+            else if (topItemName.includes(' Y') || topItemName.endsWith('Y') || topItemName.endsWith('-y')) auto = 'y';
+            nextMegas[idx] = auto;
+            changed = true;
+          }
+          nextApplied[idx] = true;
+        }
+      }
+    });
+
+    if (changed) {
+      setPartyMegas(nextMegas);
+    }
+    if (nextApplied.some((val, idx) => val !== partyMegaAutoApplied[idx])) {
+      setPartyMegaAutoApplied(nextApplied);
+    }
+  }, [party, partyBattleData, partyMegaAutoApplied, partyMegas]);
+
+  useEffect(() => {
+    let changed = false;
+    const nextMegas = [...opponentPartyMegas];
+    const nextApplied = [...opponentMegaAutoApplied];
+
+    opponentParty.forEach((p, idx) => {
+      if (p && !opponentMegaAutoApplied[idx]) {
+        const bData = partyBattleData[p.name];
+        if (bData) {
+          const rows = bData.rows || [];
+          const topItems = rows.filter(r => r.category === 'held_item').sort((a, b) => a.rank - b.rank).slice(0, 5);
+          const topItemName = topItems.length > 0 ? topItems[0].name : '';
+          const isMegaStone = topItemName.includes('ite') || topItemName.includes('나이트') || topItemName.endsWith('nite');
+          if (isMegaStone && !topItemName.includes('Eviolite') && !topItemName.includes('Meteorite') && !topItemName.includes('휘석') && !topItemName.includes('운석')) {
+            let auto = 'mega';
+            if (topItemName.includes(' X') || topItemName.endsWith('X') || topItemName.endsWith('-x')) auto = 'x';
+            else if (topItemName.includes(' Y') || topItemName.endsWith('Y') || topItemName.endsWith('-y')) auto = 'y';
+            nextMegas[idx] = auto;
+            changed = true;
+          }
+          nextApplied[idx] = true;
+        }
+      }
+    });
+
+    if (changed) {
+      setOpponentPartyMegas(nextMegas);
+    }
+    if (nextApplied.some((val, idx) => val !== opponentMegaAutoApplied[idx])) {
+      setOpponentMegaAutoApplied(nextApplied);
+    }
+  }, [opponentParty, partyBattleData, opponentMegaAutoApplied, opponentPartyMegas]);
+
   const partyNames = party.filter(Boolean).map((p) => p.name);
 
   const handleSlotClick = useCallback((index) => {
@@ -139,12 +253,60 @@ function App() {
     });
   }, []);
 
+  const handleToggleMegaForSelected = useCallback((form) => {
+    if (!selectedPokemonName) return;
+    
+    // Find in party
+    const pIdx = party.findIndex(p => p?.name === selectedPokemonName);
+    if (pIdx !== -1) {
+      setPartyMegas(prev => {
+        const next = [...prev];
+        next[pIdx] = next[pIdx] === form ? 'base' : form;
+        return next;
+      });
+      return;
+    }
+    
+    // Find in opponent party
+    const oIdx = opponentParty.findIndex(p => p?.name === selectedPokemonName);
+    if (oIdx !== -1) {
+      setOpponentPartyMegas(prev => {
+        const next = [...prev];
+        next[oIdx] = next[oIdx] === form ? 'base' : form;
+        return next;
+      });
+      return;
+    }
+
+    // Fallback to preview mega state
+    setPreviewMegaState(prev => ({
+      ...prev,
+      [selectedPokemonName]: prev[selectedPokemonName] === form ? 'base' : form
+    }));
+  }, [selectedPokemonName, party, opponentParty]);
+
   if (isLoading) return <LoadingSpinner />;
   if (error) return <div className="error-state">{error}</div>;
 
   const selectedPokemon = selectedPokemonName
     ? party.find((p) => p?.name === selectedPokemonName) || indexData.pokemon.find(p => p.name === selectedPokemonName)
     : null;
+
+  let activeMegaForSelected = null;
+  if (selectedPokemonName) {
+    const pIdx = party.findIndex(p => p?.name === selectedPokemonName);
+    if (pIdx !== -1) {
+      activeMegaForSelected = partyMegas[pIdx];
+    } else {
+      const oIdx = opponentParty.findIndex(p => p?.name === selectedPokemonName);
+      if (oIdx !== -1) {
+        activeMegaForSelected = opponentPartyMegas[oIdx];
+      } else {
+        // Fallback to local preview mega state
+        activeMegaForSelected = previewMegaState[selectedPokemonName] || null;
+      }
+    }
+  }
 
   return (
     <div className="app-layout">
@@ -173,6 +335,7 @@ function App() {
           setBattleFormat={setBattleFormat}
           partyBattleData={partyBattleData}
           allPokemon={indexData?.pokemon || []}
+          indexData={indexData}
         />
       </div>
 
@@ -196,6 +359,8 @@ function App() {
             <button className="modal-close" onClick={() => setSelectedPokemonName(null)}>×</button>
             <DetailPanel
               pokemon={selectedPokemon}
+              activeMega={activeMegaForSelected}
+              onToggleMega={handleToggleMegaForSelected}
               allPokemon={indexData.pokemon}
               battleFormat={battleFormat}
               setBattleFormat={setBattleFormat}

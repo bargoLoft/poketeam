@@ -7,7 +7,7 @@ import { getPokeApiTypeIconUrl, getTypeKo } from '../data/typeColors';
 import typeColors from '../data/typeColors';
 import { getPokemonKo } from '../data/pokemonNamesKo';
 
-export default function PartyDashboard({ party, opponentParty, partyMegas, opponentPartyMegas, battleFormat, setBattleFormat, partyBattleData, allPokemon }) {
+export default function PartyDashboard({ party, opponentParty, partyMegas, opponentPartyMegas, battleFormat, setBattleFormat, partyBattleData, allPokemon, indexData }) {
   const [activeTab, setActiveTab] = useState('matchup');
   const [searchQuery, setSearchQuery] = useState('');
   const [isSpeedExpanded, setIsSpeedExpanded] = useState(true);
@@ -461,8 +461,17 @@ export default function PartyDashboard({ party, opponentParty, partyMegas, oppon
   }
 
   return (
-    <div className="party-dashboard" style={{ paddingTop: '20px', paddingBottom: '0', gap: '0', position: 'relative', overflow: 'hidden' }}>
+    <div className="party-dashboard" style={{ paddingTop: '8px', paddingBottom: '0', gap: '0', position: 'relative', overflow: 'hidden' }}>
       
+      {indexData && indexData.generatedAt && (
+        <div style={{ padding: '0 16px 12px 16px', display: 'flex', justifyContent: 'flex-end' }}>
+          <div style={{ fontSize: '0.75rem', color: 'var(--text-color)', opacity: 0.6, textAlign: 'right', lineHeight: '1.4' }}>
+            <span style={{ fontWeight: 'bold' }}>시즌:</span> {indexData.defaultSeason || 'Current'}<br/>
+            <span style={{ fontWeight: 'bold' }}>데이터 업데이트:</span> {new Date(indexData.generatedAt).toLocaleString()}
+          </div>
+        </div>
+      )}
+
       <div className="dashboard-content" style={{ flex: 1, display: 'flex', flexDirection: 'column', position: 'relative', zIndex: 10, height: '100%', overflowY: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
         <style>{`.dashboard-content::-webkit-scrollbar { display: none; }`}</style>
         

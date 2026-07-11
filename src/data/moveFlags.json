@@ -1,0 +1,5095 @@
+{
+  "10-000-000-volt-thunderbolt": {},
+  "absorb": {
+    "protect": 1,
+    "mirror": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "accelerock": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "acid": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "acid-armor": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "acid-downpour": {},
+  "acid-spray": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bullet": 1
+  },
+  "acrobatics": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "distance": 1,
+    "metronome": 1
+  },
+  "acupressure": {
+    "metronome": 1
+  },
+  "aerial-ace": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "distance": 1,
+    "metronome": 1,
+    "slicing": 1
+  },
+  "aeroblast": {
+    "protect": 1,
+    "mirror": 1,
+    "distance": 1,
+    "metronome": 1,
+    "wind": 1
+  },
+  "after-you": {
+    "bypasssub": 1,
+    "allyanim": 1
+  },
+  "agility": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "air-cutter": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "slicing": 1,
+    "wind": 1
+  },
+  "air-slash": {
+    "protect": 1,
+    "mirror": 1,
+    "distance": 1,
+    "metronome": 1,
+    "slicing": 1
+  },
+  "all-out-pummeling": {},
+  "alluring-voice": {
+    "protect": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "ally-switch": {
+    "metronome": 1
+  },
+  "amnesia": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "anchor-shot": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "ancient-power": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "apple-acid": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "aqua-cutter": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "slicing": 1
+  },
+  "aqua-jet": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "aqua-ring": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "aqua-step": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "dance": 1,
+    "metronome": 1
+  },
+  "aqua-tail": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "armor-cannon": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "arm-thrust": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "aromatherapy": {
+    "snatch": 1,
+    "distance": 1,
+    "metronome": 1
+  },
+  "aromatic-mist": {
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "assist": {
+    "failencore": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failmimic": 1,
+    "failinstruct": 1
+  },
+  "assurance": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "astonish": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "astral-barrage": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "attack-order": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "attract": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "aura-sphere": {
+    "protect": 1,
+    "mirror": 1,
+    "distance": 1,
+    "metronome": 1,
+    "bullet": 1,
+    "pulse": 1
+  },
+  "aura-wheel": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "aurora-beam": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "aurora-veil": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "autotomize": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "avalanche": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "axe-kick": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "baby-doll-eyes": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "baddy-bad": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "baneful-bunker": {
+    "noassist": 1,
+    "failcopycat": 1
+  },
+  "barb-barrage": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "barrage": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bullet": 1
+  },
+  "barrier": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "baton-pass": {
+    "metronome": 1
+  },
+  "beak-blast": {
+    "protect": 1,
+    "failmefirst": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failinstruct": 1,
+    "bullet": 1
+  },
+  "beat-up": {
+    "protect": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "behemoth-bash": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "failcopycat": 1,
+    "failmimic": 1
+  },
+  "behemoth-blade": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "failcopycat": 1,
+    "failmimic": 1,
+    "slicing": 1
+  },
+  "belch": {
+    "protect": 1,
+    "failmefirst": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failmimic": 1,
+    "failinstruct": 1
+  },
+  "belly-drum": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "bestow": {
+    "mirror": 1,
+    "bypasssub": 1,
+    "allyanim": 1,
+    "noassist": 1,
+    "failcopycat": 1
+  },
+  "bide": {
+    "contact": 1,
+    "protect": 1,
+    "metronome": 1,
+    "nosleeptalk": 1,
+    "failinstruct": 1
+  },
+  "bind": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "bite": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bite": 1
+  },
+  "bitter-blade": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "heal": 1,
+    "metronome": 1,
+    "slicing": 1
+  },
+  "bitter-malice": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "black-hole-eclipse": {},
+  "blast-burn": {
+    "recharge": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "blaze-kick": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "blazing-torque": {
+    "protect": 1,
+    "failencore": 1,
+    "failmefirst": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failmimic": 1,
+    "failinstruct": 1,
+    "nosketch": 1
+  },
+  "bleakwind-storm": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "wind": 1
+  },
+  "blizzard": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "wind": 1
+  },
+  "block": {
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "blood-moon": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "cantusetwice": 1
+  },
+  "bloom-doom": {},
+  "blue-flare": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "body-press": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1
+  },
+  "body-slam": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1,
+    "metronome": 1,
+    "minimize": 1
+  },
+  "bolt-beak": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "bolt-strike": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "bone-club": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "bonemerang": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "bone-rush": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "boomburst": {
+    "protect": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "bounce": {
+    "contact": 1,
+    "charge": 1,
+    "protect": 1,
+    "mirror": 1,
+    "gravity": 1,
+    "distance": 1,
+    "metronome": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failinstruct": 1
+  },
+  "bouncy-bubble": {
+    "protect": 1,
+    "mirror": 1,
+    "heal": 1
+  },
+  "branch-poke": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1
+  },
+  "brave-bird": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "distance": 1,
+    "metronome": 1
+  },
+  "breaking-swipe": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1
+  },
+  "breakneck-blitz": {},
+  "brick-break": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "brine": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "brutal-swing": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "bubble": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "bubble-beam": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "bug-bite": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "bug-buzz": {
+    "protect": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "bulk-up": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "bulldoze": {
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1,
+    "metronome": 1
+  },
+  "bullet-punch": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "punch": 1,
+    "metronome": 1
+  },
+  "bullet-seed": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bullet": 1
+  },
+  "burning-bulwark": {
+    "metronome": 1,
+    "noassist": 1,
+    "failcopycat": 1
+  },
+  "burning-jealousy": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "burn-up": {
+    "protect": 1,
+    "mirror": 1,
+    "defrost": 1,
+    "metronome": 1
+  },
+  "buzzy-buzz": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "calm-mind": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "camouflage": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "captivate": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "catastropika": {
+    "contact": 1
+  },
+  "ceaseless-edge": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "slicing": 1
+  },
+  "celebrate": {
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failmimic": 1,
+    "failinstruct": 1
+  },
+  "charge": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "charge-beam": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "charm": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "chatter": {
+    "protect": 1,
+    "mirror": 1,
+    "sound": 1,
+    "distance": 1,
+    "bypasssub": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failmimic": 1,
+    "failinstruct": 1
+  },
+  "chilling-water": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "chilly-reception": {},
+  "chip-away": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "chloroblast": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "circle-throw": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "noassist": 1,
+    "failcopycat": 1
+  },
+  "clamp": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "clanging-scales": {
+    "protect": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "clangorous-soul": {
+    "snatch": 1,
+    "sound": 1,
+    "dance": 1
+  },
+  "clangorous-soulblaze": {
+    "sound": 1,
+    "bypasssub": 1
+  },
+  "clear-smog": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "close-combat": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "coaching": {
+    "bypasssub": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "coil": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "collision-course": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1
+  },
+  "combat-torque": {
+    "protect": 1,
+    "failencore": 1,
+    "failmefirst": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failmimic": 1,
+    "failinstruct": 1,
+    "nosketch": 1
+  },
+  "comet-punch": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "punch": 1,
+    "metronome": 1
+  },
+  "comeuppance": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "failmefirst": 1
+  },
+  "confide": {
+    "reflectable": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "confuse-ray": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "confusion": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "constrict": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "continental-crush": {},
+  "conversion": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "conversion-2": {
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "copycat": {
+    "failencore": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failmimic": 1,
+    "failinstruct": 1
+  },
+  "core-enforcer": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "corkscrew-crash": {},
+  "corrosive-gas": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "cosmic-power": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "cotton-guard": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "cotton-spore": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "powder": 1
+  },
+  "counter": {
+    "contact": 1,
+    "protect": 1,
+    "failmefirst": 1,
+    "noassist": 1,
+    "failcopycat": 1
+  },
+  "court-change": {
+    "mirror": 1,
+    "metronome": 1
+  },
+  "covet": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "failmefirst": 1,
+    "noassist": 1,
+    "failcopycat": 1
+  },
+  "crabhammer": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "crafty-shield": {},
+  "cross-chop": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "cross-poison": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "slicing": 1
+  },
+  "crunch": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bite": 1
+  },
+  "crush-claw": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "crush-grip": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "curse": {
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "cut": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "slicing": 1
+  },
+  "darkest-lariat": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "dark-pulse": {
+    "protect": 1,
+    "mirror": 1,
+    "distance": 1,
+    "metronome": 1,
+    "pulse": 1
+  },
+  "dark-void": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "nosketch": 1
+  },
+  "dazzling-gleam": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "decorate": {
+    "allyanim": 1
+  },
+  "defend-order": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "defense-curl": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "defog": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "destiny-bond": {
+    "bypasssub": 1,
+    "noassist": 1,
+    "failcopycat": 1
+  },
+  "detect": {
+    "noassist": 1,
+    "failcopycat": 1
+  },
+  "devastating-drake": {},
+  "diamond-storm": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "dig": {
+    "contact": 1,
+    "charge": 1,
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1,
+    "metronome": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failinstruct": 1
+  },
+  "dire-claw": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "disable": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "disarming-voice": {
+    "protect": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "discharge": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "dive": {
+    "contact": 1,
+    "charge": 1,
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1,
+    "allyanim": 1,
+    "metronome": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failinstruct": 1
+  },
+  "dizzy-punch": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "punch": 1,
+    "metronome": 1
+  },
+  "doodle": {},
+  "doom-desire": {
+    "metronome": 1,
+    "futuremove": 1
+  },
+  "double-edge": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "double-hit": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "double-iron-bash": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "punch": 1
+  },
+  "double-kick": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "double-shock": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1
+  },
+  "double-slap": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "double-team": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "draco-meteor": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "dragon-ascent": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "distance": 1
+  },
+  "dragon-breath": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "dragon-cheer": {
+    "bypasssub": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "dragon-claw": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "dragon-dance": {
+    "snatch": 1,
+    "dance": 1,
+    "metronome": 1
+  },
+  "dragon-darts": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "noparentalbond": 1
+  },
+  "dragon-energy": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "dragon-hammer": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "dragon-pulse": {
+    "protect": 1,
+    "mirror": 1,
+    "distance": 1,
+    "metronome": 1,
+    "pulse": 1
+  },
+  "dragon-rage": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "dragon-rush": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "minimize": 1
+  },
+  "dragon-tail": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "noassist": 1,
+    "failcopycat": 1
+  },
+  "draining-kiss": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "drain-punch": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "punch": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "dream-eater": {
+    "protect": 1,
+    "mirror": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "drill-peck": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "distance": 1,
+    "metronome": 1
+  },
+  "drill-run": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "drum-beating": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "dual-chop": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "dual-wingbeat": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "dynamax-cannon": {
+    "protect": 1,
+    "failencore": 1,
+    "nosleeptalk": 1,
+    "failcopycat": 1,
+    "failmimic": 1,
+    "failinstruct": 1,
+    "noparentalbond": 1
+  },
+  "dynamic-punch": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "punch": 1,
+    "metronome": 1
+  },
+  "earth-power": {
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1,
+    "metronome": 1
+  },
+  "earthquake": {
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1,
+    "metronome": 1
+  },
+  "echoed-voice": {
+    "protect": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "eerie-impulse": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "eerie-spell": {
+    "protect": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "egg-bomb": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bullet": 1
+  },
+  "electric-terrain": {
+    "nonsky": 1,
+    "metronome": 1
+  },
+  "electrify": {
+    "protect": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "electro-ball": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bullet": 1
+  },
+  "electro-drift": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1
+  },
+  "electro-shot": {
+    "charge": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "electroweb": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "embargo": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "ember": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "encore": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "bypasssub": 1,
+    "metronome": 1,
+    "failencore": 1
+  },
+  "endeavor": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "noparentalbond": 1
+  },
+  "endure": {
+    "noassist": 1,
+    "failcopycat": 1
+  },
+  "energy-ball": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bullet": 1
+  },
+  "entrainment": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "eruption": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "esper-wing": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "eternabeam": {
+    "recharge": 1,
+    "protect": 1,
+    "mirror": 1
+  },
+  "expanding-force": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "explosion": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "noparentalbond": 1
+  },
+  "extrasensory": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "extreme-evoboost": {},
+  "extreme-speed": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "facade": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "fairy-lock": {
+    "mirror": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "fairy-wind": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "wind": 1
+  },
+  "fake-out": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "fake-tears": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "false-surrender": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1
+  },
+  "false-swipe": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "feather-dance": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "dance": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "feint": {
+    "mirror": 1,
+    "noassist": 1,
+    "failcopycat": 1
+  },
+  "feint-attack": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "fell-stinger": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "fickle-beam": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "fiery-dance": {
+    "protect": 1,
+    "mirror": 1,
+    "dance": 1,
+    "metronome": 1
+  },
+  "fiery-wrath": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "fillet-away": {
+    "snatch": 1
+  },
+  "final-gambit": {
+    "protect": 1,
+    "metronome": 1,
+    "noparentalbond": 1
+  },
+  "fire-blast": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "fire-fang": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bite": 1
+  },
+  "fire-lash": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "fire-pledge": {
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1,
+    "metronome": 1,
+    "pledgecombo": 1
+  },
+  "fire-punch": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "punch": 1,
+    "metronome": 1
+  },
+  "fire-spin": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "first-impression": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "fishious-rend": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bite": 1
+  },
+  "fissure": {
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1,
+    "metronome": 1
+  },
+  "flail": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "flame-burst": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "flame-charge": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "flamethrower": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "flame-wheel": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "defrost": 1,
+    "metronome": 1
+  },
+  "flare-blitz": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "defrost": 1,
+    "metronome": 1
+  },
+  "flash": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "flash-cannon": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "flatter": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "fleur-cannon": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "fling": {
+    "protect": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "metronome": 1,
+    "noparentalbond": 1
+  },
+  "flip-turn": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "floaty-fall": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "gravity": 1
+  },
+  "floral-healing": {
+    "protect": 1,
+    "reflectable": 1,
+    "heal": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "flower-shield": {
+    "distance": 1,
+    "metronome": 1
+  },
+  "flower-trick": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "fly": {
+    "contact": 1,
+    "charge": 1,
+    "protect": 1,
+    "mirror": 1,
+    "gravity": 1,
+    "distance": 1,
+    "metronome": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failinstruct": 1
+  },
+  "flying-press": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "gravity": 1,
+    "distance": 1,
+    "nonsky": 1,
+    "metronome": 1,
+    "minimize": 1
+  },
+  "focus-blast": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bullet": 1
+  },
+  "focus-energy": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "focus-punch": {
+    "contact": 1,
+    "protect": 1,
+    "punch": 1,
+    "failmefirst": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failinstruct": 1
+  },
+  "follow-me": {
+    "noassist": 1,
+    "failcopycat": 1
+  },
+  "force-palm": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "foresight": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "forest-s-curse": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "foul-play": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "freeze-dry": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "freeze-shock": {
+    "charge": 1,
+    "protect": 1,
+    "mirror": 1,
+    "nosleeptalk": 1,
+    "failinstruct": 1
+  },
+  "freezing-glare": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "freezy-frost": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "frenzy-plant": {
+    "recharge": 1,
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1,
+    "metronome": 1
+  },
+  "frost-breath": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "frustration": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "fury-attack": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "fury-cutter": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "slicing": 1
+  },
+  "fury-swipes": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "fusion-bolt": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "fusion-flare": {
+    "protect": 1,
+    "mirror": 1,
+    "defrost": 1,
+    "metronome": 1
+  },
+  "future-sight": {
+    "allyanim": 1,
+    "metronome": 1,
+    "futuremove": 1
+  },
+  "gastro-acid": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "gear-grind": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "gear-up": {
+    "snatch": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "genesis-supernova": {},
+  "geomancy": {
+    "charge": 1,
+    "nonsky": 1,
+    "metronome": 1,
+    "nosleeptalk": 1,
+    "failinstruct": 1
+  },
+  "giga-drain": {
+    "protect": 1,
+    "mirror": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "giga-impact": {
+    "contact": 1,
+    "recharge": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "gigaton-hammer": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "cantusetwice": 1
+  },
+  "gigavolt-havoc": {},
+  "glacial-lance": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "glaciate": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "glaive-rush": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "glare": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "glitzy-glow": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "g-max-befuddle": {},
+  "g-max-cannonade": {},
+  "g-max-centiferno": {},
+  "g-max-chi-strike": {},
+  "g-max-cuddle": {},
+  "g-max-depletion": {},
+  "g-max-drum-solo": {},
+  "g-max-finale": {},
+  "g-max-fireball": {},
+  "g-max-foam-burst": {},
+  "g-max-gold-rush": {},
+  "g-max-gravitas": {},
+  "g-max-hydrosnipe": {},
+  "g-max-malodor": {},
+  "g-max-meltdown": {},
+  "g-max-one-blow": {},
+  "g-max-rapid-flow": {},
+  "g-max-replenish": {},
+  "g-max-resonance": {},
+  "g-max-sandblast": {},
+  "g-max-smite": {},
+  "g-max-snooze": {},
+  "g-max-steelsurge": {},
+  "g-max-stonesurge": {},
+  "g-max-stun-shock": {},
+  "g-max-sweetness": {},
+  "g-max-tartness": {},
+  "g-max-terror": {},
+  "g-max-vine-lash": {},
+  "g-max-volcalith": {},
+  "g-max-volt-crash": {},
+  "g-max-wildfire": {},
+  "g-max-wind-rage": {},
+  "grass-knot": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1,
+    "metronome": 1
+  },
+  "grass-pledge": {
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1,
+    "metronome": 1,
+    "pledgecombo": 1
+  },
+  "grass-whistle": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "grassy-glide": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "grassy-terrain": {
+    "nonsky": 1,
+    "metronome": 1
+  },
+  "grav-apple": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "gravity": {
+    "nonsky": 1,
+    "metronome": 1
+  },
+  "growl": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "growth": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "grudge": {
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "guardian-of-alola": {},
+  "guard-split": {
+    "protect": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "guard-swap": {
+    "protect": 1,
+    "mirror": 1,
+    "bypasssub": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "guillotine": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "gunk-shot": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "gust": {
+    "protect": 1,
+    "mirror": 1,
+    "distance": 1,
+    "metronome": 1,
+    "wind": 1
+  },
+  "gyro-ball": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bullet": 1
+  },
+  "hail": {
+    "metronome": 1
+  },
+  "hammer-arm": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "punch": 1,
+    "metronome": 1
+  },
+  "happy-hour": {
+    "metronome": 1
+  },
+  "harden": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "hard-press": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "haze": {
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "headbutt": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "head-charge": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "headlong-rush": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "punch": 1,
+    "metronome": 1
+  },
+  "head-smash": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "heal-bell": {
+    "snatch": 1,
+    "sound": 1,
+    "distance": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "heal-block": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "healing-wish": {
+    "snatch": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "heal-order": {
+    "snatch": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "heal-pulse": {
+    "protect": 1,
+    "reflectable": 1,
+    "distance": 1,
+    "heal": 1,
+    "allyanim": 1,
+    "metronome": 1,
+    "pulse": 1
+  },
+  "heart-stamp": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "heart-swap": {
+    "protect": 1,
+    "mirror": 1,
+    "bypasssub": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "heat-crash": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1,
+    "metronome": 1,
+    "minimize": 1
+  },
+  "heat-wave": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "wind": 1
+  },
+  "heavy-slam": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1,
+    "metronome": 1,
+    "minimize": 1
+  },
+  "helping-hand": {
+    "bypasssub": 1,
+    "noassist": 1,
+    "failcopycat": 1
+  },
+  "hex": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "hidden-power": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "hidden-power-bug": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "hidden-power-dark": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "hidden-power-dragon": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "hidden-power-electric": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "hidden-power-fighting": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "hidden-power-fire": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "hidden-power-flying": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "hidden-power-ghost": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "hidden-power-grass": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "hidden-power-ground": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "hidden-power-ice": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "hidden-power-poison": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "hidden-power-psychic": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "hidden-power-rock": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "hidden-power-steel": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "hidden-power-water": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "high-horsepower": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "high-jump-kick": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "gravity": 1,
+    "metronome": 1
+  },
+  "hold-back": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "hold-hands": {
+    "bypasssub": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failmimic": 1,
+    "failinstruct": 1
+  },
+  "hone-claws": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "horn-attack": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "horn-drill": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "horn-leech": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "howl": {
+    "snatch": 1,
+    "sound": 1,
+    "metronome": 1
+  },
+  "hurricane": {
+    "protect": 1,
+    "mirror": 1,
+    "distance": 1,
+    "metronome": 1,
+    "wind": 1
+  },
+  "hydro-cannon": {
+    "recharge": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "hydro-pump": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "hydro-steam": {
+    "protect": 1,
+    "mirror": 1,
+    "defrost": 1,
+    "metronome": 1
+  },
+  "hydro-vortex": {},
+  "hyper-beam": {
+    "recharge": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "hyper-drill": {
+    "contact": 1,
+    "mirror": 1
+  },
+  "hyper-fang": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bite": 1
+  },
+  "hyperspace-fury": {
+    "mirror": 1,
+    "bypasssub": 1,
+    "nosketch": 1
+  },
+  "hyperspace-hole": {
+    "mirror": 1,
+    "bypasssub": 1
+  },
+  "hyper-voice": {
+    "protect": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "hypnosis": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "ice-ball": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "failinstruct": 1,
+    "bullet": 1,
+    "noparentalbond": 1
+  },
+  "ice-beam": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "ice-burn": {
+    "charge": 1,
+    "protect": 1,
+    "mirror": 1,
+    "nosleeptalk": 1,
+    "failinstruct": 1
+  },
+  "ice-fang": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bite": 1
+  },
+  "ice-hammer": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "punch": 1,
+    "metronome": 1
+  },
+  "ice-punch": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "punch": 1,
+    "metronome": 1
+  },
+  "ice-shard": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "ice-spinner": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "icicle-crash": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "icicle-spear": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "icy-wind": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "wind": 1
+  },
+  "imprison": {
+    "snatch": 1,
+    "bypasssub": 1,
+    "metronome": 1,
+    "mustpressure": 1
+  },
+  "incinerate": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "infernal-parade": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "inferno": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "inferno-overdrive": {},
+  "infestation": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "ingrain": {
+    "snatch": 1,
+    "nonsky": 1,
+    "metronome": 1
+  },
+  "instruct": {
+    "protect": 1,
+    "bypasssub": 1,
+    "allyanim": 1,
+    "failinstruct": 1
+  },
+  "ion-deluge": {
+    "metronome": 1
+  },
+  "iron-defense": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "iron-head": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "iron-tail": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "ivy-cudgel": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "jaw-lock": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bite": 1
+  },
+  "jet-punch": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "punch": 1
+  },
+  "judgment": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "jump-kick": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "gravity": 1,
+    "metronome": 1
+  },
+  "jungle-healing": {
+    "heal": 1,
+    "bypasssub": 1,
+    "allyanim": 1
+  },
+  "karate-chop": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "kinesis": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "king-s-shield": {
+    "noassist": 1,
+    "failcopycat": 1,
+    "failinstruct": 1
+  },
+  "knock-off": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "kowtow-cleave": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "slicing": 1
+  },
+  "land-s-wrath": {
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1,
+    "metronome": 1
+  },
+  "laser-focus": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "lash-out": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "last-resort": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "last-respects": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "lava-plume": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "leafage": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "leaf-blade": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "slicing": 1
+  },
+  "leaf-storm": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "leaf-tornado": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "leech-life": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "leech-seed": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "leer": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "let-s-snuggle-forever": {
+    "contact": 1
+  },
+  "lick": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "life-dew": {
+    "snatch": 1,
+    "heal": 1,
+    "bypasssub": 1
+  },
+  "light-of-ruin": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "light-screen": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "light-that-burns-the-sky": {},
+  "liquidation": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "lock-on": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "lovely-kiss": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "low-kick": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "low-sweep": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "lucky-chant": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "lumina-crash": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "lunar-blessing": {
+    "snatch": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "lunar-dance": {
+    "snatch": 1,
+    "dance": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "lunge": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "luster-purge": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "mach-punch": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "punch": 1,
+    "metronome": 1
+  },
+  "magical-leaf": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "magical-torque": {
+    "protect": 1,
+    "failencore": 1,
+    "failmefirst": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failmimic": 1,
+    "failinstruct": 1,
+    "nosketch": 1
+  },
+  "magic-coat": {
+    "metronome": 1
+  },
+  "magic-powder": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "metronome": 1,
+    "powder": 1
+  },
+  "magic-room": {
+    "mirror": 1,
+    "metronome": 1
+  },
+  "magma-storm": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "magnet-bomb": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bullet": 1
+  },
+  "magnetic-flux": {
+    "snatch": 1,
+    "distance": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "magnet-rise": {
+    "snatch": 1,
+    "gravity": 1,
+    "metronome": 1
+  },
+  "magnitude": {
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1,
+    "metronome": 1
+  },
+  "make-it-rain": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "malicious-moonsault": {
+    "contact": 1,
+    "minimize": 1
+  },
+  "malignant-chain": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "mat-block": {
+    "snatch": 1,
+    "nonsky": 1,
+    "noassist": 1,
+    "failcopycat": 1
+  },
+  "matcha-gotcha": {
+    "protect": 1,
+    "mirror": 1,
+    "defrost": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "max-airstream": {},
+  "max-darkness": {},
+  "max-flare": {},
+  "max-flutterby": {},
+  "max-geyser": {},
+  "max-guard": {},
+  "max-hailstorm": {},
+  "max-knuckle": {},
+  "max-lightning": {},
+  "max-mindstorm": {},
+  "max-ooze": {},
+  "max-overgrowth": {},
+  "max-phantasm": {},
+  "max-quake": {},
+  "max-rockfall": {},
+  "max-starfall": {},
+  "max-steelspike": {},
+  "max-strike": {},
+  "max-wyrmwind": {},
+  "mean-look": {
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "meditate": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "me-first": {
+    "protect": 1,
+    "bypasssub": 1,
+    "failencore": 1,
+    "failmefirst": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failmimic": 1,
+    "failinstruct": 1
+  },
+  "mega-drain": {
+    "protect": 1,
+    "mirror": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "megahorn": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "mega-kick": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "mega-punch": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "punch": 1,
+    "metronome": 1
+  },
+  "memento": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "menacing-moonraze-maelstrom": {},
+  "metal-burst": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "failmefirst": 1
+  },
+  "metal-claw": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "metal-sound": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "meteor-assault": {
+    "recharge": 1,
+    "protect": 1,
+    "mirror": 1,
+    "failinstruct": 1
+  },
+  "meteor-beam": {
+    "charge": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "meteor-mash": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "punch": 1,
+    "metronome": 1
+  },
+  "metronome": {
+    "failencore": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failmimic": 1,
+    "failinstruct": 1
+  },
+  "mighty-cleave": {
+    "contact": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "slicing": 1
+  },
+  "milk-drink": {
+    "snatch": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "mimic": {
+    "protect": 1,
+    "bypasssub": 1,
+    "allyanim": 1,
+    "failencore": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failmimic": 1,
+    "failinstruct": 1
+  },
+  "mind-blown": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "mind-reader": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "minimize": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "miracle-eye": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "mirror-coat": {
+    "protect": 1,
+    "failmefirst": 1,
+    "noassist": 1
+  },
+  "mirror-move": {
+    "failencore": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failmimic": 1,
+    "failinstruct": 1
+  },
+  "mirror-shot": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "mist": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "mist-ball": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bullet": 1
+  },
+  "misty-explosion": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "misty-terrain": {
+    "nonsky": 1,
+    "metronome": 1
+  },
+  "moonblast": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "moongeist-beam": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "moonlight": {
+    "snatch": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "morning-sun": {
+    "snatch": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "mortal-spin": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "mountain-gale": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "mud-bomb": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bullet": 1
+  },
+  "muddy-water": {
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1,
+    "metronome": 1
+  },
+  "mud-shot": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "mud-slap": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "mud-sport": {
+    "nonsky": 1,
+    "metronome": 1
+  },
+  "multi-attack": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "mystical-fire": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "mystical-power": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "nasty-plot": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "natural-gift": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "nature-power": {
+    "failencore": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failmimic": 1,
+    "failinstruct": 1
+  },
+  "nature-s-madness": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "needle-arm": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "never-ending-nightmare": {},
+  "night-daze": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "nightmare": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "night-shade": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "night-slash": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "slicing": 1
+  },
+  "nihil-light": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "noble-roar": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "no-retreat": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "noxious-torque": {
+    "protect": 1,
+    "failencore": 1,
+    "failmefirst": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failmimic": 1,
+    "failinstruct": 1,
+    "nosketch": 1
+  },
+  "nuzzle": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "oblivion-wing": {
+    "protect": 1,
+    "mirror": 1,
+    "distance": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "obstruct": {
+    "failinstruct": 1
+  },
+  "oceanic-operetta": {},
+  "octazooka": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bullet": 1
+  },
+  "octolock": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "odor-sleuth": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "bypasssub": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "ominous-wind": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "order-up": {
+    "protect": 1
+  },
+  "origin-pulse": {
+    "protect": 1,
+    "mirror": 1,
+    "pulse": 1
+  },
+  "outrage": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "failinstruct": 1
+  },
+  "overdrive": {
+    "protect": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1
+  },
+  "overheat": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "pain-split": {
+    "protect": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "parabolic-charge": {
+    "protect": 1,
+    "mirror": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "parting-shot": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "payback": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "pay-day": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "peck": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "distance": 1,
+    "metronome": 1
+  },
+  "perish-song": {
+    "sound": 1,
+    "distance": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "petal-blizzard": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "wind": 1
+  },
+  "petal-dance": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "dance": 1,
+    "metronome": 1,
+    "failinstruct": 1
+  },
+  "phantom-force": {
+    "contact": 1,
+    "charge": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failinstruct": 1
+  },
+  "photon-geyser": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "pika-papow": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "pin-missile": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "plasma-fists": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "punch": 1
+  },
+  "play-nice": {
+    "reflectable": 1,
+    "mirror": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "play-rough": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "pluck": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "distance": 1,
+    "metronome": 1
+  },
+  "poison-fang": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bite": 1
+  },
+  "poison-gas": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "poison-jab": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "poison-powder": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "powder": 1
+  },
+  "poison-sting": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "poison-tail": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "pollen-puff": {
+    "protect": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "metronome": 1,
+    "bullet": 1
+  },
+  "poltergeist": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "population-bomb": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "slicing": 1
+  },
+  "pounce": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1
+  },
+  "pound": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "powder": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "bypasssub": 1,
+    "metronome": 1,
+    "powder": 1
+  },
+  "powder-snow": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "power-gem": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "power-shift": {
+    "snatch": 1
+  },
+  "power-split": {
+    "protect": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "power-swap": {
+    "protect": 1,
+    "mirror": 1,
+    "bypasssub": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "power-trick": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "power-trip": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "power-up-punch": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "punch": 1,
+    "metronome": 1
+  },
+  "power-whip": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "precipice-blades": {
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1
+  },
+  "present": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "prismatic-laser": {
+    "recharge": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "protect": {
+    "noassist": 1,
+    "failcopycat": 1
+  },
+  "psybeam": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "psyblade": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "slicing": 1
+  },
+  "psychic": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "psychic-fangs": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bite": 1
+  },
+  "psychic-noise": {
+    "protect": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "psychic-terrain": {
+    "nonsky": 1,
+    "metronome": 1
+  },
+  "psycho-boost": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "psycho-cut": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "slicing": 1
+  },
+  "psycho-shift": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "psych-up": {
+    "bypasssub": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "psyshield-bash": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "psyshock": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "psystrike": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "psywave": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "pulverizing-pancake": {
+    "contact": 1
+  },
+  "punishment": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "purify": {
+    "protect": 1,
+    "reflectable": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "pursuit": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "pyro-ball": {
+    "protect": 1,
+    "mirror": 1,
+    "defrost": 1,
+    "bullet": 1
+  },
+  "quash": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "quick-attack": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "quick-guard": {
+    "snatch": 1
+  },
+  "quiver-dance": {
+    "snatch": 1,
+    "dance": 1,
+    "metronome": 1
+  },
+  "rage": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "rage-fist": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "punch": 1
+  },
+  "rage-powder": {
+    "noassist": 1,
+    "failcopycat": 1,
+    "powder": 1
+  },
+  "raging-bull": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1
+  },
+  "raging-fury": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "rain-dance": {
+    "metronome": 1
+  },
+  "rapid-spin": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "razor-leaf": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "slicing": 1
+  },
+  "razor-shell": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "slicing": 1
+  },
+  "razor-wind": {
+    "charge": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "nosleeptalk": 1,
+    "failinstruct": 1
+  },
+  "recover": {
+    "snatch": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "recycle": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "reflect": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "reflect-type": {
+    "protect": 1,
+    "bypasssub": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "refresh": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "relic-song": {
+    "protect": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1
+  },
+  "rest": {
+    "snatch": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "retaliate": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "return": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "revelation-dance": {
+    "protect": 1,
+    "mirror": 1,
+    "dance": 1,
+    "metronome": 1
+  },
+  "revenge": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "reversal": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "revival-blessing": {
+    "heal": 1,
+    "nosketch": 1
+  },
+  "rising-voltage": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "roar": {
+    "reflectable": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1,
+    "allyanim": 1,
+    "metronome": 1,
+    "noassist": 1,
+    "failcopycat": 1
+  },
+  "roar-of-time": {
+    "recharge": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "rock-blast": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bullet": 1
+  },
+  "rock-climb": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "rock-polish": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "rock-slide": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "rock-smash": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "rock-throw": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "rock-tomb": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "rock-wrecker": {
+    "recharge": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bullet": 1
+  },
+  "role-play": {
+    "bypasssub": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "rolling-kick": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "rollout": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "failinstruct": 1,
+    "noparentalbond": 1
+  },
+  "roost": {
+    "snatch": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "rototiller": {
+    "distance": 1,
+    "nonsky": 1,
+    "metronome": 1
+  },
+  "round": {
+    "protect": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "ruination": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "sacred-fire": {
+    "protect": 1,
+    "mirror": 1,
+    "defrost": 1,
+    "metronome": 1
+  },
+  "sacred-sword": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "slicing": 1
+  },
+  "safeguard": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "salt-cure": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "sand-attack": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "sandsear-storm": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "wind": 1
+  },
+  "sandstorm": {
+    "metronome": 1,
+    "wind": 1
+  },
+  "sand-tomb": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "sappy-seed": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1
+  },
+  "savage-spin-out": {},
+  "scald": {
+    "protect": 1,
+    "mirror": 1,
+    "defrost": 1,
+    "metronome": 1
+  },
+  "scale-shot": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "scary-face": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "scorching-sands": {
+    "protect": 1,
+    "mirror": 1,
+    "defrost": 1,
+    "metronome": 1
+  },
+  "scratch": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "screech": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "searing-shot": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bullet": 1
+  },
+  "searing-sunraze-smash": {
+    "contact": 1
+  },
+  "secret-power": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "secret-sword": {
+    "protect": 1,
+    "mirror": 1,
+    "slicing": 1
+  },
+  "seed-bomb": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bullet": 1
+  },
+  "seed-flare": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "seismic-toss": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1,
+    "metronome": 1
+  },
+  "self-destruct": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "noparentalbond": 1
+  },
+  "shadow-ball": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bullet": 1
+  },
+  "shadow-bone": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "shadow-claw": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "shadow-force": {
+    "contact": 1,
+    "charge": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failinstruct": 1
+  },
+  "shadow-punch": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "punch": 1,
+    "metronome": 1
+  },
+  "shadow-sneak": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "sharpen": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "shattered-psyche": {},
+  "shed-tail": {},
+  "sheer-cold": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "shell-side-arm": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "shell-smash": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "shell-trap": {
+    "protect": 1,
+    "failmefirst": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failinstruct": 1
+  },
+  "shelter": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "shift-gear": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "shock-wave": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "shore-up": {
+    "snatch": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "signal-beam": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "silk-trap": {},
+  "silver-wind": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "simple-beam": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "sing": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "sinister-arrow-raid": {},
+  "sizzly-slide": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "defrost": 1
+  },
+  "sketch": {
+    "bypasssub": 1,
+    "allyanim": 1,
+    "failencore": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failmimic": 1,
+    "failinstruct": 1,
+    "nosketch": 1
+  },
+  "skill-swap": {
+    "protect": 1,
+    "mirror": 1,
+    "bypasssub": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "skitter-smack": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "skull-bash": {
+    "contact": 1,
+    "charge": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "nosleeptalk": 1,
+    "failinstruct": 1
+  },
+  "sky-attack": {
+    "charge": 1,
+    "protect": 1,
+    "mirror": 1,
+    "distance": 1,
+    "metronome": 1,
+    "nosleeptalk": 1,
+    "failinstruct": 1
+  },
+  "sky-drop": {
+    "contact": 1,
+    "charge": 1,
+    "protect": 1,
+    "mirror": 1,
+    "gravity": 1,
+    "distance": 1,
+    "metronome": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failinstruct": 1
+  },
+  "sky-uppercut": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "punch": 1,
+    "metronome": 1
+  },
+  "slack-off": {
+    "snatch": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "slam": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1,
+    "metronome": 1
+  },
+  "slash": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "slicing": 1
+  },
+  "sleep-powder": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "powder": 1
+  },
+  "sleep-talk": {
+    "failencore": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failmimic": 1,
+    "failinstruct": 1
+  },
+  "sludge": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "sludge-bomb": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bullet": 1
+  },
+  "sludge-wave": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "smack-down": {
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1,
+    "metronome": 1
+  },
+  "smart-strike": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "smelling-salts": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "smog": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "smokescreen": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "snap-trap": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1
+  },
+  "snarl": {
+    "protect": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1
+  },
+  "snatch": {
+    "bypasssub": 1,
+    "mustpressure": 1,
+    "noassist": 1,
+    "failcopycat": 1
+  },
+  "snipe-shot": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "snore": {
+    "protect": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1
+  },
+  "snowscape": {},
+  "soak": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "soft-boiled": {
+    "snatch": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "solar-beam": {
+    "charge": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "nosleeptalk": 1,
+    "failinstruct": 1
+  },
+  "solar-blade": {
+    "contact": 1,
+    "charge": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "nosleeptalk": 1,
+    "failinstruct": 1,
+    "slicing": 1
+  },
+  "sonic-boom": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "soul-stealing-7-star-strike": {
+    "contact": 1
+  },
+  "spacial-rend": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "spark": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "sparkling-aria": {
+    "protect": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "sparkly-swirl": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "spectral-thief": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "bypasssub": 1
+  },
+  "speed-swap": {
+    "protect": 1,
+    "mirror": 1,
+    "bypasssub": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "spicy-extract": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1
+  },
+  "spider-web": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "spike-cannon": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "spikes": {
+    "reflectable": 1,
+    "nonsky": 1,
+    "metronome": 1,
+    "mustpressure": 1
+  },
+  "spiky-shield": {
+    "noassist": 1,
+    "failcopycat": 1
+  },
+  "spin-out": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "spirit-break": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1
+  },
+  "spirit-shackle": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "spite": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "spit-up": {
+    "protect": 1,
+    "metronome": 1
+  },
+  "splash": {
+    "gravity": 1,
+    "metronome": 1
+  },
+  "splintered-stormshards": {},
+  "splishy-splash": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "spore": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "powder": 1
+  },
+  "spotlight": {
+    "protect": 1,
+    "reflectable": 1,
+    "allyanim": 1,
+    "noassist": 1,
+    "failcopycat": 1
+  },
+  "springtide-storm": {
+    "protect": 1,
+    "mirror": 1,
+    "wind": 1
+  },
+  "stealth-rock": {
+    "reflectable": 1,
+    "metronome": 1,
+    "mustpressure": 1
+  },
+  "steam-eruption": {
+    "protect": 1,
+    "mirror": 1,
+    "defrost": 1
+  },
+  "steamroller": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "minimize": 1
+  },
+  "steel-beam": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "steel-roller": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "steel-wing": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "sticky-web": {
+    "reflectable": 1,
+    "metronome": 1
+  },
+  "stockpile": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "stoked-sparksurfer": {},
+  "stomp": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1,
+    "metronome": 1,
+    "minimize": 1
+  },
+  "stomping-tantrum": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "stone-axe": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "slicing": 1
+  },
+  "stone-edge": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "stored-power": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "storm-throw": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "strange-steam": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "strength": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "strength-sap": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "string-shot": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "struggle": {
+    "contact": 1,
+    "protect": 1,
+    "failencore": 1,
+    "failmefirst": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failmimic": 1,
+    "failinstruct": 1,
+    "nosketch": 1
+  },
+  "struggle-bug": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "stuff-cheeks": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "stun-spore": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "powder": 1
+  },
+  "submission": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "substitute": {
+    "snatch": 1,
+    "nonsky": 1,
+    "metronome": 1
+  },
+  "subzero-slammer": {},
+  "sucker-punch": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "sunny-day": {
+    "metronome": 1
+  },
+  "sunsteel-strike": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1
+  },
+  "supercell-slam": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "minimize": 1
+  },
+  "super-fang": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "superpower": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "supersonic": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "supersonic-skystrike": {},
+  "surf": {
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1,
+    "metronome": 1
+  },
+  "surging-strikes": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "punch": 1
+  },
+  "swagger": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "swallow": {
+    "snatch": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "sweet-kiss": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "sweet-scent": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "swift": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "switcheroo": {
+    "protect": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "noassist": 1,
+    "failcopycat": 1
+  },
+  "swords-dance": {
+    "snatch": 1,
+    "dance": 1,
+    "metronome": 1
+  },
+  "synchronoise": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "synthesis": {
+    "snatch": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "syrup-bomb": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bullet": 1
+  },
+  "tachyon-cutter": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "slicing": 1
+  },
+  "tackle": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "tail-glow": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "tail-slap": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "tail-whip": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "tailwind": {
+    "snatch": 1,
+    "metronome": 1,
+    "wind": 1
+  },
+  "take-down": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "take-heart": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "tar-shot": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "taunt": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "tearful-look": {
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "teatime": {
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "techno-blast": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "tectonic-rage": {},
+  "teeter-dance": {
+    "protect": 1,
+    "mirror": 1,
+    "dance": 1,
+    "metronome": 1
+  },
+  "telekinesis": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "gravity": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "teleport": {
+    "metronome": 1
+  },
+  "temper-flare": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "tera-blast": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "mustpressure": 1
+  },
+  "tera-starstorm": {
+    "protect": 1,
+    "mirror": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failmimic": 1,
+    "nosketch": 1
+  },
+  "terrain-pulse": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "pulse": 1
+  },
+  "thief": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "failmefirst": 1,
+    "noassist": 1,
+    "failcopycat": 1
+  },
+  "thousand-arrows": {
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1
+  },
+  "thousand-waves": {
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1
+  },
+  "thrash": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "failinstruct": 1
+  },
+  "throat-chop": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "thunder": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "thunderbolt": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "thunder-cage": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "thunderclap": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "thunder-fang": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bite": 1
+  },
+  "thunderous-kick": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1
+  },
+  "thunder-punch": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "punch": 1,
+    "metronome": 1
+  },
+  "thunder-shock": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "thunder-wave": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "tickle": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "tidy-up": {},
+  "topsy-turvy": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "torch-song": {
+    "protect": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "torment": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "bypasssub": 1,
+    "metronome": 1
+  },
+  "toxic": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "toxic-spikes": {
+    "reflectable": 1,
+    "nonsky": 1,
+    "metronome": 1,
+    "mustpressure": 1
+  },
+  "toxic-thread": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "trailblaze": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1
+  },
+  "transform": {
+    "allyanim": 1,
+    "failencore": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failmimic": 1,
+    "failinstruct": 1
+  },
+  "tri-attack": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "trick": {
+    "protect": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "noassist": 1,
+    "failcopycat": 1
+  },
+  "trick-or-treat": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "trick-room": {
+    "mirror": 1,
+    "metronome": 1
+  },
+  "triple-arrows": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "triple-axel": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "triple-dive": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "triple-kick": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "trop-kick": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "trump-card": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "twin-beam": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "twineedle": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "twinkle-tackle": {},
+  "twister": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "wind": 1
+  },
+  "upper-hand": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "uproar": {
+    "protect": 1,
+    "mirror": 1,
+    "sound": 1,
+    "bypasssub": 1,
+    "metronome": 1,
+    "nosleeptalk": 1,
+    "failinstruct": 1
+  },
+  "u-turn": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "vacuum-wave": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "v-create": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1
+  },
+  "veevee-volley": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1
+  },
+  "venom-drench": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "venoshock": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "victory-dance": {
+    "snatch": 1,
+    "dance": 1,
+    "metronome": 1
+  },
+  "vine-whip": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "vise-grip": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "vital-throw": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "volt-switch": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "volt-tackle": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "wake-up-slap": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "waterfall": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "water-gun": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "water-pledge": {
+    "protect": 1,
+    "mirror": 1,
+    "nonsky": 1,
+    "metronome": 1,
+    "pledgecombo": 1
+  },
+  "water-pulse": {
+    "protect": 1,
+    "mirror": 1,
+    "distance": 1,
+    "metronome": 1,
+    "pulse": 1
+  },
+  "water-shuriken": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "water-sport": {
+    "nonsky": 1,
+    "metronome": 1
+  },
+  "water-spout": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "wave-crash": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "weather-ball": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bullet": 1
+  },
+  "whirlpool": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "whirlwind": {
+    "reflectable": 1,
+    "mirror": 1,
+    "bypasssub": 1,
+    "allyanim": 1,
+    "metronome": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "wind": 1
+  },
+  "wicked-blow": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "punch": 1
+  },
+  "wicked-torque": {
+    "protect": 1,
+    "failencore": 1,
+    "failmefirst": 1,
+    "nosleeptalk": 1,
+    "noassist": 1,
+    "failcopycat": 1,
+    "failmimic": 1,
+    "failinstruct": 1,
+    "nosketch": 1
+  },
+  "wide-guard": {
+    "snatch": 1
+  },
+  "wildbolt-storm": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "wind": 1
+  },
+  "wild-charge": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "will-o-wisp": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "wing-attack": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "distance": 1,
+    "metronome": 1
+  },
+  "wish": {
+    "snatch": 1,
+    "heal": 1,
+    "metronome": 1
+  },
+  "withdraw": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "wonder-room": {
+    "mirror": 1,
+    "metronome": 1
+  },
+  "wood-hammer": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "work-up": {
+    "snatch": 1,
+    "metronome": 1
+  },
+  "worry-seed": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "allyanim": 1,
+    "metronome": 1
+  },
+  "wrap": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "wring-out": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "x-scissor": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "slicing": 1
+  },
+  "yawn": {
+    "protect": 1,
+    "reflectable": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "zap-cannon": {
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1,
+    "bullet": 1
+  },
+  "zen-headbutt": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "zing-zap": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1,
+    "metronome": 1
+  },
+  "zippy-zap": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1
+  },
+  "paleo-wave": {
+    "protect": 1,
+    "mirror": 1
+  },
+  "shadow-strike": {
+    "contact": 1,
+    "protect": 1,
+    "mirror": 1
+  },
+  "polar-flare": {
+    "protect": 1,
+    "mirror": 1,
+    "defrost": 1,
+    "nosketch": 1
+  }
+}

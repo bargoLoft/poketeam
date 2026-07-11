@@ -28,7 +28,7 @@ function PartyPanel({ party, partyMegas, setPartyMegas, partyBattleData, selecte
                   onToggleMega={(e, newForm) => {
                     e.stopPropagation();
                     const next = [...partyMegas];
-                    next[index] = next[index] === newForm ? null : newForm;
+                    next[index] = next[index] === newForm ? 'base' : newForm;
                     setPartyMegas(next);
                   }}
                   battleData={bData}

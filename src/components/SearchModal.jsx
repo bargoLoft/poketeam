@@ -80,15 +80,43 @@ function SearchModal({ pokemonList, battleFormat = 'Singles', onSelect, onClose,
               ×
             </button>
           </div>
-          <input
-            ref={searchRef}
-            className="modal__search"
-            type="text"
-            placeholder="포켓몬 이름을 검색하세요 (영문/한글 지원)..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            aria-label="포켓몬 검색"
-          />
+          <div style={{ position: 'relative', display: 'flex', alignItems: 'center', width: '100%' }}>
+            <input
+              ref={searchRef}
+              className="modal__search"
+              type="text"
+              placeholder="포켓몬 이름을 검색하세요 (영문/한글 지원)..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              aria-label="포켓몬 검색"
+              style={{ paddingRight: '40px' }}
+            />
+            {search && (
+              <button
+                onClick={() => setSearch('')}
+                style={{
+                  position: 'absolute',
+                  right: '12px',
+                  background: '#94a3b8',
+                  color: '#ffffff',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: '18px',
+                  height: '18px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '11px',
+                  cursor: 'pointer',
+                  padding: 0,
+                  lineHeight: 1
+                }}
+                title="검색어 지우기"
+              >
+                ✕
+              </button>
+            )}
+          </div>
           <div className="modal__tags">
             {TYPE_TAGS.map((tag) => (
               <button

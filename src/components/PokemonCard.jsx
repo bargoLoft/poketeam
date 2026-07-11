@@ -24,7 +24,7 @@ function PokemonCard({ pokemon, battleData, activeMega, onToggleMega, isSelected
     onToggleMega(e, form);
   };
 
-  const isMega = activeMega !== null;
+  const isMega = activeMega !== null && activeMega !== undefined && activeMega !== 'base' && activeMega !== false;
   const megaData = isMega ? megaDataCache[activeMega] : null;
 
   const spriteUrl = isMega && megaData ? megaData.spriteUrl : apiService.getSpriteUrl(pokemon.name);
@@ -150,7 +150,7 @@ function PokemonCard({ pokemon, battleData, activeMega, onToggleMega, isSelected
   if (isMega) {
     primaryItemDisplay = {
       sprite: getMegaStoneUrl(pokemon.name, activeMega),
-      name: `메가진화 (${activeMega.toUpperCase()})`,
+      name: activeMega === 'mega' ? '메가진화' : `메가진화 (${activeMega.toUpperCase()})`,
       isMegaIcon: true
     };
   } else if (topItems.length > 0) {
@@ -238,7 +238,7 @@ function PokemonCard({ pokemon, battleData, activeMega, onToggleMega, isSelected
                         key={form}
                         className={`mega-action-btn mega-action-btn--${form} ${activeMega === form ? 'active' : ''}`}
                         onClick={(e) => handleToggleMega(e, form)}
-                        title={`메가진화 ${form.toUpperCase()}`}
+                        title={form === 'mega' ? '메가진화' : `메가진화 ${form.toUpperCase()}`}
                       >
                         <img src={getMegaStoneUrl(pokemon.name, form)} alt={`mega-${form}`} className="mega-stone-icon" />
                       </button>

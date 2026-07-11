@@ -37,6 +37,48 @@ export const apiService = {
     }
   },
 
+  async fetchPokemonBasicInfo(pokemonName, isMega = null) {
+    let queryName = pokemonName.toLowerCase().replace(/ /g, '-');
+    if (isMega) {
+      if (isMega === 'X' || isMega === 'x') queryName += '-mega-x';
+      else if (isMega === 'Y' || isMega === 'y') queryName += '-mega-y';
+      else queryName += '-mega';
+    }
+    
+    // Check if it's a custom Radical Red mega (which might not exist in standard PokeAPI)
+    // If it fails, we fall back to the base form
+    try {
+      let response = await fetch(`https://pokeapi.co/api/v2/pokemon/${queryName}`);
+      if (!response.ok && isMega) {
+        // Fallback to base form if custom mega doesn't exist in PokeAPI
+        response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase().replace(/ /g, '-')}`);
+      }
+      if (!response.ok) return null;
+      
+      const data = await response.json();
+      return {
+        height: data.height / 10, // decimetres to meters
+        weight: data.weight / 10  // hectograms to kilograms
+      };
+    } catch (error) {
+      console.error('Failed to fetch basic info:', error);
+      return null;
+    }
+  },
+
+  async fetchPokemonLearnableMoves(pokemonName) {
+    let queryName = pokemonName.toLowerCase().replace(/ /g, '-');
+    try {
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${queryName}`);
+      if (!response.ok) return [];
+      const data = await response.json();
+      return (data.moves || []).map(m => m.move.name);
+    } catch (error) {
+      console.error(`Failed to fetch learnable moves for ${pokemonName}:`, error);
+      return [];
+    }
+  },
+
   getSpriteUrl(pokemonName) {
     return `${ASSETS_BASE_URL}/pokemon/${encodeURIComponent(pokemonName)}.png`;
   },
@@ -62,10 +104,20 @@ export const apiService = {
     "Terrain Extender": "그라운드코트", "Light Clay": "빛의점토", "Heat Rock": "뜨거운바위",
     "Smooth Rock": "보송보송바위", "Damp Rock": "축축한바위", "Icy Rock": "차가운바위",
     "Bright Powder": "반짝가루", "King's Rock": "왕의징표석", "Razor Claw": "예리한손톱",
-    "Protective Pads": "방호패드", "Ability Shield": "특성가드", "Punching Glove": "펀치글러브",
+    "Eject Pack": "탈출팩", "Red Card": "레드카드", "Room Service": "룸서비스",
+    "Blunder Policy": "허탕보험", "Protective Pads": "방호패드", "Grip Claw": "끈기갈고리손톱",
+    "Binding Band": "조임밴드", "Focus Band": "기합의머리띠", "Quick Claw": "선제공격손톱",
+    "Eject Button": "탈출버튼",
+    "Starapite": "찌르호크나이트", "Machampite": "괴력몬나이트", "Kinglerite": "킹크랩나이트",
+    "Laprasite": "라프라스나이트", "Snorlaxite": "잠만보나이트", "Garbodorite": "더스트나나이트",
+    "Butterfrite": "버터플나이트", "Corviknite": "아머까오나이트", "Orbeetlite": "이올브나이트",
+    "Drednawite": "갈가부기나이트", "Coalossalite": "석탄산나이트", "Flapplite": "애플룡나이트",
+    "Appletunite": "단지래플나이트", "Sandacondite": "사다이사나이트", "Centiskorchite": "다태우지네나이트",
+    "Hatterenite": "브림음나이트", "Grimmsnarlite": "오롱털나이트", "Alcremite": "마휘핑나이트",
+    "Copperajahite": "대왕끼리동나이트", "Duraludonite": "두랄루돈나이트",
+    "Ability Shield": "특성가드", "Punching Glove": "펀치글러브",
     "Fairy Feather": "페어리페더", "Wellspring Mask": "우물가면", "Hearthflame Mask": "화덕가면", 
-    "Cornerstone Mask": "주춧돌가면", "Ogerpon's Mask": "오거폰의가면", "Eject Pack": "탈출팩",
-    "Red Card": "레드카드", "Eject Button": "탈출버튼",
+    "Cornerstone Mask": "주춧돌가면", "Ogerpon's Mask": "오거폰의가면",
     // Mega Stones
     "Charizardite X": "리자몽나이트X", "Charizardite Y": "리자몽나이트Y", "Venusaurite": "이상해꽃나이트",
     "Blastoisinite": "거북왕나이트", "Alakazite": "후딘나이트", "Gengarite": "팬텀나이트",
@@ -176,14 +228,40 @@ export const apiService = {
       }
       const typeName = data.type.name;
       const capType = typeName.charAt(0).toUpperCase() + typeName.slice(1);
+
+      const koFlavor = data.flavor_text_entries?.find(f => f.language.name === 'ko')?.flavor_text?.replace(/\n|\f/g, ' ') || '';
+
+      const meta = data.meta || {};
+      const statChanges = (data.stat_changes || []).map(sc => ({
+        stat: sc.stat.name,
+        change: sc.change
+      }));
       
-      const result = { name: koName, type: capType, power: data.power || 0, damageClass: data.damage_class.name || 'status' };
+      const result = {
+        name: koName,
+        englishName: formattedName,
+        type: capType,
+        power: data.power || 0,
+        damageClass: data.damage_class.name || 'status',
+        accuracy: data.accuracy,
+        pp: data.pp,
+        priority: data.priority || 0,
+        minHits: meta.min_hits || null,
+        maxHits: meta.max_hits || null,
+        drain: meta.drain || 0,
+        statChanges,
+        flavorText: koFlavor,
+        category: meta.category ? meta.category.name : null,
+        ailment: meta.ailment ? meta.ailment.name : 'none',
+        statChance: meta.stat_chance || 0,
+        ailmentChance: meta.ailment_chance || 0,
+      };
       this._cache.moves[moveName] = result;
       return result;
     } catch (error) {
       console.warn(`Error fetching move info for ${moveName}:`, error);
       const fallbackName = this._moveTranslationPatch[moveName] || moveName;
-      return { name: fallbackName, type: 'Normal', power: 0, damageClass: 'status' };
+      return { name: fallbackName, type: 'Normal', power: 0, damageClass: 'status', accuracy: null, pp: 0, priority: 0, minHits: null, maxHits: null, drain: 0, statChanges: [], flavorText: '' };
     }
   },
 };
