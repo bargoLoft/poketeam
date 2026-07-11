@@ -27,9 +27,10 @@ const TYPE_CHART = {
  * @returns {number} The multiplier (e.g., 0, 0.5, 1, 2, 4)
  */
 export function getEffectiveness(attackType, defendTypes) {
-  if (!defendTypes || defendTypes.length === 0) return 1;
+  const safeDefendTypes = Array.isArray(defendTypes) ? defendTypes : (defendTypes ? [defendTypes] : []);
+  if (safeDefendTypes.length === 0) return 1;
   let multiplier = 1;
-  for (const defType of defendTypes) {
+  for (const defType of safeDefendTypes) {
     if (TYPE_CHART[attackType] && TYPE_CHART[attackType][defType] !== undefined) {
       multiplier *= TYPE_CHART[attackType][defType];
     }
@@ -44,6 +45,7 @@ export function getEffectiveness(attackType, defendTypes) {
  * @returns {Object} { score, details }
  */
 export function getOffensiveCoverageDetails(myTypes, oppPokemonList) {
+  const safeMyTypes = Array.isArray(myTypes) ? myTypes : (myTypes ? [myTypes] : []);
   let score = 0;
   let details = [];
   
@@ -51,7 +53,7 @@ export function getOffensiveCoverageDetails(myTypes, oppPokemonList) {
     let bestMultiplier = 1;
     let bestType = null;
     
-    for (const myType of myTypes) {
+    for (const myType of safeMyTypes) {
       const multiplier = getEffectiveness(myType, opp.types);
       if (multiplier > bestMultiplier) {
         bestMultiplier = multiplier;
@@ -85,6 +87,7 @@ export function getOffensiveCoverageDetails(myTypes, oppPokemonList) {
  * @returns {Object} { score, details }
  */
 export function getDefensiveWeaknessDetails(myTypes, oppPokemonList) {
+  const safeMyTypes = Array.isArray(myTypes) ? myTypes : (myTypes ? [myTypes] : []);
   let score = 0;
   let details = [];
   
@@ -123,6 +126,7 @@ export function getDefensiveWeaknessDetails(myTypes, oppPokemonList) {
  * @returns {Object} { score, details }
  */
 export function getDefensiveResistanceDetails(myTypes, oppPokemonList) {
+  const safeMyTypes = Array.isArray(myTypes) ? myTypes : (myTypes ? [myTypes] : []);
   let score = 0;
   let details = [];
   

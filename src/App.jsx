@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { apiService } from './services/apiService';
 import PartyPanel from './components/PartyPanel';
 import DetailPanel from './components/DetailPanel';
@@ -15,6 +15,8 @@ function App() {
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [selectedPokemonName, setSelectedPokemonName] = useState(null);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('matchup');
+  const matchupRef = useRef(null);
   
   // API State
   const [indexData, setIndexData] = useState(null);
@@ -285,6 +287,16 @@ function App() {
     }));
   }, [selectedPokemonName, party, opponentParty]);
 
+  const handleRandomSetup = useCallback(() => {
+    if (!indexData || !indexData.pokemon) return;
+    const topPokemon = indexData.pokemon.slice(0, 100);
+    const shuffled = [...topPokemon].sort(() => 0.5 - Math.random());
+    setParty(shuffled.slice(0, 6));
+    setOpponentParty(shuffled.slice(6, 12));
+    setPartyMegas([null, null, null, null, null, null]);
+    setOpponentPartyMegas([null, null, null, null, null, null]);
+  }, [indexData]);
+
   if (isLoading) return <LoadingSpinner />;
   if (error) return <div className="error-state">{error}</div>;
 
@@ -336,6 +348,10 @@ function App() {
           partyBattleData={partyBattleData}
           allPokemon={indexData?.pokemon || []}
           indexData={indexData}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          matchupRef={matchupRef}
+          onRandomSetup={handleRandomSetup}
         />
       </div>
 

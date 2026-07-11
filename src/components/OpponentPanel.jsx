@@ -34,7 +34,7 @@ const getBackgroundStyle = (pokemon) => {
   return undefined;
 };
 
-function OpponentPanel({ opponentParty, setOpponentParty, opponentPartyMegas, setOpponentPartyMegas, pokemonList, partyBattleData, onCardClick }) {
+function OpponentPanel({ opponentParty, setOpponentParty, opponentPartyMegas, setOpponentPartyMegas, pokemonList, partyBattleData, selectedPokemonName, onCardClick }) {
   const [currentPage, setCurrentPage] = React.useState(1);
   const [searchQuery, setSearchQuery] = React.useState('');
   const itemsPerPage = 50;
@@ -118,7 +118,12 @@ function OpponentPanel({ opponentParty, setOpponentParty, opponentPartyMegas, se
       {selectedCount === 6 ? (
         <div className="party-panel__slots">
           {opponentParty.map((pokemon, index) => (
-            <div key={`opp-slot-${index}`} className="party-panel__slot-wrapper">
+            <div 
+              key={`opp-slot-${index}`} 
+              className="party-panel__slot-wrapper"
+              draggable={!!pokemon}
+              onDragStart={pokemon ? (e) => { e.dataTransfer.setData('pokemon', JSON.stringify({ name: pokemon.name, side: 'opp' })); } : undefined}
+            >
             {pokemon ? (() => {
               const form = opponentPartyMegas[index];
               const bData = partyBattleData ? partyBattleData[pokemon.name] : null;
@@ -133,9 +138,9 @@ function OpponentPanel({ opponentParty, setOpponentParty, opponentPartyMegas, se
                     setOpponentPartyMegas(next);
                   }}
                   battleData={bData}
-                  isSelected={false}
+                  isSelected={selectedPokemonName === pokemon.name}
                   onClick={() => onCardClick(pokemon.name)}
-                  onRemove={() => handleRemove(index)}
+                  onRemove={(e) => handleRemove(index)}
                 />
               );
             })() : null}

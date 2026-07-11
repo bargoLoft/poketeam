@@ -17,7 +17,12 @@ function PartyPanel({ party, partyMegas, setPartyMegas, partyBattleData, selecte
 
       <div className="party-panel__slots">
         {party.map((pokemon, index) => (
-          <div key={`slot-${index}`} className="party-panel__slot-wrapper">
+          <div 
+            key={`slot-${index}`} 
+            className="party-panel__slot-wrapper"
+            draggable={!!pokemon}
+            onDragStart={pokemon ? (e) => { e.dataTransfer.setData('pokemon', JSON.stringify({ name: pokemon.name, side: 'my' })); } : undefined}
+          >
             {pokemon ? (() => {
               const form = partyMegas[index];
               const bData = partyBattleData[pokemon.name];

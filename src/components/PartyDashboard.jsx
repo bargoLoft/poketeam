@@ -6,9 +6,9 @@ import { getOffensiveCoverageDetails, getDefensiveWeaknessDetails, getDefensiveR
 import { getPokeApiTypeIconUrl, getTypeKo } from '../data/typeColors';
 import typeColors from '../data/typeColors';
 import { getPokemonKo } from '../data/pokemonNamesKo';
+import BattleMatchup from './BattleMatchup';
 
-export default function PartyDashboard({ party, opponentParty, partyMegas, opponentPartyMegas, battleFormat, setBattleFormat, partyBattleData, allPokemon, indexData }) {
-  const [activeTab, setActiveTab] = useState('matchup');
+export default function PartyDashboard({ party, opponentParty, partyMegas, opponentPartyMegas, battleFormat, setBattleFormat, partyBattleData, allPokemon, indexData, activeTab, setActiveTab, matchupRef, onRandomSetup }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSpeedExpanded, setIsSpeedExpanded] = useState(true);
   const [isSpeedHovered, setIsSpeedHovered] = useState(false);
@@ -451,10 +451,31 @@ export default function PartyDashboard({ party, opponentParty, partyMegas, oppon
 
   if (activeParty.length === 0 && activeOpponents.length === 0) {
     return (
-      <div className="party-dashboard">
-        <div className="dashboard-empty" style={{ marginTop: '20px' }}>
+      <div className="party-dashboard" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <div className="dashboard-empty" style={{ marginTop: '20px', textAlign: 'center' }}>
           <span className="dashboard-empty-icon">👈</span>
           <p>포켓몬을 추가하면 선출 분석과 스피드 비교가 시작됩니다.</p>
+          <button 
+            onClick={onRandomSetup}
+            style={{
+              marginTop: '16px',
+              padding: '10px 20px',
+              fontSize: '0.9rem',
+              fontWeight: 'bold',
+              color: 'white',
+              background: 'linear-gradient(135deg, #3b82f6, #2563eb)',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              boxShadow: '0 4px 6px rgba(37, 99, 235, 0.2)',
+              transition: 'transform 0.1s ease',
+            }}
+            onMouseDown={e => e.currentTarget.style.transform = 'scale(0.96)'}
+            onMouseUp={e => e.currentTarget.style.transform = 'scale(1)'}
+            onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+          >
+            🎲 랜덤 세팅으로 체험하기
+          </button>
         </div>
       </div>
     );
@@ -462,9 +483,47 @@ export default function PartyDashboard({ party, opponentParty, partyMegas, oppon
 
   return (
     <div className="party-dashboard" style={{ paddingTop: '8px', paddingBottom: '0', gap: '0', position: 'relative', overflow: 'hidden' }}>
-      
-      {indexData && indexData.generatedAt && (
-        <div style={{ padding: '0 16px 12px 16px', display: 'flex', justifyContent: 'flex-end' }}>
+
+      {/* ── Tab Toggle ── */}
+      <div style={{ display: 'flex', gap: 0, padding: '0 16px 10px 16px', borderBottom: '1px solid rgba(0,0,0,0.07)' }}>
+        {['선출 분석', '대면 분석'].map(tab => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab === '선출 분석' ? 'matchup' : 'battle')}
+            style={{
+              flex: 1, padding: '7px 0', fontSize: '0.78rem', fontWeight: 'bold',
+              border: 'none', cursor: 'pointer',
+              borderBottom: (tab === '선출 분석' ? activeTab === 'matchup' : activeTab === 'battle')
+                ? '2.5px solid #0f172a' : '2.5px solid transparent',
+              background: 'transparent',
+              color: (tab === '선출 분석' ? activeTab === 'matchup' : activeTab === 'battle') ? '#0f172a' : '#94a3b8',
+              transition: 'all 0.15s ease'
+            }}
+          >
+            {tab === '선출 분석' ? '📊 선출 분석' : '⚔ 대면 분석'}
+          </button>
+        ))}
+      </div>
+
+      {/* ── Battle Matchup ── */}
+      {activeTab === 'battle' && (
+        <div style={{ flex: 1, overflowY: 'auto', padding: '0 12px', scrollbarWidth: 'none' }}>
+          <BattleMatchup
+            ref={matchupRef}
+            party={party}
+            partyMegas={partyMegas}
+            opponentParty={opponentParty}
+            opponentPartyMegas={opponentPartyMegas}
+            partyBattleData={partyBattleData}
+            allPokemon={allPokemon}
+            battleFormat={battleFormat}
+            setBattleFormat={setBattleFormat}
+          />
+        </div>
+      )}
+
+      {activeTab !== 'battle' && indexData && indexData.generatedAt && (
+        <div style={{ padding: '0 16px 8px 16px', display: 'flex', justifyContent: 'flex-end' }}>
           <div style={{ fontSize: '0.75rem', color: 'var(--text-color)', opacity: 0.6, textAlign: 'right', lineHeight: '1.4' }}>
             <span style={{ fontWeight: 'bold' }}>시즌:</span> {indexData.defaultSeason || 'Current'}<br/>
             <span style={{ fontWeight: 'bold' }}>데이터 업데이트:</span> {new Date(indexData.generatedAt).toLocaleString()}
@@ -472,7 +531,7 @@ export default function PartyDashboard({ party, opponentParty, partyMegas, oppon
         </div>
       )}
 
-      <div className="dashboard-content" style={{ flex: 1, display: 'flex', flexDirection: 'column', position: 'relative', zIndex: 10, height: '100%', overflowY: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+      <div className="dashboard-content" style={{ flex: 1, display: activeTab === 'battle' ? 'none' : 'flex', flexDirection: 'column', position: 'relative', zIndex: 10, height: '100%', overflowY: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
         <style>{`.dashboard-content::-webkit-scrollbar { display: none; }`}</style>
         
         <div className="selection-analysis" style={{ paddingBottom: '24px' }}>
@@ -494,7 +553,20 @@ export default function PartyDashboard({ party, opponentParty, partyMegas, oppon
             {ourLeadRecommendation.length > 0 ? (
               <div className="lead-prediction-list">
                 {ourLeadRecommendation.map((lead, idx) => (
-                  <div key={idx} className="lead-item">
+                  <div 
+                    key={idx} 
+                    className="lead-item" 
+                    draggable 
+                    onDragStart={(e) => {
+                      e.dataTransfer.setData('pokemon', JSON.stringify({ name: lead.pokemon.name }));
+                      setTimeout(() => setActiveTab('battle'), 50);
+                    }}
+                    onClick={() => {
+                      matchupRef.current?.addPokemon(lead.pokemon, 'my');
+                      setActiveTab('battle');
+                    }}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <div className="lead-rank">#{idx + 1}</div>
                     <img src={getSprite(lead.pokemon, lead.form)} alt={lead.pokemon.name} className="lead-sprite" />
                                         <div className="lead-info" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center', gap: '8px' }}>
@@ -548,7 +620,20 @@ export default function PartyDashboard({ party, opponentParty, partyMegas, oppon
             {leadPrediction.length > 0 ? (
               <div className="lead-prediction-list">
                 {leadPrediction.map((lead, idx) => (
-                  <div key={idx} className="lead-item">
+                  <div 
+                    key={idx} 
+                    className="lead-item"
+                    draggable 
+                    onDragStart={(e) => {
+                      e.dataTransfer.setData('pokemon', JSON.stringify({ name: lead.pokemon.name }));
+                      setTimeout(() => setActiveTab('battle'), 50);
+                    }}
+                    onClick={() => {
+                      matchupRef.current?.addPokemon(lead.pokemon, 'opp');
+                      setActiveTab('battle');
+                    }}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <div className="lead-rank">#{idx + 1}</div>
                     <img src={getSprite(lead.pokemon, lead.form)} alt={lead.pokemon.name} className="lead-sprite" />
                                         <div className="lead-info" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center', gap: '8px' }}>
@@ -597,7 +682,6 @@ export default function PartyDashboard({ party, opponentParty, partyMegas, oppon
           </div>
         </div>
       </div>
-    </div>
 
       {/* Fixed Bottom Speed Tier */}
       <div 
@@ -655,6 +739,7 @@ export default function PartyDashboard({ party, opponentParty, partyMegas, oppon
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

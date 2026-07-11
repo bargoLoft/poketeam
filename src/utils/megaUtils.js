@@ -59,6 +59,7 @@ export const megaForms = {
   // Custom M-B Season Megas
   'Staraptor': ['mega'],
   'Raichu': ['x', 'y'],
+  'Starmie': ['mega'],
 };
 
 // Custom Database for M-B Season Megas (Fallback/Override)
@@ -79,6 +80,12 @@ const customMegasData = {
     spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/26.png', 
     types: ['Electric', 'Fairy'],
     baseStats: { hp: 60, attack: 90, defense: 65, sp_attack: 130, sp_defense: 90, speed: 130 }
+  },
+  'starmie-mega': {
+    spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/121.png', 
+    types: ['Water', 'Psychic'],
+    baseStats: { hp: 60, attack: 75, defense: 85, sp_attack: 140, sp_defense: 105, speed: 135 },
+    abilityEng: 'analytic' // Placeholder
   }
 };
 

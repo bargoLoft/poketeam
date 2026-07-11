@@ -23,12 +23,13 @@ export const defensiveMatchups = {
 
 // 특정 타입 조합의 방어 배율 계산
 export function getDefensiveMultiplier(types) {
+  const safeTypes = Array.isArray(types) ? types : (types ? [types] : []);
   const allTypes = Object.keys(defensiveMatchups);
   const multipliers = {};
   
   allTypes.forEach(attackType => {
     let mult = 1;
-    types.forEach(defType => {
+    safeTypes.forEach(defType => {
       if (defensiveMatchups[defType] && defensiveMatchups[defType][attackType] !== undefined) {
         mult *= defensiveMatchups[defType][attackType];
       }

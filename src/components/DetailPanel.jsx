@@ -10,12 +10,14 @@ import { natureTranslations, natureStatsMap } from '../data/natureData';
 import { damageItems } from '../data/itemBoostData';
 import { abilityBoosts } from '../data/abilityBoostData';
 import moveFlagsData from '../data/moveFlags.json';
+import { calcDamageRange } from '../utils/damageCalc';
 import LoadingSpinner from './LoadingSpinner';
+import TopAbilitiesBox from './TopAbilitiesBox';
 
 /** Convert PokéChamp stat points → traditional EV: max(0, P*8 - 4) */
 const champToEv = (points) => Math.max(0, (points || 0) * 8 - 4);
 
-function DetailPanel({ pokemon, activeMega, onToggleMega, allPokemon, battleFormat, setBattleFormat, onSuggestionClick }) {
+function DetailPanel({ pokemon, activeMega, onToggleMega, allPokemon, battleFormat, setBattleFormat, onSuggestionClick, isMatchupMode = false, oppStats = null, oppTypes = [], oppAbilityKo = '', oppItemName = '' }) {
   const [battleData, setBattleData] = useState(null);
   const [moveDetails, setMoveDetails] = useState({});
   const [itemNames, setItemNames] = useState({});
@@ -984,6 +986,11 @@ function DetailPanel({ pokemon, activeMega, onToggleMega, allPokemon, battleForm
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(0,0,0,0.05)', paddingBottom: '6px' }}>
               <h3 style={{ margin: 0, fontSize: '0.9rem', color: 'var(--accent-primary)', display: 'flex', alignItems: 'center', gap: '6px' }}>
                 📊 스탯 계산기
+                {isMatchupMode && oppStats && (
+                  <span style={{ marginLeft: '8px', fontSize: '0.75rem', padding: '2px 6px', borderRadius: '4px', background: calcSpe > oppStats.spe ? '#dcfce7' : (calcSpe < oppStats.spe ? '#fee2e2' : '#f1f5f9'), color: calcSpe > oppStats.spe ? '#15803d' : (calcSpe < oppStats.spe ? '#b91c1c' : '#475569') }}>
+                    {calcSpe > oppStats.spe ? '⚡ 스피드 우위' : (calcSpe < oppStats.spe ? '🐢 스피드 열세' : '🤝 스피드 동률')}
+                  </span>
+                )}
               </h3>
             </div>
             
@@ -1375,41 +1382,15 @@ function DetailPanel({ pokemon, activeMega, onToggleMega, allPokemon, battleForm
           </div>
 
           {/* Abilities */}
-          <div className="dp2-section" style={{ flex: 1 }}>
-            <h3 className="dp2-section-title">✨ 주요 특성</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              {topAbilities.slice(0, 3).map((ab, idx) => {
-                const info = abilityNames[ab.name] || {};
-                const pct = getPct(ab);
-                const pctStyle = getPctStyle(pct);
-                const abBadges = getAbilityBadges(ab.name);
-                return (
-                  <div key={idx} style={{ display: 'flex', flexDirection: 'column', background: 'rgba(0,0,0,0.02)', padding: '6px 8px', borderRadius: '6px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                      <span style={{ fontWeight: 'bold', fontSize: '0.85rem', color: '#3b82f6' }}>{info.name || ab.name}</span>
-                      {abBadges && (
-                        <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
-                          {abBadges.map((b, bIdx) => (
-                            <span key={bIdx} style={{ fontSize: '0.65rem', padding: '2px 6px', background: b.color, color: b.textColor || '#fff', borderRadius: '4px', fontWeight: 'bold', border: b.textColor ? '1px solid #cbd5e1' : 'none' }}>
-                              {b.text}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                      {!abBadges && (info.flavor || info.flavorText) && (
-                        <span style={{ fontSize: '0.7rem', color: '#64748b' }}>{(info.flavor || info.flavorText).replace(/\n|\f/g, ' ')}</span>
-                      )}
-                      <span style={{ marginLeft: 'auto', fontSize: '0.75rem', ...pctStyle }}>{pct.toFixed(1)}%</span>
-                    </div>
-                  </div>
-                );
-              })}
-              {topAbilities.length === 0 && <div style={{textAlign:'center', padding:'8px', color:'#94a3b8', fontSize:'0.8rem'}}>데이터 없음</div>}
-            </div>
-          </div>
+          <TopAbilitiesBox topAbilities={topAbilities} containerStyle={{ flex: 1 }} />
         </div>
 
         {/* ===== ROW 2: MOVES (Split into Attack and Status) ===== */}
+        {isMatchupMode && oppStats && (
+           <div style={{ fontSize: '0.75rem', background: '#fef3c7', padding: '6px 10px', borderRadius: '6px', color: '#b45309', border: '1px solid #fde68a', marginTop: '4px' }}>
+             💡 <b>대면 분석 모드:</b> 공격 기술의 데미지는 상대 포켓몬의 <b>스탯 계산기 기준 물리/특수 내구</b>를 바탕으로 산출됩니다.
+           </div>
+        )}
         <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
           
           {/* ATTACK MOVES */}
@@ -1633,50 +1614,91 @@ function DetailPanel({ pokemon, activeMega, onToggleMega, allPokemon, battleForm
                       standardDmg = Math.floor(baseDmg * top1Mult);
                     }
 
-                    const notes = info.power > 0 ? getMoveNotes(info) : [];
+                      // Apply Matchup Damage Calculation
+                      let matchupDamage = null;
+                      if (isMatchupMode && oppStats && info.power > 0) {
+                        matchupDamage = calcDamageRange({
+                          power: getMoveTotalPower(info),
+                          moveType: info.type,
+                          damageClass: info.damageClass,
+                          attackerAtk: stat, // This already has stat stages applied
+                          defenderDef: isPhysicalMove ? oppStats.def : oppStats.spd,
+                          defenderHP: oppStats.hp,
+                          attackerTypes: types,
+                          defenderTypes: oppTypes,
+                          abilityKo: activeAbilityMeta ? Object.keys(abilityBoosts).find(k => abilityBoosts[k].type === activeAbilityMeta.type && abilityBoosts[k].mult === activeAbilityMeta.mult) : '', // Approximation, but since finalAtk handles basic boosts, maybe empty is fine. Or use top1 ability
+                          itemName: topItems.length > 0 ? topItems[0].name : '',
+                          moveEngName: info.englishName
+                        });
+                      }
 
-                    return (
-                      <tr key={idx}>
-                        <td>
-                          <img src={getPokeApiTypeIconUrl(info.type)} alt={info.type} title={getTypeKo(info.type)} className="dp2-move-type-icon" />
-                        </td>
-                        <td>
-                          <div className="dp2-move-name-cell" style={{ position: 'relative' }}>
-                            <span className={`dp2-move-name ${isStab ? 'dp2-stab' : ''}`} style={{ color: nameColor, fontWeight: 'bold' }}>
-                              {info.damageClass === 'physical' && '⚔ '}
-                              {info.damageClass === 'special' && '✦ '}
-                              {info.name || m.name}
-                            </span>
-                            {info.priority !== 0 && (
-                              <span className={`dp2-priority-badge ${info.priority > 0 ? 'dp2-priority-plus' : 'dp2-priority-minus'}`}>
-                                {info.priority > 0 ? `+${info.priority}` : info.priority}
+                      const notes = info.power > 0 ? getMoveNotes(info) : [];
+
+                      return (
+                        <tr key={idx}>
+                          <td>
+                            <img src={getPokeApiTypeIconUrl(info.type)} alt={info.type} title={getTypeKo(info.type)} className="dp2-move-type-icon" />
+                          </td>
+                          <td>
+                            <div className="dp2-move-name-cell" style={{ position: 'relative' }}>
+                              <span className={`dp2-move-name ${isStab ? 'dp2-stab' : ''}`} style={{ color: nameColor, fontWeight: 'bold' }}>
+                                {info.damageClass === 'physical' && '⚔ '}
+                                {info.damageClass === 'special' && '✦ '}
+                                {info.name || m.name}
                               </span>
-                            )}
-                            {pct > 0 ? (
-                              <span className="dp2-move-pct" style={pctStyle}>{pct.toFixed(1)}%</span>
-                            ) : (
-                              <span className="dp2-move-pct" style={{ ...pctStyle, color: '#94a3b8' }}>순위 외</span>
-                            )}
-                          </div>
-                        </td>
-                        <td style={{fontSize:'0.8rem', color: powerColor, fontWeight: info.power >= 80 ? 'bold' : 'normal'}}>
-                          {info.power > 0 ? getMovePowerDisplay(info) : '-'}
-                        </td>
-                        <td style={{fontSize:'0.75rem', color: info.accuracy && info.accuracy < 100 ? '#f97316' : '#64748b'}}>
-                          {info.accuracy ?? '-'}
-                        </td>
-                        <td style={{padding: '4px', position: 'relative'}}>
-                          {standardDmg ? (
-                            <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', paddingLeft: '8px', width: '100%', minHeight: '28px' }}>
-                              <div className="dp2-move-bar-bg" style={{ borderRadius: '6px' }}>
-                                <div className="dp2-move-bar-fill" style={{ width: `${Math.min((standardDmg / 50000) * 100, 100)}%`, background: `${typeColors[info.type] || '#94a3b8'}40`, borderRadius: '6px' }} />
-                              </div>
-                              <div className="dp2-dmg-group" style={{ position: 'relative', zIndex: 1 }}>
-                                <div className="dp2-dmg-base">{standardDmg.toLocaleString()}</div>
-                              </div>
+                              {info.priority !== 0 && (
+                                <span className={`dp2-priority-badge ${info.priority > 0 ? 'dp2-priority-plus' : 'dp2-priority-minus'}`}>
+                                  {info.priority > 0 ? `+${info.priority}` : info.priority}
+                                </span>
+                              )}
+                              {pct > 0 ? (
+                                <span className="dp2-move-pct" style={pctStyle}>{pct.toFixed(1)}%</span>
+                              ) : (
+                                <span className="dp2-move-pct" style={{ ...pctStyle, color: '#94a3b8' }}>순위 외</span>
+                              )}
                             </div>
-                          ) : '-'}
-                        </td>
+                          </td>
+                          <td style={{fontSize:'0.8rem', color: powerColor, fontWeight: info.power >= 80 ? 'bold' : 'normal'}}>
+                            {info.power > 0 ? getMovePowerDisplay(info) : '-'}
+                          </td>
+                          <td style={{fontSize:'0.75rem', color: info.accuracy && info.accuracy < 100 ? '#f97316' : '#64748b'}}>
+                            {info.accuracy ?? '-'}
+                          </td>
+                          <td style={{padding: '4px', position: 'relative'}}>
+                            {isMatchupMode && oppStats && matchupDamage ? (
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', width: '100%' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                  <span style={{ fontSize: '0.85rem', fontWeight: 'bold', color: matchupDamage.minPct >= 100 ? '#dc2626' : '#1e293b' }}>
+                                    {matchupDamage.minPct}% ~ {matchupDamage.maxPct}%
+                                  </span>
+                                  <span style={{ fontSize: '0.65rem', padding: '1px 4px', borderRadius: '4px', fontWeight: 'bold', 
+                                    background: matchupDamage.koMin === 1 ? '#fee2e2' : (matchupDamage.koMax === 1 ? '#ffedd5' : '#f1f5f9'), 
+                                    color: matchupDamage.koMin === 1 ? '#dc2626' : (matchupDamage.koMax === 1 ? '#c2410c' : '#64748b') 
+                                  }}>
+                                    {matchupDamage.isImmune ? '효과 없음' : 
+                                     matchupDamage.koMin === 1 ? '확정 1타' : 
+                                     matchupDamage.koMax === 1 ? '난수 1타' : 
+                                     matchupDamage.koMin === 2 ? '확정 2타' :
+                                     matchupDamage.koMax === 2 ? '난수 2타' : '3타 이상'}
+                                  </span>
+                                </div>
+                                <div style={{ width: '100%', height: '4px', background: '#e2e8f0', borderRadius: '2px', overflow: 'hidden' }}>
+                                  <div style={{ width: `${Math.min(matchupDamage.maxPct, 100)}%`, height: '100%', background: matchupDamage.minPct >= 100 ? '#dc2626' : '#f59e0b' }} />
+                                </div>
+                              </div>
+                            ) : (
+                              standardDmg ? (
+                                <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', paddingLeft: '8px', width: '100%', minHeight: '28px' }}>
+                                  <div className="dp2-move-bar-bg" style={{ borderRadius: '6px' }}>
+                                    <div className="dp2-move-bar-fill" style={{ width: `${Math.min((standardDmg / 50000) * 100, 100)}%`, background: `${typeColors[info.type] || '#94a3b8'}40`, borderRadius: '6px' }} />
+                                  </div>
+                                  <div className="dp2-dmg-group" style={{ position: 'relative', zIndex: 1 }}>
+                                    <div className="dp2-dmg-base">{standardDmg.toLocaleString()}</div>
+                                  </div>
+                                </div>
+                              ) : '-'
+                            )}
+                          </td>
                         <td>
                           <div className="dp2-notes-cell">
                             {notes.map((n, i) => (
