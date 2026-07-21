@@ -485,7 +485,7 @@ export default function PartyDashboard({ party, opponentParty, partyMegas, oppon
     <div className="party-dashboard" style={{ paddingTop: '8px', paddingBottom: '0', gap: '0', position: 'relative', overflow: 'hidden' }}>
 
       {/* ── Tab Toggle ── */}
-      <div style={{ display: 'flex', gap: 0, padding: '0 16px 10px 16px', borderBottom: '1px solid rgba(0,0,0,0.07)' }}>
+      <div style={{ display: 'flex', gap: 0, padding: '0 8px 0 8px', borderBottom: '1px solid rgba(0,0,0,0.07)' }}>
         {['선출 분석', '대면 분석'].map(tab => (
           <button
             key={tab}
@@ -507,7 +507,7 @@ export default function PartyDashboard({ party, opponentParty, partyMegas, oppon
 
       {/* ── Battle Matchup ── */}
       {activeTab === 'battle' && (
-        <div style={{ flex: 1, overflowY: 'auto', padding: '0 12px', scrollbarWidth: 'none' }}>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '0 4px', scrollbarWidth: 'none' }}>
           <BattleMatchup
             ref={matchupRef}
             party={party}
@@ -523,7 +523,7 @@ export default function PartyDashboard({ party, opponentParty, partyMegas, oppon
       )}
 
       {activeTab !== 'battle' && indexData && indexData.generatedAt && (
-        <div style={{ padding: '0 16px 8px 16px', display: 'flex', justifyContent: 'flex-end' }}>
+        <div style={{ padding: '0 8px 8px 8px', display: 'flex', justifyContent: 'flex-end' }}>
           <div style={{ fontSize: '0.75rem', color: 'var(--text-color)', opacity: 0.6, textAlign: 'right', lineHeight: '1.4' }}>
             <span style={{ fontWeight: 'bold' }}>시즌:</span> {indexData.defaultSeason || 'Current'}<br/>
             <span style={{ fontWeight: 'bold' }}>데이터 업데이트:</span> {new Date(indexData.generatedAt).toLocaleString()}
@@ -686,12 +686,12 @@ export default function PartyDashboard({ party, opponentParty, partyMegas, oppon
       {/* Fixed Bottom Speed Tier */}
       <div 
         className="analysis-section" 
-        style={{ flexShrink: 0, padding: '0 16px 0 16px', position: 'relative', zIndex: isSpeedHovered ? 20 : 5 }}
+        style={{ flexShrink: 0, padding: '0 8px 0 8px', position: 'relative', zIndex: isSpeedHovered ? 20 : 5 }}
         onMouseEnter={() => setIsSpeedHovered(true)}
         onMouseLeave={() => setIsSpeedHovered(false)}
       >
         <h3 className="section-title" style={{ marginTop: '0px', marginBottom: '0' }}>스피드 비교</h3>
-        <div className="speed-tier-content" style={{ background: 'var(--glass-bg)', padding: '2px 16px 2px 16px', borderRadius: '12px', border: '1px solid var(--glass-border)' }}>
+        <div className="speed-tier-content" style={{ background: 'var(--glass-bg)', padding: '2px 8px 2px 8px', borderRadius: '12px', border: '1px solid var(--glass-border)' }}>
           <div className="horizontal-speed-track" style={{ height: '136px', margin: '0 0 22px 0', padding: '0' }}>
             <div className="speed-axis-line"></div>
             

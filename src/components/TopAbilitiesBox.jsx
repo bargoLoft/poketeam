@@ -12,14 +12,7 @@ const getPctStyle = (pct) => {
 };
 
 const getAbilityBadges = (abilityName) => {
-  const b = abilityBoosts[abilityName];
-  if (!b) return null;
-  const badges = [];
-  if (b.badge) badges.push({ text: b.badge, color: '#f59e0b', textColor: '#fff' });
-  if (b.type === 'stab') badges.push({ text: '자속 뻥튀기', color: '#3b82f6' });
-  if (b.type === 'skin') badges.push({ text: '타입 변환', color: '#8b5cf6' });
-  if (b.type === 'power' || b.type === 'stat') badges.push({ text: '결정력+', color: '#ef4444' });
-  return badges.length > 0 ? badges : null;
+  return [];
 };
 
 export default function TopAbilitiesBox({ topAbilities, title = "✨ 주요 특성", titleStyle = {}, containerStyle = { marginTop: '8px' }, activeAbilityName }) {
@@ -46,7 +39,6 @@ export default function TopAbilitiesBox({ topAbilities, title = "✨ 주요 특�
   if ((!topAbilities || topAbilities.length === 0) && !activeAbilityName) {
     return (
       <div style={containerStyle}>
-        <h3 className="dp2-section-title" style={titleStyle}>{title}</h3>
         <div style={{textAlign:'center', padding:'8px', color:'#94a3b8', fontSize:'0.8rem'}}>데이터 없음</div>
       </div>
     );
@@ -58,12 +50,12 @@ export default function TopAbilitiesBox({ topAbilities, title = "✨ 주요 특�
 
   return (
     <div style={containerStyle}>
-      <h3 className="dp2-section-title" style={titleStyle}>{title}</h3>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
         {abilitiesToRender.map((ab, idx) => {
           const info = abilityNames[ab.name] || {};
-          const pct = ab.isOverride ? (ab.percentage ? parseFloat(ab.percentage) : null) : getPct(ab);
-          const pctStyle = pct !== null ? getPctStyle(pct) : {};
+          const pctVal = ab.isOverride ? (ab.percentage ? parseFloat(ab.percentage) : 100) : getPct(ab);
+          const pct = pctVal || (topAbilities?.length === 1 ? 100 : pctVal);
+          const pctStyle = getPctStyle(pct);
           const abBadges = getAbilityBadges(ab.name);
           return (
             <div 
@@ -76,7 +68,7 @@ export default function TopAbilitiesBox({ topAbilities, title = "✨ 주요 특�
             >
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <span style={{ fontWeight: 'bold', fontSize: '0.85rem', color: '#3b82f6' }}>{info.name || ab.name}</span>
-                {pct !== null && <span style={{ fontSize: '0.75rem', ...pctStyle }}>{pct.toFixed(1)}%</span>}
+                <span style={{ fontSize: '0.75rem', ...pctStyle }}>{Math.round(pct)}%</span>
               </div>
               <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', marginTop: '4px' }}>
                 {abBadges && abBadges.map((b, bIdx) => (
@@ -84,8 +76,8 @@ export default function TopAbilitiesBox({ topAbilities, title = "✨ 주요 특�
                     {b.text}
                   </span>
                 ))}
-                {!abBadges && (info.flavor || info.flavorText) && (
-                  <span style={{ fontSize: '0.7rem', color: '#64748b' }}>{(info.flavor || info.flavorText).replace(/\n|\f/g, ' ')}</span>
+                {(info.flavor || info.flavorText) && (
+                  <span style={{ fontSize: '0.7rem', color: '#64748b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%', display: 'block' }}>{(info.flavor || info.flavorText).replace(/\n|\f/g, ' ')}</span>
                 )}
               </div>
             </div>

@@ -240,11 +240,11 @@ export function getKOBadge(result) {
   if (!result || result.isImmune) return { label: '무효', color: '#64748b' };
   const { koMin, koMax, koProbability } = result;
   const probStr = koProbability > 0 && koProbability < 100 ? ` (${koProbability.toFixed(1)}%)` : '';
-  if (koMin === 1 && koMax === 1) return { label: '확1', color: '#dc2626' };
-  if (koMin === 1 && koMax > 1)   return { label: `난1${probStr}`, color: '#f97316' };
-  if (koMax === 2 && koMin <= 2)  return { label: '확2', color: '#eab308' };
-  if (koMin === 2)                return { label: `난2${probStr}`, color: '#3b82f6' };
-  if (koMax === 3 && koMin <= 3)  return { label: '확3', color: '#64748b' };
-  if (koMin === 3)                return { label: `난3${probStr}`, color: '#94a3b8' };
-  return { label: `${koMax}타+`, color: '#94a3b8' };
+  if (koMin === 1 && koMax === 1) return { label: '확정 1타', color: '#dc2626' };
+  if (koMin === 1 && koMax > 1)   return { label: `난수 1타${probStr}`, color: '#f97316' };
+  if (koMax === 2 && koMin <= 2)  return { label: '확정 2타', color: '#eab308' };
+  if (koMin === 2)                return { label: `난수 2타${probStr}`, color: '#3b82f6' };
+  if (koMax === 3 && koMin <= 3)  return { label: '확정 3타', color: '#64748b' };
+  if (koMin === 3)                return { label: `난수 3타${probStr}`, color: '#94a3b8' };
+  return { label: `${koMax}타 이상`, color: '#94a3b8' };
 }

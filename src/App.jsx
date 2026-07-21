@@ -326,6 +326,7 @@ function App() {
       <div className="left-panel">
         <PartyPanel
           party={party}
+          setParty={setParty}
           partyMegas={partyMegas}
           setPartyMegas={setPartyMegas}
           partyBattleData={partyBattleData}

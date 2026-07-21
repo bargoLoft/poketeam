@@ -75,12 +75,13 @@ body {
    4. Party Panel (Left Sidebar)
    ------------------------------------------------------------ */
 .party-panel {
-  width: 400px;
-  min-width: 400px;
-  padding: 24px;
+  width: 100%;
+  flex: 1;
+  padding: 4px 4px 12px 4px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
   height: 100vh;
   overflow-y: auto;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(240, 242, 248, 1) 100%);
@@ -141,9 +142,10 @@ body {
   border-radius: var(--radius-lg);
   box-shadow: var(--glass-shadow);
   padding: 16px;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 8px;
   cursor: pointer;
   transition: var(--transition);
   position: relative;
@@ -162,19 +164,20 @@ body {
 }
 
 .pokemon-card__image-col {
+  width: 72px;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
+  gap: 4px;
 }
 
 /* ------------------------------------------------------------
    8. Pokémon Card — Image Wrapper
    ------------------------------------------------------------ */
 .pokemon-card__image-wrapper {
-  width: 64px;
-  height: 64px;
+  width: 72px;
+  height: 72px;
   border-radius: var(--radius-md);
   background: linear-gradient(135deg, #f0f0ff 0%, #e8e8ff 100%);
   display: flex;
@@ -939,7 +942,7 @@ body {
 .party-panel__slots {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 6px;
   flex: 1;
 }
 
@@ -1366,8 +1369,8 @@ body {
 }
 
 .left-panel {
-  width: 400px;
-  min-width: 400px;
+  width: 260px;
+  flex-shrink: 0;
   border-right: 1px solid rgba(0,0,0,0.06);
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(240, 242, 248, 1) 100%);
   display: flex;
@@ -1386,8 +1389,8 @@ body {
 }
 
 .right-panel {
-  width: 400px;
-  min-width: 400px;
+  width: 260px;
+  flex-shrink: 0;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(240, 242, 248, 1) 100%);
   display: flex;
   flex-direction: column;
@@ -1401,11 +1404,13 @@ body {
   flex: 1;
   display: flex;
   align-items: center;
-  padding: 8px 12px;
+  padding: 6px 8px;
+  box-sizing: border-box;
 }
 
 .pokemon-card__info {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1471,7 +1476,7 @@ body {
 
 /* Dashboard Styles */
 .party-dashboard {
-  padding: 32px;
+  padding: 32px 0px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -1625,7 +1630,7 @@ body {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
-  padding: 12px;
+  padding: 4px;
   box-shadow: var(--glass-shadow);
 }
 
@@ -1634,6 +1639,7 @@ body {
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 8px;
+  padding: 0 4px;
 }
 
 /* === Matchups (horizontal) === */
@@ -2155,10 +2161,16 @@ body {
 
 .pokemon-card__types {
   margin-bottom: 0 !important;
+  flex-shrink: 0;
 }
 
 .pokemon-card__name {
   margin-bottom: 0 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
 }
 
 .meta-item-img {
@@ -2172,7 +2184,9 @@ body {
 .pokemon-card__name-type {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
+  height: 24px;
+  box-sizing: border-box;
 }
 
 .pokemon-card__vertical-stats {
@@ -2274,8 +2288,8 @@ body {
 }
 
 .pokemon-card__top-moves {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 4px;
 }
 
@@ -2288,6 +2302,9 @@ body {
   padding: 2px 6px;
   border-radius: 4px;
   border-left: 3px solid;
+  width: 100%;
+  height: 20px;
+  box-sizing: border-box;
 }
 
 .top-move-name {
@@ -2307,12 +2324,13 @@ body {
 
 /* Opponent Panel */
 .opponent-panel {
-  width: 400px;
-  min-width: 400px;
-  padding: 24px;
+  width: 100%;
+  flex: 1;
+  padding: 4px 4px 12px 4px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 8px;
   flex: 1;
   overflow-y: auto;
   scrollbar-width: none;
@@ -3411,23 +3429,27 @@ body {
   background: rgba(0,0,0,0.04);
   border: 1px solid rgba(0,0,0,0.06);
   border-radius: var(--radius-full);
-  padding: 2px 6px 2px 2px;
+  padding: 2px;
   font-size: 0.7rem;
+  width: 72px;
+  height: 20px;
+  box-sizing: border-box;
 }
 
 .top-item-icon img {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   object-fit: contain;
   image-rendering: pixelated;
 }
 
 .item-text-fallback {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  font-size: 0.6rem;
   background: rgba(0,0,0,0.1);
   border-radius: var(--radius-full);
   font-weight: 700;
@@ -3724,4 +3746,43 @@ body {
 
 .calc-slider:hover::-moz-range-thumb {
   transform: scale(1.25);
+}
+
+/* ------------------------------------------------------------
+   Responsive Matchup Layout (대면화면 반응형)
+   ------------------------------------------------------------ */
+.dp2-matchup-container {
+  flex-wrap: nowrap;
+}
+
+.dp2-matchup-side {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 1400px) {
+  .dp2-matchup-container {
+    flex-wrap: wrap !important;
+  }
+  .dp2-matchup-center {
+    order: -1;
+    width: 100%;
+    margin-bottom: 8px;
+  }
+  .dp2-matchup-side {
+    min-width: 45% !important;
+  }
+}
+
+
+
+
+
+/* Hide scrollbar for dp2-no-scrollbar */
+.dp2-no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.dp2-no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }

@@ -10,7 +10,7 @@ import { natureTranslations, natureStatsMap } from '../data/natureData';
 import { damageItems } from '../data/itemBoostData';
 import { abilityBoosts } from '../data/abilityBoostData';
 import moveFlagsData from '../data/moveFlags.json';
-import { calcDamageRange } from '../utils/damageCalc';
+import { calcDamageRange, getKOBadge } from '../utils/damageCalc';
 import LoadingSpinner from './LoadingSpinner';
 import TopAbilitiesBox from './TopAbilitiesBox';
 
@@ -133,6 +133,10 @@ function DetailPanel({ pokemon, activeMega, onToggleMega, allPokemon, battleForm
           raichu: [
             'volt-tackle', 'fake-out', 'brick-break', 'thunder-punch', 'wild-charge', 'nuzzle', 'play-rough', 'quick-attack', 'iron-tail', 'dig',
             'thunderbolt', 'focus-blast', 'surf', 'grass-knot', 'hidden-power', 'volt-switch', 'nasty-plot', 'protect', 'encore', 'substitute'
+          ],
+          starmie: [
+            'liquidation', 'waterfall', 'flip-turn', 'zen-headbutt', 'ice-spinner', 'avalanche', 'rapid-spin', 'gyro-ball', 'dive',
+            'hydro-pump', 'surf', 'psychic', 'psyshock', 'ice-beam', 'thunderbolt', 'recover', 'trick'
           ]
         };
 
@@ -495,7 +499,7 @@ function DetailPanel({ pokemon, activeMega, onToggleMega, allPokemon, battleForm
   };
 
   const getAbilityBadges = (abilityName) => {
-    const badges = [];
+    return [];
     const nameStr = abilityName || '';
     if (nameStr.includes('Intimidate')) {
       badges.push({ text: '등장 시 상대 공 1랭↓', color: '#ef4444' });
@@ -815,7 +819,7 @@ function DetailPanel({ pokemon, activeMega, onToggleMega, allPokemon, battleForm
       '앵콜': { text: '앵콜', color: '#9d174d' },
       '용의춤': { text: '공/속 1랭↑', color: '#1e3a8a' },
       '나비춤': { text: '특공/특방/속 1랭↑', color: '#1e3a8a' },
-      '껍질깨기': { text: '공/특공/속 2랭↑ 방/특방 1랭↓', color: '#991b1b' },
+      '껍질깨기': { text: 'ACS 2랭↑ BD 1랭↓', color: '#991b1b' },
       '하품': { text: '졸음(다음턴 수면)', color: '#475569' },
       '사슬묶기': { text: '기술봉쇄', color: '#b91c1c' },
       '트릭': { text: '도구교환', color: '#475569' },
@@ -1000,7 +1004,7 @@ function DetailPanel({ pokemon, activeMega, onToggleMega, allPokemon, battleForm
                 {/* Stats List (Single Column) */}
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '4px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', paddingBottom: '4px', marginBottom: '2px', borderBottom: '1px solid rgba(0,0,0,0.05)' }}>
-                    <div style={{ width: '46px', fontSize: '0.65rem', fontWeight: 'bold', color: '#64748b', flexShrink: 0 }}>종족값</div>
+                    <div style={{ width: '46px', fontSize: '0.65rem', fontWeight: 'bold', color: '#64748b', flexShrink: 0 }}>스탯</div>
                     <div style={{ width: '46px', textAlign: 'center', fontSize: '0.65rem', fontWeight: 'bold', color: '#64748b', flexShrink: 0 }}>노력치</div>
                     <div style={{ flex: 1 }}></div>
                     <div style={{ width: '32px', textAlign: 'right', fontSize: '0.65rem', fontWeight: 'bold', color: '#64748b', flexShrink: 0 }}>실수치</div>
@@ -1026,9 +1030,6 @@ function DetailPanel({ pokemon, activeMega, onToggleMega, allPokemon, battleForm
                               {stat.label}
                               {mult > 1 && <span style={{ fontSize: '0.65rem' }}>↑</span>}
                               {mult < 1 && <span style={{ fontSize: '0.65rem' }}>↓</span>}
-                            </span>
-                            <span style={{ fontSize: '0.65rem', color: '#94a3b8' }}>
-                              {stat.base}
                             </span>
                           </div>
                           <input 
@@ -1170,7 +1171,7 @@ function DetailPanel({ pokemon, activeMega, onToggleMega, allPokemon, battleForm
               {(topNatures.length > 0 || topStatPoints.length > 0) && (
                 <div style={{ flex: 1.4, display: 'flex', gap: '8px', borderLeft: '1px solid rgba(0,0,0,0.08)', paddingLeft: '12px' }}>
                   {/* Nature List */}
-                  <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  <div style={{ flex: 1, flexBasis: 0, minWidth: 0, display: 'flex', flexDirection: 'column', gap: '4px' }}>
                     <div style={{ fontSize: '0.75rem', fontWeight: 'bold', color: '#475569', display: 'flex', alignItems: 'center', gap: '2px', marginBottom: '2px' }}>
                       🧠 성격 순위
                     </div>
@@ -1215,12 +1216,13 @@ function DetailPanel({ pokemon, activeMega, onToggleMega, allPokemon, battleForm
                             }}
                             title="클릭하여 이 성격을 계산기에 적용"
                           >
-                            <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: '0.58rem', lineHeight: 1 }}>
+                            <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', fontWeight: 'bold', fontSize: '0.62rem', lineHeight: 1 }}>
                               <span style={{ color: isSelected ? '#0369a1' : 'var(--accent-primary)' }}>#{n.rank}</span>
-                              <span style={{ color: '#64748b' }}>{pct.toFixed(1)}%</span>
+                              <span style={{ color: isSelected ? '#0c4a6e' : '#0f172a', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{translation}</span>
                             </div>
-                            <div style={{ color: isSelected ? '#0c4a6e' : '#0f172a', fontWeight: '600', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', marginTop: '1px' }}>
-                              {translation} <span style={{ color: '#64748b', fontSize: '0.55rem', fontWeight: 'normal' }}>{bonusText}</span>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2px' }}>
+                              <span style={{ color: '#64748b', fontSize: '0.55rem' }}>{info ? `${info.up}상 ${info.down}하` : '보정 없음'}</span>
+                              <span style={{ color: '#64748b', fontSize: '0.58rem', fontWeight: 'bold' }}>{Math.round(pct)}%</span>
                             </div>
                           </div>
                         );
@@ -1232,7 +1234,7 @@ function DetailPanel({ pokemon, activeMega, onToggleMega, allPokemon, battleForm
                   </div>
 
                   {/* EV List */}
-                  <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  <div style={{ flex: 1, flexBasis: 0, minWidth: 0, display: 'flex', flexDirection: 'column', gap: '4px' }}>
                     <div style={{ fontSize: '0.75rem', fontWeight: 'bold', color: '#475569', display: 'flex', alignItems: 'center', gap: '2px', marginBottom: '2px' }}>
                       ⚙️ 노력치 순위
                     </div>
@@ -1310,7 +1312,7 @@ function DetailPanel({ pokemon, activeMega, onToggleMega, allPokemon, battleForm
                           >
                             <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: '0.58rem', lineHeight: 1 }}>
                               <span style={{ color: isSelected ? '#047857' : 'var(--accent-primary)' }}>#{sp.rank}</span>
-                              <span style={{ color: '#64748b' }}>{pct.toFixed(1)}%</span>
+                              <span style={{ color: '#64748b' }}>{Math.round(pct)}%</span>
                             </div>
                             <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginTop: '1px' }} title={labelText}>
                               {evNode}
@@ -1372,7 +1374,7 @@ function DetailPanel({ pokemon, activeMega, onToggleMega, allPokemon, battleForm
                       {!itemBadges && info.flavor && (
                         <span style={{ fontSize: '0.7rem', color: '#64748b' }}>{info.flavor.replace(/\n|\f/g, ' ')}</span>
                       )}
-                      <span style={{ marginLeft: 'auto', fontSize: '0.75rem', ...pctStyle }}>{pct.toFixed(1)}%</span>
+                      <span style={{ marginLeft: 'auto', fontSize: '0.75rem', ...pctStyle }}>{Math.round(pct)}%</span>
                     </div>
                   </div>
                 );
@@ -1514,7 +1516,20 @@ function DetailPanel({ pokemon, activeMega, onToggleMega, allPokemon, battleForm
                 <tbody>
                   {allMoveRows.filter(m => {
                     const info = moveDetails[m.name] || {};
-                    return info.damageClass === 'physical' || info.damageClass === 'special';
+                    if (info.damageClass !== 'physical' && info.damageClass !== 'special') return false;
+                    
+                    let isPhysicalMega = activeMega === 'x';
+                    let isSpecialMega = activeMega === 'y';
+                    if (activeMega) {
+                      const md = getMegaDataSync(pokemon.name, activeMega);
+                      if (md && (md.abilityEng === 'huge-power' || md.abilityEng === 'pure-power')) {
+                        isPhysicalMega = true;
+                      }
+                    }
+
+                    if (isPhysicalMega && info.damageClass === 'special') return false;
+                    if (isSpecialMega && info.damageClass === 'physical') return false;
+                    return true;
                   }).map((m, idx) => {
                     const info = moveDetails[m.name] || {};
                     const pct = getPct(m);
@@ -1652,7 +1667,7 @@ function DetailPanel({ pokemon, activeMega, onToggleMega, allPokemon, battleForm
                                 </span>
                               )}
                               {pct > 0 ? (
-                                <span className="dp2-move-pct" style={pctStyle}>{pct.toFixed(1)}%</span>
+                                <span className="dp2-move-pct" style={pctStyle}>{Math.round(pct)}%</span>
                               ) : (
                                 <span className="dp2-move-pct" style={{ ...pctStyle, color: '#94a3b8' }}>순위 외</span>
                               )}
@@ -1672,14 +1687,10 @@ function DetailPanel({ pokemon, activeMega, onToggleMega, allPokemon, battleForm
                                     {matchupDamage.minPct}% ~ {matchupDamage.maxPct}%
                                   </span>
                                   <span style={{ fontSize: '0.65rem', padding: '1px 4px', borderRadius: '4px', fontWeight: 'bold', 
-                                    background: matchupDamage.koMin === 1 ? '#fee2e2' : (matchupDamage.koMax === 1 ? '#ffedd5' : '#f1f5f9'), 
-                                    color: matchupDamage.koMin === 1 ? '#dc2626' : (matchupDamage.koMax === 1 ? '#c2410c' : '#64748b') 
+                                    background: getKOBadge(matchupDamage).color + '15', 
+                                    color: getKOBadge(matchupDamage).color 
                                   }}>
-                                    {matchupDamage.isImmune ? '효과 없음' : 
-                                     matchupDamage.koMin === 1 ? '확정 1타' : 
-                                     matchupDamage.koMax === 1 ? '난수 1타' : 
-                                     matchupDamage.koMin === 2 ? '확정 2타' :
-                                     matchupDamage.koMax === 2 ? '난수 2타' : '3타 이상'}
+                                    {getKOBadge(matchupDamage).label}
                                   </span>
                                 </div>
                                 <div style={{ width: '100%', height: '4px', background: '#e2e8f0', borderRadius: '2px', overflow: 'hidden' }}>
@@ -1751,7 +1762,7 @@ function DetailPanel({ pokemon, activeMega, onToggleMega, allPokemon, battleForm
                               ◈ {info.name || m.name}
                             </span>
                             {pct > 0 ? (
-                              <span className="dp2-move-pct">{pct.toFixed(1)}%</span>
+                              <span className="dp2-move-pct">{Math.round(pct)}%</span>
                             ) : (
                               <span className="dp2-move-pct" style={{ color: '#94a3b8' }}>순위 외</span>
                             )}
@@ -1804,7 +1815,7 @@ function DetailPanel({ pokemon, activeMega, onToggleMega, allPokemon, battleForm
                 <img src={apiService.getSpriteUrl(tm.name)} alt={tm.name} className="dp2-teammate-sprite" />
                 <div className="dp2-teammate-info">
                   <span className="dp2-teammate-name">{getPokemonKo(tm.name)}</span>
-                  <span className="dp2-teammate-pct" style={{ ...getPctStyle(tm.pct), fontSize: '0.8rem' }}>{tm.pct.toFixed(1)}%</span>
+                  <span className="dp2-teammate-pct" style={{ ...getPctStyle(tm.pct), fontSize: '0.8rem' }}>{Math.round(tm.pct)}%</span>
                 </div>
               </div>
             )) : (

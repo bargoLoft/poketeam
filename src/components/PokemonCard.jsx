@@ -8,7 +8,9 @@ function PokemonCard({ pokemon, battleData, activeMega, onToggleMega, isSelected
   const availableForms = megaForms[pokemon.name] || null;
   const [megaDataCache, setMegaDataCache] = useState({});
   const [showTooltip, setShowTooltip] = useState(false);
+  const [showAbilityTooltip, setShowAbilityTooltip] = useState(false);
   const tooltipTimer = useRef(null);
+  const abilityTooltipTimer = useRef(null);
 
   // Toggle Mega Form
   const handleToggleMega = async (e, form) => {
@@ -145,13 +147,37 @@ function PokemonCard({ pokemon, battleData, activeMega, onToggleMega, isSelected
     }, 100); // slight delay to prevent flicker when moving into tooltip
   };
 
+  const handleAbilityMouseEnter = () => {
+    clearTimeout(abilityTooltipTimer.current);
+    setShowAbilityTooltip(true);
+  };
+
+  const handleAbilityMouseLeave = () => {
+    abilityTooltipTimer.current = setTimeout(() => {
+      setShowAbilityTooltip(false);
+    }, 100);
+  };
+
   // Determine what to show in the primary item slot
   let primaryItemDisplay = null;
   if (isMega) {
+    let megaItemPct = null;
+    if (topItems && topItems.length > 0) {
+      let match = null;
+      if (activeMega === 'x') {
+        match = topItems.find(i => i.name.includes('X'));
+      } else if (activeMega === 'y') {
+        match = topItems.find(i => i.name.includes('Y'));
+      } else {
+        match = topItems.find(i => i.name.includes('나이트'));
+      }
+      if (match) megaItemPct = match.percentage_value;
+    }
     primaryItemDisplay = {
       sprite: getMegaStoneUrl(pokemon.name, activeMega),
       name: activeMega === 'mega' ? '메가진화' : `메가진화 (${activeMega.toUpperCase()})`,
-      isMegaIcon: true
+      isMegaIcon: true,
+      pct: megaItemPct
     };
   } else if (topItems.length > 0) {
     primaryItemDisplay = {
@@ -191,6 +217,39 @@ function PokemonCard({ pokemon, battleData, activeMega, onToggleMega, isSelected
           />
         </div>
         
+        {abilityInfo && abilityInfo.length > 0 && (
+          <div 
+            className="item-hover-container" 
+            style={{ textAlign: 'center', marginBottom: '-2px' }}
+            onMouseEnter={handleAbilityMouseEnter}
+            onMouseLeave={handleAbilityMouseLeave}
+          >
+            <div className="pokemon-card__abilities" style={{ display: 'flex', justifyContent: 'center' }}>
+              {abilityInfo.slice(0, 1).map((ab, i) => (
+                <div key={i} className="top-item-icon" title={ab.flavor.replace(/\n|\f/g, ' ')}>
+                  <span style={{ fontSize: '0.65rem', fontWeight: 'bold', color: 'var(--text-color)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1, textAlign: 'center' }}>{ab.name}</span>
+                  <span className="top-item-pct" style={{ fontSize: '0.6rem', flexShrink: 0, marginLeft: 'auto' }}>{Math.round(ab.percentage_value)}%</span>
+                </div>
+              ))}
+            </div>
+
+            {showAbilityTooltip && abilityInfo.length > 0 && (
+              <div className="item-dropdown-tooltip">
+                <div className="tooltip-section">
+                  <div className="tooltip-title">특성 순위</div>
+                  {abilityInfo.map((ab, i) => (
+                    <div key={i} className="tooltip-row" style={{ display: 'grid', gridTemplateColumns: '20px 1fr 30px', gap: '8px', alignItems: 'center' }}>
+                      <span className="tooltip-rank">{i + 1}</span>
+                      <span className="tooltip-item-name" style={{ textAlign: 'left', fontSize: '0.65rem' }}>{ab.name}</span>
+                      <span className="tooltip-item-pct">{Math.round(ab.percentage_value)}%</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+        
         <div 
           className="item-hover-container" 
           onMouseEnter={handleMouseEnter} 
@@ -198,13 +257,15 @@ function PokemonCard({ pokemon, battleData, activeMega, onToggleMega, isSelected
         >
           {primaryItemDisplay ? (
             <div className={`top-item-icon primary-item-trigger ${primaryItemDisplay.isMegaIcon ? 'is-mega' : ''}`}>
-              {primaryItemDisplay.sprite ? (
-                <img src={primaryItemDisplay.sprite} alt={primaryItemDisplay.name} />
-              ) : (
-                <span className="item-text-fallback">{primaryItemDisplay.name.substring(0, 2)}</span>
-              )}
-              {!primaryItemDisplay.isMegaIcon && primaryItemDisplay.pct && (
-                <span className="top-item-pct">{Math.round(primaryItemDisplay.pct)}%</span>
+              <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+                {primaryItemDisplay.sprite ? (
+                  <img src={primaryItemDisplay.sprite} alt={primaryItemDisplay.name} style={{ flexShrink: 0 }} />
+                ) : (
+                  <span className="item-text-fallback" style={{ flexShrink: 0 }}>{primaryItemDisplay.name.substring(0, 2)}</span>
+                )}
+              </div>
+              {primaryItemDisplay.pct && (
+                <span className="top-item-pct" style={{ marginLeft: 'auto', flexShrink: 0 }}>{Math.round(primaryItemDisplay.pct)}%</span>
               )}
             </div>
           ) : (
@@ -270,16 +331,6 @@ function PokemonCard({ pokemon, battleData, activeMega, onToggleMega, isSelected
         </div>
         
         <div className="pokemon-card__meta">
-          {abilityInfo && abilityInfo.length > 0 && (
-            <div className="pokemon-card__abilities">
-              {abilityInfo.map((ab, i) => (
-                <div key={i} className="meta-pill" title={ab.flavor.replace(/\n|\f/g, ' ')}>
-                  <span className="meta-text">{ab.name} <span style={{fontSize: '0.6rem', color: 'var(--accent-primary)'}}>{Math.round(ab.percentage_value)}%</span></span>
-                </div>
-              ))}
-            </div>
-          )}
-          
           {topMoves.length > 0 && (
             <div className="pokemon-card__top-moves">
               {topMoves.map((m, i) => {
@@ -301,14 +352,7 @@ function PokemonCard({ pokemon, battleData, activeMega, onToggleMega, isSelected
         </div>
       </div>
 
-      <div className="pokemon-card__vertical-stats">
-        <div className="v-stat"><span className="v-stat-lbl">H</span><span className="v-stat-val" style={{color: getColor(normStats.hp)}}>{normStats.hp}</span></div>
-        <div className="v-stat"><span className="v-stat-lbl">A</span><span className="v-stat-val" style={{color: getColor(normStats.atk)}}>{normStats.atk}</span></div>
-        <div className="v-stat"><span className="v-stat-lbl">B</span><span className="v-stat-val" style={{color: getColor(normStats.def)}}>{normStats.def}</span></div>
-        <div className="v-stat"><span className="v-stat-lbl">C</span><span className="v-stat-val" style={{color: getColor(normStats.spa)}}>{normStats.spa}</span></div>
-        <div className="v-stat"><span className="v-stat-lbl">D</span><span className="v-stat-val" style={{color: getColor(normStats.spd)}}>{normStats.spd}</span></div>
-        <div className="v-stat"><span className="v-stat-lbl">S</span><span className="v-stat-val" style={{color: getColor(normStats.spe)}}>{normStats.spe}</span></div>
-      </div>
+
     </div>
   );
 }

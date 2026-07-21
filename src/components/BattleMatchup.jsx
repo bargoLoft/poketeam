@@ -21,8 +21,8 @@ function getTopSamples(poke, partyBattleData) {
   const pBattleData = partyBattleData[poke.name];
   if (!pBattleData.rows) return { topNatures: [], topStatPoints: [] };
   
-  const topNatures = pBattleData.rows.filter(r => r.category === 'stat_alignment').sort((a,b)=>a.rank-b.rank).slice(0, 3);
-  const topStatPoints = pBattleData.rows.filter(r => r.category === 'stat_points').sort((a,b)=>a.rank-b.rank).slice(0, 3);
+  const topNatures = pBattleData.rows.filter(r => r.category === 'stat_alignment').sort((a,b)=>a.rank-b.rank).slice(0, 5);
+  const topStatPoints = pBattleData.rows.filter(r => r.category === 'stat_points').sort((a,b)=>a.rank-b.rank).slice(0, 10);
   const topAbilities = pBattleData.rows.filter(r => r.category === 'ability').sort((a,b)=>a.rank-b.rank).slice(0, 3);
   return { topNatures, topStatPoints, topAbilities };
 }
@@ -44,22 +44,34 @@ function MatchupTypeBox({ types, topAbilities, activeAbilityName }) {
   });
 
   const renderGroup = (title, key, cssClass) => {
+    const arr = matchupGroups[key];
+    const hasOverflow = arr.length > 5;
+    
     return (
-      <div className={`dp2-matchup-row ${cssClass}`} style={{ display: 'flex', alignItems: 'center', padding: '4px', gap: '8px', borderBottom: '1px solid rgba(0,0,0,0.03)' }}>
-        <div style={{ width: '32px', textAlign: 'center', fontWeight: 'bold', fontSize: '0.85rem' }}>{title}</div>
-        <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
-          {matchupGroups[key].length > 0 ? matchupGroups[key].map(t => (
-            <img key={t} src={getPokeApiTypeIconUrl(t)} alt={t} title={getTypeKo(t)} style={{width:'24px', height:'24px'}} />
-          )) : (
-            <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>-</span>
-          )}
+      <div className={`dp2-matchup-row ${cssClass}`} style={{ display: 'flex', alignItems: 'center', padding: '4px', gap: '8px', borderBottom: '1px solid rgba(0,0,0,0.03)', height: '32px' }}>
+        <div style={{ width: '28px', textAlign: 'center', fontWeight: 'bold', fontSize: '0.8rem', flexShrink: 0 }}>{title}</div>
+        <div style={{ flex: 1, position: 'relative', height: '100%', display: 'flex', alignItems: 'center', minWidth: 0 }}>
+          <div className="dp2-no-scrollbar" style={{ 
+            display: 'flex', gap: '4px', flexWrap: 'nowrap', alignItems: 'center', height: '100%', 
+            overflowX: 'auto', width: '100%', paddingRight: hasOverflow ? '16px' : '0',
+            maskImage: hasOverflow ? 'linear-gradient(to right, black calc(100% - 16px), transparent 100%)' : 'none',
+            WebkitMaskImage: hasOverflow ? 'linear-gradient(to right, black calc(100% - 16px), transparent 100%)' : 'none'
+          }}>
+            {arr.length > 0 ? (
+              arr.map(t => (
+                <img key={t} src={getPokeApiTypeIconUrl(t)} alt={t} title={getTypeKo(t)} style={{width:'22px', height:'22px', flexShrink: 0}} />
+              ))
+            ) : (
+              <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>-</span>
+            )}
+          </div>
         </div>
       </div>
     );
   };
 
   return (
-    <div className="dp2-section" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+    <div className="dp2-section" style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '4px' }}>
       <div className="dp2-matchups-body" style={{ flex: 1 }}>
         {renderGroup('×4', '4x', 'dp2-row-4x')}
         {renderGroup('×2', '2x', 'dp2-row-2x')}
@@ -186,7 +198,7 @@ function getDerivedData(poke, megaForm, partyBattleData, allPokemon, overrides =
   const physDur = Math.floor(hp * def / 0.411);
   const specDur = Math.floor(hp * spd / 0.411);
 
-  return { hp, atk, def, spa, spd, spe, types, itemName, abilityKo, evs, nature, physDur, specDur };
+  return { hp, atk, def, spa, spd, spe, types, itemName, abilityKo, evs, nature, physDur, specDur, baseStats: base };
 }
 
 function getSprite(p, megaForm) {
@@ -254,54 +266,25 @@ function SpeedBadge({ active, label, color, onClick }) {
 }
 
 function SpeedRankController({ rank, onChange }) {
-  const [openDropdown, setOpenDropdown] = useState(null);
-
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '2px', background: 'var(--glass-bg)', padding: '2px 4px', borderRadius: '6px', border: '1px solid rgba(0,0,0,0.05)', boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.02)', width: '100%', justifyContent: 'center' }}>
-      {/* Leftmost Dropdown: -3 to -6 */}
-      <div style={{ position: 'relative' }}>
-        <button
-          onClick={() => setOpenDropdown(prev => prev === 'neg' ? null : 'neg')}
-          style={{ width: '20px', height: '18px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.55rem', fontWeight: 'bold', borderRadius: '4px', border: 'none', cursor: 'pointer', background: rank <= -3 ? '#3b82f6' : 'transparent', color: rank <= -3 ? '#fff' : '#cbd5e1', transition: 'all 0.15s ease' }}
-        >
-          {rank <= -3 ? rank : '3-'}
-        </button>
-        {openDropdown === 'neg' && (
-          <div style={{ position: 'absolute', top: '100%', left: 0, marginTop: '2px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '4px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', zIndex: 50, display: 'flex', flexDirection: 'column', gap: '2px', padding: '2px' }}>
-            {[-3, -4, -5, -6].map(r => (
-              <button key={r} onClick={() => { onChange(r); setOpenDropdown(null); }} style={{ width: '24px', height: '18px', fontSize: '0.55rem', fontWeight: 'bold', border: 'none', background: rank === r ? '#3b82f6' : 'transparent', color: rank === r ? '#fff' : '#475569', borderRadius: '2px', cursor: 'pointer' }}>{r}</button>
-            ))}
-          </div>
-        )}
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'var(--glass-bg)', padding: '2px 8px', borderRadius: '12px', border: '1px solid rgba(0,0,0,0.05)', boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.02)', justifyContent: 'center' }}>
+      <button
+        onClick={() => onChange(Math.max(-6, rank - 1))}
+        style={{ width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.8rem', fontWeight: 'bold', borderRadius: '50%', border: 'none', cursor: 'pointer', background: 'transparent', color: rank > -6 ? '#64748b' : '#cbd5e1', transition: 'all 0.15s ease' }}
+        disabled={rank <= -6}
+      >
+        {"<"}
+      </button>
+      <div style={{ width: '24px', textAlign: 'center', fontSize: '0.75rem', fontWeight: 'bold', color: rank > 0 ? '#ef4444' : rank < 0 ? '#3b82f6' : '#64748b' }}>
+        {rank > 0 ? `+${rank}` : rank === 0 ? '-' : rank}
       </div>
-
-      {/* Middle Buttons */}
-      {[-2, -1, 0, 1, 2].map(r => (
-        <button
-          key={r}
-          onClick={() => onChange(r)}
-          style={{ width: '20px', height: '18px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.55rem', fontWeight: 'bold', borderRadius: '4px', border: 'none', cursor: 'pointer', background: rank === r ? (r > 0 ? '#ef4444' : r < 0 ? '#3b82f6' : '#64748b') : 'transparent', color: rank === r ? '#fff' : (r === 0 ? '#94a3b8' : '#cbd5e1'), transition: 'all 0.15s ease' }}
-        >
-          {r === 0 ? '-' : Math.abs(r)}
-        </button>
-      ))}
-
-      {/* Rightmost Dropdown: +3 to +6 */}
-      <div style={{ position: 'relative' }}>
-        <button
-          onClick={() => setOpenDropdown(prev => prev === 'pos' ? null : 'pos')}
-          style={{ width: '20px', height: '18px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.55rem', fontWeight: 'bold', borderRadius: '4px', border: 'none', cursor: 'pointer', background: rank >= 3 ? '#ef4444' : 'transparent', color: rank >= 3 ? '#fff' : '#cbd5e1', transition: 'all 0.15s ease' }}
-        >
-          {rank >= 3 ? `+${rank}` : '3+'}
-        </button>
-        {openDropdown === 'pos' && (
-          <div style={{ position: 'absolute', top: '100%', right: 0, marginTop: '2px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '4px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', zIndex: 50, display: 'flex', flexDirection: 'column', gap: '2px', padding: '2px' }}>
-            {[3, 4, 5, 6].map(r => (
-              <button key={r} onClick={() => { onChange(r); setOpenDropdown(null); }} style={{ width: '24px', height: '18px', fontSize: '0.55rem', fontWeight: 'bold', border: 'none', background: rank === r ? '#ef4444' : 'transparent', color: rank === r ? '#fff' : '#475569', borderRadius: '2px', cursor: 'pointer' }}>+{r}</button>
-            ))}
-          </div>
-        )}
-      </div>
+      <button
+        onClick={() => onChange(Math.min(6, rank + 1))}
+        style={{ width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.8rem', fontWeight: 'bold', borderRadius: '50%', border: 'none', cursor: 'pointer', background: 'transparent', color: rank < 6 ? '#64748b' : '#cbd5e1', transition: 'all 0.15s ease' }}
+        disabled={rank >= 6}
+      >
+        {">"}
+      </button>
     </div>
   );
 }
@@ -418,7 +401,7 @@ const BattleMatchup = forwardRef(function BattleMatchup({ party, partyMegas, opp
           const emptyIdx = next.findIndex(p => p === null);
           if (emptyIdx !== -1) {
             next[emptyIdx] = poke;
-            if (next[oppFieldIdx] === null) setOppFieldIdx(emptyIdx);
+            setOppFieldIdx(emptyIdx); // Auto-set active when picking opponent
           }
         }
         return next;
@@ -445,6 +428,10 @@ const BattleMatchup = forwardRef(function BattleMatchup({ party, partyMegas, opp
   const mySamples = getTopSamples(myActive, partyBattleData);
   const oppSamples = getTopSamples(oppActive, partyBattleData);
 
+  const myRequired = Math.min(3, party.filter(Boolean).length);
+  const oppRequired = Math.min(1, opponentParty.filter(Boolean).length);
+  const isSelectionMode = myBench.filter(Boolean).length < myRequired || oppBench.filter(Boolean).length < oppRequired;
+
   const renderProfileWithSamples = (poke, derived, samples, overrides, setOverrides, activeMega, setMegaOverride, isOpponent) => {
     if (!poke || !derived) {
       return (
@@ -460,14 +447,14 @@ const BattleMatchup = forwardRef(function BattleMatchup({ party, partyMegas, opp
       <div style={{ flex: 1, display: 'flex', background: isOpponent ? 'rgba(239, 68, 68, 0.05)' : 'rgba(34, 197, 94, 0.05)', borderRadius: '12px', border: `2px solid ${isOpponent ? 'rgba(239, 68, 68, 0.2)' : 'rgba(34, 197, 94, 0.2)'}`, overflow: 'hidden' }}>
         
         {/* Left Column: Profile Info & Natures/EVs */}
-        <div style={{ width: '55%', display: 'flex', flexDirection: 'column', borderRight: '1px solid rgba(0,0,0,0.05)' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', borderRight: '1px solid rgba(0,0,0,0.05)', minWidth: 0 }}>
           
           {/* Top: Profile Info & Mega */}
-          <div style={{ padding: '16px 12px 12px 12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '24px' }}>
+          <div style={{ padding: '4px 0', display: 'flex', alignItems: 'flex-end', width: '100%' }}>
             
             {/* Left: Image, Name, Types */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-              <div style={{ position: 'relative', width: '90px', height: '90px' }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+              <div style={{ position: 'relative', width: '70px', height: '70px' }}>
                 <img src={getSprite(poke, activeMega)} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.1))' }} />
                 {(megaForms[poke.name] && megaForms[poke.name].length > 0) && (
                   <div style={{ position: 'absolute', bottom: '-4px', right: '-12px', display: 'flex', gap: '4px', zIndex: 10 }}>
@@ -502,56 +489,44 @@ const BattleMatchup = forwardRef(function BattleMatchup({ party, partyMegas, opp
                 )}
               </div>
               
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <h2 style={{ fontSize: '1.05rem', fontWeight: '800', margin: '0', color: isOpponent ? '#b91c1c' : '#15803d', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  {activeMega ? `메가${getPokemonKo(poke.name)}${activeMega === 'x' || activeMega === 'y' ? activeMega.toUpperCase() : ''}` : getPokemonKo(poke.name)}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: 0, margin: 0, lineHeight: 1 }}>
+                <h2 style={{ fontSize: '1.05rem', fontWeight: '800', margin: '0', padding: '0', lineHeight: '1', color: isOpponent ? '#b91c1c' : '#15803d', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  {(() => {
+                    const rawName = activeMega ? `메가${getPokemonKo(poke.name)}${activeMega === 'x' || activeMega === 'y' ? activeMega.toUpperCase() : ''}` : getPokemonKo(poke.name);
+                    return rawName.length > 6 ? rawName.slice(0, 6) : rawName;
+                  })()}
                 </h2>
                 <div style={{ display: 'flex', gap: '2px' }}>
                   {derived.types.map(t => <img key={t} src={getPokeApiTypeIconUrl(t)} alt={t} style={{ width: 18, height: 18 }} />)}
                 </div>
               </div>
             </div>
-
+            
             {/* Right: Base Stats */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', borderLeft: '1px dashed #cbd5e1', paddingLeft: '20px' }}>
-              {(() => {
-                const mData = activeMega ? getMegaDataSync(poke.name, activeMega) : null;
-                const rawStats = allPokemon.find(p => p.name === poke.name)?.summary?.baseStats || {};
-                const converted = convertAllStats(rawStats);
-                const bStats = mData?.baseStats || {
-                  hp: converted.hp,
-                  attack: converted.atk,
-                  defense: converted.def,
-                  sp_attack: converted.spa,
-                  sp_defense: converted.spd,
-                  speed: converted.spe
-                };
-                const labels = ['H', 'A', 'B', 'C', 'D', 'S'];
-                const values = [bStats.hp, bStats.attack, bStats.defense, bStats.sp_attack, bStats.sp_defense, bStats.speed];
-                const colors = ['#22c55e', '#ef4444', '#f59e0b', '#3b82f6', '#8b5cf6', '#ec4899'];
-                return labels.map((l, i) => (
-                  <div key={l} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.65rem', fontWeight: 'bold', lineHeight: '1' }}>
-                    <span style={{ width: '12px', color: colors[i] }}>{l}</span>
-                    <span style={{ width: '24px', textAlign: 'right', color: '#475569' }}>{values[i]}</span>
-                  </div>
-                ));
-              })()}
+            <div style={{ width: '50px', flexShrink: 0, paddingBottom: '2px', display: 'flex', flexDirection: 'column', gap: '3px', fontSize: '0.65rem', justifyContent: 'center' }}>
+              <div style={{ display: 'flex', gap: '6px' }}><span style={{ color: '#ff5959', fontWeight: 'bold', width: '10px' }}>H</span><span style={{ fontWeight: 'bold', color: '#1e293b' }}>{derived.baseStats.hp}</span></div>
+              <div style={{ display: 'flex', gap: '6px' }}><span style={{ color: '#f59e0b', fontWeight: 'bold', width: '10px' }}>A</span><span style={{ fontWeight: 'bold', color: '#1e293b' }}>{derived.baseStats.atk}</span></div>
+              <div style={{ display: 'flex', gap: '6px' }}><span style={{ color: '#facc15', fontWeight: 'bold', width: '10px' }}>B</span><span style={{ fontWeight: 'bold', color: '#1e293b' }}>{derived.baseStats.def}</span></div>
+              <div style={{ display: 'flex', gap: '6px' }}><span style={{ color: '#3b82f6', fontWeight: 'bold', width: '10px' }}>C</span><span style={{ fontWeight: 'bold', color: '#1e293b' }}>{derived.baseStats.spa}</span></div>
+              <div style={{ display: 'flex', gap: '6px' }}><span style={{ color: '#10b981', fontWeight: 'bold', width: '10px' }}>D</span><span style={{ fontWeight: 'bold', color: '#1e293b' }}>{derived.baseStats.spd}</span></div>
+              <div style={{ display: 'flex', gap: '6px' }}><span style={{ color: '#ec4899', fontWeight: 'bold', width: '10px' }}>S</span><span style={{ fontWeight: 'bold', color: '#1e293b' }}>{derived.baseStats.spe}</span></div>
             </div>
 
           </div>
 
           {/* Bottom: Natures & EVs */}
-          <div style={{ padding: '12px', display: 'flex', gap: '8px', borderTop: '1px solid rgba(0,0,0,0.05)', flex: 1, overflow: 'hidden' }}>
+          <div style={{ padding: '4px', display: 'flex', gap: '8px', borderTop: '1px solid rgba(0,0,0,0.05)', flex: 1, overflow: 'hidden' }}>
             {/* Natures */}
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              <div style={{ fontSize: '0.65rem', fontWeight: 'bold', color: '#475569' }}>🧠 성격</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', flex: 1 }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '4px', minWidth: 0, width: '50%' }}>
+              {/* Removed Nature Title */}
+              <div className="dp2-no-scrollbar" style={{ display: 'flex', flexDirection: 'column', gap: '4px', flex: 1, overflowY: 'auto', paddingRight: '2px', maxHeight: '142px' }}>
                 {topNatures.map((n, idx) => {
                   const translation = natureTranslations[n.name] || n.name;
                   const pct = parseFloat(n.percentage_value ?? n.percentage ?? 0) || 0;
                   const isSelected = derived.nature === n.name;
                   const info = natureStatsMap[n.name];
-                  const bonusText = info ? `(${info.up}↑ ${info.down}↓)` : '';
+                  const statToLetter = { '공격': 'A', '방어': 'B', '특공': 'C', '특방': 'D', '스피드': 'S' };
+                  
                   return (
                     <div
                       key={idx}
@@ -559,17 +534,26 @@ const BattleMatchup = forwardRef(function BattleMatchup({ party, partyMegas, opp
                       style={{
                         background: isSelected ? '#e0f2fe' : '#ffffff',
                         border: isSelected ? '1px solid #0284c7' : '1px solid #e2e8f0',
-                        padding: '4px 6px', borderRadius: '6px', cursor: 'pointer',
-                        display: 'flex', flexDirection: 'column', justifyContent: 'center',
-                        gap: '1px', fontSize: '0.6rem', flex: 1
+                        padding: '6px', borderRadius: '6px', cursor: 'pointer',
+                        display: 'flex', flexDirection: 'column', gap: '2px'
                       }}
                     >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: '0.55rem' }}>
+                      <div style={{ display: 'flex', gap: '4px', alignItems: 'center', fontWeight: 'bold', fontSize: '0.65rem' }}>
                         <span style={{ color: isSelected ? '#0369a1' : 'var(--accent-primary)' }}>#{n.rank}</span>
-                        <span style={{ color: '#64748b' }}>{pct.toFixed(1)}%</span>
+                        <span style={{ color: isSelected ? '#0c4a6e' : '#0f172a' }}>{translation}</span>
                       </div>
-                      <div style={{ color: isSelected ? '#0c4a6e' : '#0f172a', fontWeight: '600', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
-                        {translation} <span style={{ color: '#64748b', fontSize: '0.5rem', fontWeight: 'normal' }}>{bonusText}</span>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div style={{ display: 'flex', gap: '4px', fontSize: '0.65rem' }}>
+                          {info ? (
+                            <>
+                              <span style={{color: '#ef4444', fontWeight: 'bold'}}>{info.up}</span>
+                              <span style={{color: '#3b82f6', fontWeight: 'bold'}}>{info.down}</span>
+                            </>
+                          ) : (
+                            <span style={{color: '#94a3b8', fontWeight: 'bold'}}>무보정</span>
+                          )}
+                        </div>
+                        <span style={{ color: '#64748b', fontSize: '0.6rem', fontWeight: 'bold' }}>{Math.round(pct)}%</span>
                       </div>
                     </div>
                   );
@@ -579,24 +563,34 @@ const BattleMatchup = forwardRef(function BattleMatchup({ party, partyMegas, opp
             </div>
 
             {/* EVs */}
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              <div style={{ fontSize: '0.65rem', fontWeight: 'bold', color: '#475569' }}>⚙️ 노력치</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', flex: 1 }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '4px', minWidth: 0, width: '50%' }}>
+              {/* Removed EV Title */}
+              <div className="dp2-no-scrollbar" style={{ display: 'flex', flexDirection: 'column', gap: '4px', flex: 1, overflowY: 'auto', paddingRight: '2px', maxHeight: '142px' }}>
                 {topStatPoints.map((sp, idx) => {
                   const pct = parseFloat(sp.percentage_value ?? sp.percentage ?? 0) || 0;
                   const raw = { hp: sp.hp_points || 0, atk: sp.attack_points || 0, def: sp.defense_points || 0, spa: sp.sp_atk_points || 0, spd: sp.sp_def_points || 0, spe: sp.speed_points || 0 };
                   const isSelected = Object.keys(raw).every(k => derived.evs[k] === raw[k]);
                   
                   const statKeys = [ { key: 'hp_points', label: 'H' }, { key: 'attack_points', label: 'A' }, { key: 'defense_points', label: 'B' }, { key: 'sp_atk_points', label: 'C' }, { key: 'sp_def_points', label: 'D' }, { key: 'speed_points', label: 'S' } ];
-                  const evParts = [];
-                  statKeys.forEach(sk => {
-                    const val = sp[sk.key];
-                    if (val) {
-                      const isMax = val === 32;
-                      evParts.push(<span key={sk.key} style={{ color: isSelected ? '#047857' : '#475569', fontWeight: isMax ? 'bold' : '500', marginRight: '3px' }}>{sk.label}{val}</span>);
-                    }
-                  });
-                  const evNode = evParts.length > 0 ? evParts : <span style={{ color: '#94a3b8' }}>무진동</span>;
+                  
+                  const activeStats = statKeys
+                    .map(sk => ({ ...sk, val: sp[sk.key] || 0 }))
+                    .filter(sk => sk.val > 0)
+                    .sort((a, b) => b.val - a.val);
+
+                  const renderPart = (sk) => {
+                    let color = '#eab308';
+                    if (sk.val >= 30) color = '#ef4444';
+                    else if (sk.val < 10) color = '#94a3b8';
+                    
+                    const isMax = sk.val >= 30;
+                    return <span key={sk.key} style={{ color: color, fontWeight: isMax ? 'bold' : '500', marginRight: '3px' }}>{sk.label}{sk.val}</span>;
+                  };
+
+                  const top2 = activeStats.slice(0, 2).map(renderPart);
+                  const rest = activeStats.slice(2).map(renderPart);
+
+                  const topRowNode = top2.length > 0 ? top2 : <span style={{ color: '#94a3b8' }}>무보정</span>;
                   
                   return (
                     <div
@@ -605,17 +599,21 @@ const BattleMatchup = forwardRef(function BattleMatchup({ party, partyMegas, opp
                       style={{
                         background: isSelected ? '#d1fae5' : '#ffffff',
                         border: isSelected ? '1px solid #10b981' : '1px solid #e2e8f0',
-                        padding: '4px 6px', borderRadius: '6px', cursor: 'pointer',
-                        display: 'flex', flexDirection: 'column', justifyContent: 'center',
-                        gap: '1px', fontSize: '0.6rem', flex: 1
+                        padding: '6px', borderRadius: '6px', cursor: 'pointer',
+                        display: 'flex', flexDirection: 'column', gap: '2px'
                       }}
                     >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: '0.55rem' }}>
+                      <div style={{ display: 'flex', gap: '6px', alignItems: 'center', fontWeight: 'bold', fontSize: '0.65rem' }}>
                         <span style={{ color: isSelected ? '#047857' : 'var(--accent-primary)' }}>#{sp.rank}</span>
-                        <span style={{ color: '#64748b' }}>{pct.toFixed(1)}%</span>
+                        <div style={{ display: 'flex', gap: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          {topRowNode}
+                        </div>
                       </div>
-                      <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                        {evNode}
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div style={{ display: 'flex', gap: '2px', fontSize: '0.65rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          {rest}
+                        </div>
+                        <span style={{ color: '#64748b', fontSize: '0.6rem', fontWeight: 'bold' }}>{Math.round(pct)}%</span>
                       </div>
                     </div>
                   );
@@ -627,7 +625,7 @@ const BattleMatchup = forwardRef(function BattleMatchup({ party, partyMegas, opp
         </div>
 
         {/* Right Column: Defensive Matchups */}
-        <div style={{ width: '45%', padding: '12px', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ flex: 1, padding: '8px', display: 'flex', flexDirection: 'column', minWidth: 0 }}>
           <MatchupTypeBox 
             types={derived.types} 
             topAbilities={topAbilities} 
@@ -643,18 +641,65 @@ const BattleMatchup = forwardRef(function BattleMatchup({ party, partyMegas, opp
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
       
       {/* ── Main Split ── */}
-      <div style={{ display: 'flex', flexDirection: 'column', flex: 1, overflow: 'hidden', padding: '8px', gap: '12px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', flex: 1, overflow: 'hidden', padding: '0', gap: '4px' }}>
         
         {/* Center Content: Unified Layout */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 16, overflowY: 'auto', background: 'white', borderRadius: '12px', padding: '20px', border: '1px solid #e2e8f0' }}>
+        {isSelectionMode ? (
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '32px', overflowY: 'auto', background: 'white', borderRadius: '12px', padding: '40px', border: '1px solid #e2e8f0', alignItems: 'center', justifyContent: 'center' }}>
+            <h2 style={{ margin: 0, fontSize: '1.5rem', color: '#0f172a' }}>배틀 선출</h2>
+            <div style={{ display: 'flex', gap: '48px', width: '100%', maxWidth: '800px', justifyContent: 'center' }}>
+              
+              {/* My Selection */}
+              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'center' }}>
+                <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#3b82f6' }}>내 파티 선출 ({myBench.filter(Boolean).length} / {myRequired})</h3>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+                  {party.map((p, i) => {
+                    if (!p) return null;
+                    const isSel = myBench.some(b => b?.name === p.name);
+                    const selIdx = myBench.findIndex(b => b?.name === p.name);
+                    return (
+                      <div key={i} onClick={() => toggleBench(p, 'my')} style={{ position: 'relative', width: '80px', height: '80px', borderRadius: '16px', background: isSel ? '#eff6ff' : '#f8fafc', border: isSel ? '3px solid #3b82f6' : '2px solid #e2e8f0', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.15s' }}>
+                        <img src={getSprite(p)} alt={p.name} style={{ width: '60px', height: '60px', objectFit: 'contain' }} />
+                        {isSel && <div style={{ position: 'absolute', top: '-8px', right: '-8px', width: '24px', height: '24px', background: '#3b82f6', color: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '0.8rem', border: '2px solid white' }}>{selIdx + 1}</div>}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div style={{ width: '2px', background: '#e2e8f0' }} />
+
+              {/* Opponent Selection */}
+              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'center' }}>
+                <h3 style={{ margin: 0, fontSize: '1.2rem', color: '#ef4444' }}>상대 선발 예측 ({oppBench.filter(Boolean).length} / {oppRequired})</h3>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+                  {opponentParty.map((p, i) => {
+                    if (!p) return null;
+                    const isSel = oppBench.some(b => b?.name === p.name);
+                    return (
+                      <div key={i} onClick={() => toggleBench(p, 'opp')} style={{ position: 'relative', width: '80px', height: '80px', borderRadius: '16px', background: isSel ? '#fef2f2' : '#f8fafc', border: isSel ? '3px solid #ef4444' : '2px solid #e2e8f0', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.15s' }}>
+                        <img src={getSprite(p)} alt={p.name} style={{ width: '60px', height: '60px', objectFit: 'contain' }} />
+                        {isSel && <div style={{ position: 'absolute', top: '-8px', right: '-8px', width: '24px', height: '24px', background: '#ef4444', color: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '0.8rem', border: '2px solid white' }}>✓</div>}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+            </div>
+          </div>
+        ) : (
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '8px', overflowY: 'auto', background: 'white', borderRadius: '12px', padding: '4px', border: '1px solid #e2e8f0' }}>
               {/* Header: Profiles and Speed Comparison */}
-              <div style={{ display: 'flex', gap: '20px', alignItems: 'stretch' }}>
+              <div className="dp2-matchup-container" style={{ display: 'flex', gap: '4px', padding: '0 4px', alignItems: 'stretch' }}>
                 {/* My Profile */}
-                {renderProfileWithSamples(myActive, myDerived, mySamples, myOverrides, setMyOverrides, myActiveMega, setMyMegaOverride, false)}
+                <div className="dp2-matchup-side">
+                  {renderProfileWithSamples(myActive, myDerived, mySamples, myOverrides, setMyOverrides, myActiveMega, setMyMegaOverride, false)}
+                </div>
 
                 {/* Speed & Bulk Comparison */}
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'var(--glass-bg)', padding: '16px 20px', borderRadius: '12px', border: '1px solid rgba(0,0,0,0.05)', boxShadow: '0 4px 12px rgba(0,0,0,0.05)', minWidth: '240px' }}>
-                  <h3 style={{ margin: 0, fontSize: '0.9rem', color: '#64748b', marginBottom: '16px' }}>⚡ 스피드 & 🛡️ 내구 비교</h3>
+                <div className="dp2-matchup-center" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'var(--glass-bg)', padding: '16px 4px', borderRadius: '12px', border: '1px solid rgba(0,0,0,0.05)', boxShadow: '0 4px 12px rgba(0,0,0,0.05)', minWidth: '160px' }}>
+                  {/* Removed Title */}
                   {myDerived && oppDerived ? (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
                       
@@ -720,7 +765,7 @@ const BattleMatchup = forwardRef(function BattleMatchup({ party, partyMegas, opp
 
                       {/* Speed Modifiers Toggles */}
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%', marginTop: '8px', borderTop: '1px dashed rgba(0,0,0,0.1)', paddingTop: '12px' }}>
-                        <div style={{ fontSize: '0.7rem', fontWeight: 'bold', color: '#64748b', textAlign: 'center', marginBottom: '4px' }}>스피드 보정</div>
+                        {/* Removed Speed Modifiers Title */}
                         <div style={{ display: 'flex', gap: '16px', justifyContent: 'space-between', alignItems: 'stretch' }}>
                           
                           {/* My Modifiers */}
@@ -753,68 +798,73 @@ const BattleMatchup = forwardRef(function BattleMatchup({ party, partyMegas, opp
                   )}
                 </div>
                 {/* Opp Profile */}
-                {renderProfileWithSamples(oppActive, oppDerived, oppSamples, oppOverrides, setOppOverrides, oppActiveMega, setOppMegaOverride, true)}
+                <div className="dp2-matchup-side">
+                  {renderProfileWithSamples(oppActive, oppDerived, oppSamples, oppOverrides, setOppOverrides, oppActiveMega, setOppMegaOverride, true)}
+                </div>
               </div>
 
               {/* Moves Row (Damage Calc) */}
-              <div style={{ display: 'flex', gap: '20px' }}>
-                {myDerived ? <MoveBox pokemon={myActive} derived={myDerived} oppDerived={oppDerived} partyBattleData={partyBattleData} /> : <div style={{flex: 1}} />}
-                {oppDerived ? <MoveBox pokemon={oppActive} derived={oppDerived} oppDerived={myDerived} partyBattleData={partyBattleData} /> : <div style={{flex: 1}} />}
+              <div className="dp2-matchup-container" style={{ display: 'flex', gap: '4px', padding: '0 4px' }}>
+                <div className="dp2-matchup-side">
+                  {myDerived ? <MoveBox pokemon={myActive} derived={myDerived} oppDerived={oppDerived} partyBattleData={partyBattleData} megaForm={myActiveMega} /> : <div style={{flex: 1}} />}
+                </div>
+                <div className="dp2-matchup-side">
+                  {oppDerived ? <MoveBox pokemon={oppActive} derived={oppDerived} oppDerived={myDerived} partyBattleData={partyBattleData} megaForm={oppActiveMega} /> : <div style={{flex: 1}} />}
+                </div>
               </div>
         </div>
+        )}
 
         {/* Bottom Horizontal Benches */}
-        <div style={{ display: 'flex', flexShrink: 0, gap: '20px', background: 'white', borderRadius: '12px', padding: '16px', border: '1px solid #e2e8f0', boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.05)' }}>
-          
-          {/* Left Bench (My Party) */}
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8, paddingRight: '20px', borderRight: '1px solid #e2e8f0' }}>
-            <div style={{ fontSize: '0.85rem', fontWeight: 'bold', color: '#64748b' }}>내 파티</div>
-            <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-              <div style={{ display: 'flex', gap: '8px', flex: 1, overflowX: 'auto', paddingBottom: '4px' }}>
-                {party.map((p, i) => {
-                  if (!p) return null;
-                  const isSel = myBench.some(b => b?.name === p.name);
-                  return (
-                    <button key={i} onClick={() => toggleBench(p, 'my')} style={{ flexShrink: 0, width: 56, height: 56, padding: 0, borderRadius: 12, background: isSel ? '#dcfce7' : '#f1f5f9', border: isSel ? '2px solid #22c55e' : '1px solid #e2e8f0', cursor: 'pointer', transition: 'all 0.1s' }}>
-                      <img src={getSprite(p, partyMegas?.[i])} alt="" style={{ width: 44, height: 44, objectFit: 'contain' }} />
-                    </button>
-                  );
-                })}
-              </div>
-              <div style={{ width: '2px', height: '100%', background: '#e2e8f0', margin: '0 4px', borderRadius: '2px' }} />
-              <div style={{ display: 'flex', gap: '8px' }}>
-                {myBench.map((b, i) => (
-                   <BenchSlot key={`mb${i}`} poke={b} mega={b ? getMyMega(b) : null} active={i === myFieldIdx && b} fainted={myFainted[i]} onClick={() => { if (!myFainted[i] && b) setMyFieldIdx(i); }} onDrop={(d) => {}} />
-                ))}
+        {!isSelectionMode && (
+          <div className="dp2-matchup-container" style={{ display: 'flex', flexShrink: 0, gap: '8px', background: 'white', borderRadius: '12px', padding: '4px', border: '1px solid #e2e8f0', boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.05)' }}>
+            
+            {/* Left Bench (My Party) */}
+            <div className="dp2-matchup-side" style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingRight: '20px', borderRight: '1px solid #e2e8f0' }}>
+              <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  {myBench.map((b, i) => {
+                     if (!b) return null; 
+                     return <BenchSlot key={`mb${i}`} poke={b} mega={b ? getMyMega(b) : null} active={i === myFieldIdx} fainted={myFainted[i]} onClick={() => { if (!myFainted[i] && b) setMyFieldIdx(i); }} onDrop={(d) => {}} />
+                  })}
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Right Bench (Opponent Party) */}
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <div style={{ fontSize: '0.85rem', fontWeight: 'bold', color: '#64748b', textAlign: 'right' }}>상대 파티</div>
-            <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexDirection: 'row-reverse' }}>
-              <div style={{ display: 'flex', gap: '8px', flex: 1, overflowX: 'auto', paddingBottom: '4px', flexDirection: 'row-reverse' }}>
-                {opponentParty.map((p, i) => {
-                  if (!p) return null;
-                  const isSel = oppBench.some(b => b?.name === p.name);
-                  return (
-                    <button key={i} onClick={() => toggleBench(p, 'opp')} style={{ flexShrink: 0, width: 56, height: 56, padding: 0, borderRadius: 12, background: isSel ? '#fee2e2' : '#f1f5f9', border: isSel ? '2px solid #ef4444' : '1px solid #e2e8f0', cursor: 'pointer', transition: 'all 0.1s' }}>
-                      <img src={getSprite(p, opponentPartyMegas?.[i])} alt="" style={{ width: 44, height: 44, objectFit: 'contain' }} />
-                    </button>
-                  );
-                })}
-              </div>
-              <div style={{ width: '2px', height: '100%', background: '#e2e8f0', margin: '0 4px', borderRadius: '2px' }} />
-              <div style={{ display: 'flex', gap: '8px', flexDirection: 'row-reverse' }}>
-                {oppBench.map((b, i) => (
-                   <BenchSlot key={`ob${i}`} poke={b} mega={b ? getOppMega(b) : null} active={i === oppFieldIdx && b} fainted={oppFainted[i]} onClick={() => { if (!oppFainted[i] && b) setOppFieldIdx(i); }} onDrop={(d) => {}} />
-                ))}
+            {/* Right Bench (Opponent Party) */}
+            <div className="dp2-matchup-side" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexDirection: 'row-reverse' }}>
+                
+                {/* 5 unrevealed */}
+                <div style={{ display: 'flex', gap: '8px', flex: 1, overflowX: 'auto', paddingBottom: '4px', flexDirection: 'row-reverse' }}>
+                  {opponentParty.map((p, i) => {
+                    if (!p) return null;
+                    const isSel = oppBench.some(b => b?.name === p.name);
+                    if (isSel) return null; // Already revealed
+
+                    return (
+                      <button key={i} onClick={() => toggleBench(p, 'opp')} style={{ flexShrink: 0, width: 56, height: 56, padding: 0, borderRadius: 12, background: '#f1f5f9', border: '1px solid #e2e8f0', cursor: 'pointer', transition: 'all 0.1s' }}>
+                        <img src={getSprite(p, opponentPartyMegas?.[i])} alt="" style={{ width: 44, height: 44, objectFit: 'contain' }} />
+                      </button>
+                    );
+                  })}
+                </div>
+                
+                <div style={{ width: '2px', height: '100%', background: '#e2e8f0', margin: '0 4px', borderRadius: '2px' }} />
+                
+                {/* Revealed Bench */}
+                <div style={{ display: 'flex', gap: '8px', flexDirection: 'row' }}>
+                  {oppBench.map((b, i) => {
+                     if (!b) return null; 
+                     return <BenchSlot key={`ob${i}`} poke={b} mega={b ? getOppMega(b) : null} active={i === oppFieldIdx} fainted={oppFainted[i]} onClick={() => { if (!oppFainted[i] && b) setOppFieldIdx(i); }} onDrop={(d) => {}} />
+                  })}
+                </div>
+
               </div>
             </div>
-          </div>
 
-        </div>
+          </div>
+        )}
 
       </div>
     </div>

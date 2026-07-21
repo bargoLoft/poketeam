@@ -1,7 +1,8 @@
-const API_BASE_URL = 'https://championsbattledata.com/api';
-const ASSETS_BASE_URL = 'https://championsbattledata.com/pokemon_champions_assets';
+import abilitiesKo from '../data/abilitiesKo.json';
+import { pokemonNamesKo } from '../data/pokemonNamesKo';
 
-export const apiService = {
+const API_BASE_URL = 'https://championsbattledata.com/api';
+const ASSETS_BASE_URL = 'https://championsbattledata.com/pokemon_champions_assets';export const apiService = {
   async fetchIndex() {
     try {
       const response = await fetch(API_BASE_URL);
@@ -135,10 +136,10 @@ export const apiService = {
     "Salamencite": "보만다나이트", "Metagrossite": "메타그로스나이트", "Latiasite": "라티아스나이트",
     "Latiosite": "라티오스나이트", "Lopunnite": "이어롭나이트", "Galladite": "엘레이드나이트",
     "Audinite": "다부니나이트", "Diancite": "디안시나이트", "Raichunite X": "라이츄나이트X", "Raichunite Y": "라이츄나이트Y",
-    "Glimmoranite": "킬라플로르나이트", "Staraptorite": "찌르호크나이트"
+    "Glimmoranite": "킬라플로르나이트", "Staraptorite": "찌르호크나이트", "Froslassite": "눈여아나이트"
   },
 
-  async fetchItemInfo(itemName) {
+    async fetchItemInfo(itemName) {
     if (this._cache.items[itemName]) return this._cache.items[itemName];
     try {
       const response = await fetch(`https://pokeapi.co/api/v2/item/${itemName.toLowerCase().replace(/ /g, '-')}`);
@@ -149,7 +150,14 @@ export const apiService = {
       if (!koName && this._itemTranslationPatch[itemName]) {
         koName = this._itemTranslationPatch[itemName];
       } else if (!koName) {
-        koName = itemName;
+        if (itemName.endsWith('nite X') || itemName.endsWith('nite Y') || itemName.endsWith('ite X') || itemName.endsWith('ite Y') || itemName.endsWith('nite') || itemName.endsWith('ite')) {
+           let base = itemName.replace(/(n?ite|ite)( X| Y)?$/, '');
+           let suffix = itemName.match(/( X| Y)$/) ? itemName.match(/( X| Y)$/)[0] : '';
+           let koBase = pokemonNamesKo[base] || base;
+           koName = koBase + '나이트' + suffix.trim();
+        } else {
+           koName = itemName;
+        }
       }
       const koFlavor = data.flavor_text_entries.find(f => f.language.name === 'ko')?.text || '';
       
@@ -162,10 +170,16 @@ export const apiService = {
       return result;
     } catch (error) {
       console.warn(`Error fetching item info for ${itemName}:`, error);
-      const fallbackName = this._itemTranslationPatch[itemName] || itemName;
+      let fallbackName = this._itemTranslationPatch[itemName] || itemName;
       let sprite = '';
-      if (itemName.endsWith('nite') || itemName.endsWith('ite')) {
+      if (itemName.endsWith('nite X') || itemName.endsWith('nite Y') || itemName.endsWith('ite X') || itemName.endsWith('ite Y') || itemName.endsWith('nite') || itemName.endsWith('ite')) {
          sprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/key-stone.png';
+         if (fallbackName === itemName) {
+           let base = itemName.replace(/(n?ite|ite)( X| Y)?$/, '');
+           let suffix = itemName.match(/( X| Y)$/) ? itemName.match(/( X| Y)$/)[0] : '';
+           let koBase = pokemonNamesKo[base] || base;
+           fallbackName = koBase + '나이트' + suffix.trim();
+         }
       }
       return { name: fallbackName, flavor: '', sprite };
     }
@@ -173,7 +187,14 @@ export const apiService = {
 
   async fetchAbilityInfo(abilityName) {
     if (this._cache.abilities[abilityName]) return this._cache.abilities[abilityName];
+    
     try {
+      if (abilitiesKo[abilityName]) {
+        const result = { name: abilitiesKo[abilityName].name, flavor: abilitiesKo[abilityName].flavor };
+        this._cache.abilities[abilityName] = result;
+        return result;
+      }
+      
       const response = await fetch(`https://pokeapi.co/api/v2/ability/${abilityName.toLowerCase().replace(/ /g, '-')}`);
       if (!response.ok) throw new Error('Ability not found');
       const data = await response.json();

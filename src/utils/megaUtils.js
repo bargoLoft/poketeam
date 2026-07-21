@@ -14,18 +14,25 @@ export const megaForms = {
   'Blastoise': ['mega'],
   'Beedrill': ['mega'],
   'Pidgeot': ['mega'],
+  'Raichu': ['x', 'y'],
+  'Clefable': ['mega'],
   'Alakazam': ['mega'],
+  'Victreebel': ['mega'],
   'Slowbro': ['mega'],
   'Gengar': ['mega'],
   'Kangaskhan': ['mega'],
+  'Starmie': ['mega'],
   'Pinsir': ['mega'],
   'Gyarados': ['mega'],
   'Aerodactyl': ['mega'],
-  'Mewtwo': ['x', 'y'],
+  'Dragonite': ['mega'],
+  'Meganium': ['mega'],
+  'Feraligatr': ['mega'],
   'Ampharos': ['mega'],
   'Steelix': ['mega'],
   'Scizor': ['mega'],
   'Heracross': ['mega'],
+  'Skarmory': ['mega'],
   'Houndoom': ['mega'],
   'Tyranitar': ['mega'],
   'Sceptile': ['mega'],
@@ -41,25 +48,40 @@ export const megaForms = {
   'Camerupt': ['mega'],
   'Altaria': ['mega'],
   'Banette': ['mega'],
+  'Chimecho': ['mega'],
   'Absol': ['mega'],
   'Glalie': ['mega'],
-  'Salamence': ['mega'],
   'Metagross': ['mega'],
-  'Latias': ['mega'],
-  'Latios': ['mega'],
-  'Rayquaza': ['mega'],
+  'Staraptor': ['mega'],
   'Lopunny': ['mega'],
   'Garchomp': ['mega'],
   'Lucario': ['mega'],
   'Abomasnow': ['mega'],
   'Gallade': ['mega'],
+  'Froslass': ['mega'],
+  'Emboar': ['mega'],
+  'Excadrill': ['mega'],
   'Audino': ['mega'],
-  'Diancie': ['mega'],
-  
-  // Custom M-B Season Megas
-  'Staraptor': ['mega'],
-  'Raichu': ['x', 'y'],
-  'Starmie': ['mega'],
+  'Scolipede': ['mega'],
+  'Scrafty': ['mega'],
+  'Eelektross': ['mega'],
+  'Chandelure': ['mega'],
+  'Golurk': ['mega'],
+  'Chesnaught': ['mega'],
+  'Delphox': ['mega'],
+  'Greninja': ['mega'],
+  'Pyroar': ['mega'],
+  'Floette': ['mega'],
+  'Meowstic': ['mega'],
+  'Malamar': ['mega'],
+  'Barbaracle': ['mega'],
+  'Dragalge': ['mega'],
+  'Hawlucha': ['mega'],
+  'Crabominable': ['mega'],
+  'Falinks': ['mega'],
+  'Drampa': ['mega'],
+  'Scovillain': ['mega'],
+  'Glimmora': ['mega'],
 };
 
 // Custom Database for M-B Season Megas (Fallback/Override)
@@ -80,12 +102,6 @@ const customMegasData = {
     spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/26.png', 
     types: ['Electric', 'Fairy'],
     baseStats: { hp: 60, attack: 90, defense: 65, sp_attack: 130, sp_defense: 90, speed: 130 }
-  },
-  'starmie-mega': {
-    spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/121.png', 
-    types: ['Water', 'Psychic'],
-    baseStats: { hp: 60, attack: 75, defense: 85, sp_attack: 140, sp_defense: 105, speed: 135 },
-    abilityEng: 'analytic' // Placeholder
   }
 };
 
@@ -144,6 +160,27 @@ export function getMegaStoneUrl(pokemonName, form) {
     'Gallade': 'galladite',
     'Audino': 'audinite',
     'Diancie': 'diancite',
+    'Froslass': 'froslassite',
+    'Machamp': 'machampite',
+    'Kingler': 'kinglerite',
+    'Lapras': 'laprasite',
+    'Snorlax': 'snorlaxite',
+    'Garbodor': 'garbodorite',
+    'Butterfree': 'butterfrite',
+    'Corviknight': 'corviknite',
+    'Orbeetle': 'orbeetlite',
+    'Drednaw': 'drednawite',
+    'Coalossal': 'coalossalite',
+    'Flapple': 'flapplite',
+    'Appletun': 'appletunite',
+    'Sandaconda': 'sandacondite',
+    'Centiskorch': 'centiskorchite',
+    'Hatterene': 'hatterenite',
+    'Grimmsnarl': 'grimmsnarlite',
+    'Alcremie': 'alcremite',
+    'Copperajah': 'copperajahite',
+    'Duraludon': 'duraludonite',
+    'Glimmora': 'glimmoranite',
   };
 
   const itemPath = nameMap[pokemonName];
@@ -154,6 +191,8 @@ export function getMegaStoneUrl(pokemonName, form) {
   // Fallback to generic generic mega stone (the image the user wants, but we use the API's generic key stone for visual consistency, or just generic mega ring)
   return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/key-stone.png';
 }
+
+import { apiService } from '../services/apiService';
 
 // Fetch specific mega form (e.g., 'mega', 'x', 'y')
 export async function fetchMegaData(baseName, form = 'mega') {
@@ -173,6 +212,56 @@ export async function fetchMegaData(baseName, form = 'mega') {
     return customMegasData[queryName];
   }
 
+  // Check PokeChamp metadata API first for custom ZA megas (like Mega Starmie)
+  try {
+    const metaData = await apiService.fetchMetadata(baseName);
+    if (metaData && metaData.rows) {
+      // Find row matching the mega form
+      const megaRow = metaData.rows.find(r => {
+        if (!r.form || r.form === '') return false;
+        const f = r.form.toLowerCase();
+        if (form === 'x' && (f === 'mega x' || f === 'megax' || r.saved_name.toLowerCase().endsWith('x'))) return true;
+        if (form === 'y' && (f === 'mega y' || f === 'megay' || r.saved_name.toLowerCase().endsWith('y'))) return true;
+        if (form === 'mega' && f === 'mega') return true;
+        return false;
+      });
+
+      if (megaRow) {
+        // API provides level 50 stats at 0 EVs, 31 IVs. Reverse calculate base stats.
+        const baseHp = Math.round(((megaRow.hp - 60) * 2 - 31) / 2);
+        const calcBaseOther = (stat) => Math.round(((stat - 5) * 2 - 31) / 2);
+        
+        let abilityEng = (megaRow.abilities || '').split('|')[0].toLowerCase().replace(/ /g, '-');
+        
+        let spriteUrl = '';
+        if (megaRow.image_path) {
+          const formattedPath = megaRow.image_path.replace(/\\/g, '/');
+          spriteUrl = `https://championsbattledata.com/${formattedPath}`;
+        }
+
+        const result = {
+          spriteUrl,
+          types: (megaRow.types || '').split('/').map(t => t.trim()),
+          baseStats: {
+            hp: baseHp,
+            attack: calcBaseOther(megaRow.atk),
+            defense: calcBaseOther(megaRow.def),
+            sp_attack: calcBaseOther(megaRow.spa),
+            sp_defense: calcBaseOther(megaRow.spd),
+            speed: calcBaseOther(megaRow.spe)
+          },
+          abilityEng
+        };
+        
+        megaCache[cacheKey] = result;
+        return result;
+      }
+    }
+  } catch (err) {
+    console.error('Failed to fetch mega metadata from PokeChamp API', err);
+  }
+
+  // Fallback to PokeAPI
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${queryName}`);
     if (!response.ok) throw new Error('Mega not found');
@@ -180,7 +269,7 @@ export async function fetchMegaData(baseName, form = 'mega') {
     
     const result = {
       spriteUrl: data.sprites.front_default || data.sprites.other['official-artwork'].front_default,
-      types: data.types.map(t => typeMap[t.type.name]),
+      types: data.types.map(t => typeMap[t.type.name] || t.type.name),
       baseStats: {
         hp: data.stats.find(s => s.stat.name === 'hp').base_stat,
         attack: data.stats.find(s => s.stat.name === 'attack').base_stat,
@@ -195,7 +284,7 @@ export async function fetchMegaData(baseName, form = 'mega') {
     megaCache[cacheKey] = result;
     return result;
   } catch (error) {
-    console.error('Error fetching mega data:', error);
+    console.error('Error fetching mega data from PokeAPI:', error);
     return null;
   }
 }

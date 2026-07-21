@@ -102,14 +102,11 @@ function OpponentPanel({ opponentParty, setOpponentParty, opponentPartyMegas, se
 
   return (
     <div className="opponent-panel">
-      <div className="opponent-panel__header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div>
-          <h2 className="opponent-panel__title">Opponent Team</h2>
-          <p className="opponent-panel__subtitle">적 파티를 구성하세요</p>
-        </div>
+      <div className="opponent-panel__header" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginBottom: '0px' }}>
+
         <button 
           onClick={handleReset} 
-          style={{ background: 'var(--danger)', color: 'white', padding: '6px 12px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: 'bold', border: 'none', cursor: 'pointer' }}
+          style={{ background: 'var(--accent-primary)', color: 'white', padding: '6px 12px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: 'bold', border: 'none', cursor: 'pointer' }}
         >
           초기화
         </button>

@@ -1,18 +1,24 @@
 import PokemonCard from './PokemonCard';
 import EmptySlot from './EmptySlot';
 
-function PartyPanel({ party, partyMegas, setPartyMegas, partyBattleData, selectedPokemonName, onSlotClick, onCardClick, onRemove }) {
+function PartyPanel({ party, setParty, partyMegas, setPartyMegas, partyBattleData, selectedPokemonName, onSlotClick, onCardClick, onRemove }) {
   const count = party.filter(Boolean).length;
+
+  const handleReset = () => {
+    if (setParty) {
+      setParty([null, null, null, null, null, null]);
+    }
+  };
 
   return (
     <div className="party-panel">
-      <div className="party-panel__header">
-        <h2 className="party-panel__title">My Team</h2>
-        <p className="party-panel__subtitle">
-          <span className="party-panel__counter">
-            <span className="party-panel__counter-num">{count}</span> / 6
-          </span>
-        </p>
+      <div className="party-panel__header" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginBottom: '0px' }}>
+        <button 
+          onClick={handleReset} 
+          style={{ background: 'var(--accent-primary)', color: 'white', padding: '6px 12px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: 'bold', border: 'none', cursor: 'pointer' }}
+        >
+          초기화
+        </button>
       </div>
 
       <div className="party-panel__slots">
